@@ -1,0 +1,14 @@
+export const notActiveGrey = "rgb(190, 190, 190)";
+export const disabledGrey = "rgb(100, 100, 100)";
+export const activeLinkOrange = "#f4a482"
+export const displayWhite = "#FFFFFF";
+export const displayFontSize = "14px";
+export const secondaryFontSize = "12px";
+export const lineHeight = "20px";
+export const iconSizeSm = 20;
+export const iconSizeMd = 24;
+export const iconSizeLg = 42;
+export const playerBG = "black";
+export const mediaMobile = "@media only screen and (max-width: 768px)";
+export const mediaDesktop = "@media only screen and (min-width: 768px)";
+export const mediaXS = "@media only screen and (max-width: 400px)";
