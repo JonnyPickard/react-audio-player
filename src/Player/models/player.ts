@@ -1,6 +1,6 @@
 import { Howl, Howler } from "howler";
-import { v4 } from "uuid";
 import remove from "lodash.remove";
+import { v4 } from "uuid";
 
 import { getTimePlayed, getTimeRemaining } from "../utils/durationHelpers";
 
@@ -18,7 +18,7 @@ export type Track = {
   artworkUrl?: string;
 };
 
-type TrackDetails = {
+export type TrackDetails = {
   artist: string;
   url: string;
   title: string;
@@ -28,7 +28,7 @@ type TrackDetails = {
 };
 
 const howlOptions = {
-  html5: true,
+  // html5: true,
 };
 
 function isNumber(x?: number | null): x is number {
@@ -39,7 +39,7 @@ interface PlayerOptions {
   initVolume?: number;
 }
 
-export class Player {
+export class AudioPlayer {
   /* For all currently loaded tracks in the playlist */
   tracks: Array<Track | undefined>;
   currentlyLoadedTrack: Track | null;
@@ -63,7 +63,7 @@ export class Player {
     title,
     label,
     productUrl = "",
-    artworkUrl,
+    artworkUrl = "",
   }: TrackDetails): Track => {
     const track: Track = {
       artist,
@@ -168,7 +168,7 @@ export class Player {
     /* creates an array of track objects to add to the Players playlist */
     const playlist = tracklist.map(
       (trackDetails) =>
-        this.findTrackByUrl(trackDetails.url) || this.createTrack(trackDetails)
+        this.findTrackByUrl(trackDetails.url) || this.createTrack(trackDetails),
     );
 
     this.tracks.push(...playlist);

@@ -1,13 +1,9 @@
 import { getTimePlayed, getTimeRemaining } from "./durationHelpers";
 
-describe("getTimePlayed", () => {
-  test("returns time played", () => {
-    expect(getTimePlayed(4)).toEqual(4);
-  });
+test("getTimePlayed should return time played", () => {
+  expect(getTimePlayed(4)).toEqual(4);
 });
 
-describe("getTimeRemaining", () => {
-  test("returns time remaining", () => {
-    expect(getTimeRemaining(10, 5)).toEqual(5);
-  });
+test("getTimeRemaining should return the time remaining", () => {
+  expect(getTimeRemaining(10, 5)).toEqual(5);
 });
