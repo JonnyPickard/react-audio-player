@@ -1,5 +1,6 @@
 import { Howl, Howler } from "howler";
 import clamp from "lodash.clamp";
+import clone from "lodash.clone";
 import remove from "lodash.remove";
 import { v4 } from "uuid";
 
@@ -85,7 +86,10 @@ export class AudioPlayer {
   };
 
   isPlaying(): boolean {
-    if (this.currentlyLoadedTrack && this.currentlyLoadedTrack.howl.playing()) {
+    if (
+      this.currentlyLoadedTrack !== null &&
+      this.currentlyLoadedTrack.howl.playing()
+    ) {
       return true;
     } else {
       return false;
@@ -93,7 +97,7 @@ export class AudioPlayer {
   }
 
   getTrackList() {
-    return this.tracks;
+    return clone(this.tracks);
   }
 
   getVolume() {
@@ -112,18 +116,18 @@ export class AudioPlayer {
   }
 
   getDurationAsync(): Promise<number | null> {
-    return new Promise((resolve) => {
-      if (this.currentlyLoadedTrack) {
+    return new Promise((resolve, reject) => {
+      if (this.currentlyLoadedTrack !== null) {
         if (this.currentlyLoadedTrack.howl.state() === "loaded") {
           resolve(this.currentlyLoadedTrack.howl.duration()!);
         } else {
           this.currentlyLoadedTrack.howl.on("load", () => {
             const duration = this.currentlyLoadedTrack!.howl.duration()!;
-            return resolve(duration);
+            resolve(duration);
           });
         }
       } else {
-        resolve(null);
+        reject(new Error("No track currently loaded."));
       }
     });
   }
