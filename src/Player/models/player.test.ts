@@ -131,7 +131,7 @@ describe("AudioPlayer", () => {
     };
 
     audioPlayer.loadTrack(trackDetails);
-    const mockStop = vi.spyOn(audioPlayer.currentlyLoadedTrack!.howl, "stop");
+    const mockStop = vi.spyOn(audioPlayer.currentlyLoadedTrack!.howl, "unload");
 
     audioPlayer.removeTrack("test_url.mp3");
     expect(mockStop).toHaveBeenCalled();

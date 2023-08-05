@@ -1,4 +1,5 @@
 import { Howl, Howler } from "howler";
+import clamp from "lodash.clamp";
 import remove from "lodash.remove";
 import { v4 } from "uuid";
 
@@ -14,8 +15,8 @@ export type Track = {
   label: string;
   url: string;
   /* Url to navigate to Product page*/
-  productUrl?: string;
-  artworkUrl?: string;
+  productUrl: string | undefined;
+  artworkUrl: string | undefined;
 };
 
 export type TrackDetails = {
@@ -100,7 +101,8 @@ export class AudioPlayer {
   }
 
   setVolume(volume: number) {
-    Howler.volume(volume);
+    /* Ensures volume is between 0 - 1 */
+    Howler.volume(clamp(volume, 0, 1));
 
     return Howler.volume();
   }
@@ -138,9 +140,9 @@ export class AudioPlayer {
   }
 
   getTimePlayed() {
-    if (this.currentlyLoadedTrack && isNumber(this.seek())) {
-      const seekTime = this.seek() as number;
+    const seekTime = this.seek();
 
+    if (seekTime && isNumber(seekTime)) {
       return getTimePlayed(seekTime);
     }
 
@@ -179,8 +181,10 @@ export class AudioPlayer {
   };
 
   playTrack(track: Track) {
-    this.currentlyLoadedTrack = track;
-    this.currentlyLoadedTrack.howl.play();
+    if (track) {
+      this.currentlyLoadedTrack = track;
+      this.currentlyLoadedTrack.howl.play();
+    }
   }
 
   playCurrentlyLoadedTrack() {
@@ -206,7 +210,7 @@ export class AudioPlayer {
 
     if (track) {
       if (track.id === this.currentlyLoadedTrack?.id) {
-        this.currentlyLoadedTrack.howl.stop();
+        this.currentlyLoadedTrack.howl.unload();
         this.currentlyLoadedTrack = null;
       }
 
