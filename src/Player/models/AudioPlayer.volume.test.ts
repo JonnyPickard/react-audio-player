@@ -1,6 +1,6 @@
 import { AudioPlayer, TrackDetails } from "./AudioPlayer";
 
-describe("AudioPlayer getVolume", () => {
+describe("AudioPlayer Volume", () => {
   let audioPlayer: AudioPlayer;
   let trackDetails: TrackDetails;
 
@@ -20,19 +20,19 @@ describe("AudioPlayer getVolume", () => {
     audioPlayer.stopAllTracks();
   });
 
-  test("should return the initial volume", () => {
+  test("getVolume should return the initial volume", () => {
     const initialVolume = audioPlayer.getVolume();
     expect(initialVolume).toBe(1);
   });
 
-  test("should return the current volume after setting", () => {
+  test("setVolume should set to given volume", () => {
     const newVolume = 0.5;
     audioPlayer.setVolume(newVolume);
     const currentVolume = audioPlayer.getVolume();
     expect(currentVolume).toBe(newVolume);
   });
 
-  test("should return the updated volume after setting multiple times", () => {
+  test("setVolume should set the updated volume after setting multiple times", () => {
     const volume1 = 0.3;
     const volume2 = 0.7;
 
@@ -45,7 +45,7 @@ describe("AudioPlayer getVolume", () => {
     expect(currentVolume2).toBe(volume2);
   });
 
-  test("should clamp volume to lower bound of 0 after setting to an invalid negative value", () => {
+  test("setVolume should clamp volume to lower bound of 0 after setting to an invalid negative value", () => {
     const expectedVolume = 0;
 
     // Set an invalid volume
@@ -55,7 +55,7 @@ describe("AudioPlayer getVolume", () => {
     expect(currentVolume).toBe(expectedVolume);
   });
 
-  test("should clamp volume to higher bound of 1 after setting to an invalid value above 1", () => {
+  test("setVolume should clamp volume to higher bound of 1 after setting to an invalid value above 1", () => {
     const expectedVolume = 1;
 
     // Set a volume above 1

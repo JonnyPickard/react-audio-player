@@ -1,4 +1,4 @@
-import { Howl } from "howler";
+import { Howl, Howler } from "howler";
 import { Mock } from "vitest";
 
 import { AudioPlayer, TrackDetails } from "./AudioPlayer";
@@ -38,6 +38,16 @@ describe("AudioPlayer", () => {
       src: "test_url.mp3",
       onend: expect.any(Function),
     });
+  });
+
+  test("muteTrack should call Howler.mute with true", async () => {
+    audioPlayer.toggleMute(true);
+    expect(Howler.mute).toHaveBeenCalledWith(true);
+  });
+
+  test("muteTrack should call Howler.mute with false", async () => {
+    audioPlayer.toggleMute(false);
+    expect(Howler.mute).toHaveBeenCalledWith(false);
   });
 
   test("loadTrack should create a new track if the URL does not exist", () => {
