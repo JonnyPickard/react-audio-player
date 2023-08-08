@@ -1,6 +1,6 @@
 import { Howl } from "howler";
 
-import { AudioPlayer, TrackDetails } from "./player";
+import { AudioPlayer, TrackDetails } from "./AudioPlayer";
 
 vi.mock("howler");
 
@@ -14,6 +14,24 @@ describe("AudioPlayer", () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
+
+  // test("should return false when no track is playing", () => {
+  //   const isCurrentlyPlaying = audioPlayer.isPlaying();
+  //   expect(isCurrentlyPlaying).toBe(false);
+  // });
+
+  // test("should return true when a track is playing", () => {
+  //   const trackDetails = {
+  //     artist: "Artist 1",
+  //     url: "test.mp3",
+  //     title: "Track 1",
+  //     label: "Label 1",
+  //   };
+  //   const track = audioPlayer.createTrack(trackDetails);
+  //   audioPlayer.playTrack(track);
+  //   const isCurrentlyPlaying = audioPlayer.isPlaying();
+  //   expect(isCurrentlyPlaying).toBe(true);
+  // });
 
   test("createTrack should return a valid track", () => {
     const trackDetails: TrackDetails = {
@@ -261,5 +279,14 @@ describe("AudioPlayer", () => {
     expect(mockStop).toHaveBeenCalled();
   });
 
-  // Add more tests for other methods in the AudioPlayer class...
+  test("setOnTrackEndCallback sets the provided callback function", () => {
+    // Define the mock callback function
+    const mockCallback = vi.fn();
+
+    // Set the callback using the method
+    audioPlayer.setOnTrackEndCallback(mockCallback);
+
+    // Call the method and check if the callback was set
+    expect(audioPlayer.onTrackEndCallback).toBe(mockCallback);
+  });
 });

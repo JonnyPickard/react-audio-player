@@ -5,6 +5,7 @@ import remove from "lodash.remove";
 import { v4 } from "uuid";
 
 import { getTimePlayed, getTimeRemaining } from "../utils/durationHelpers";
+import { isNumber } from "../utils/isNumber";
 
 export type Track = {
   id: string;
@@ -33,10 +34,6 @@ const howlOptions = {
   // html5: true,
 };
 
-function isNumber(x?: number | null): x is number {
-  return typeof x === "number";
-}
-
 interface PlayerOptions {
   initVolume?: number;
 }
@@ -55,7 +52,7 @@ export class AudioPlayer {
     Howler.volume(initVolume);
   }
 
-  public set setOnTrackEndCallback(callback: () => void) {
+  setOnTrackEndCallback(callback: () => void) {
     this.onTrackEndCallback = callback;
   }
 
@@ -117,17 +114,32 @@ export class AudioPlayer {
 
   getDurationAsync(): Promise<number | null> {
     return new Promise((resolve, reject) => {
-      if (this.currentlyLoadedTrack !== null) {
-        if (this.currentlyLoadedTrack.howl.state() === "loaded") {
-          resolve(this.currentlyLoadedTrack.howl.duration()!);
-        } else {
-          this.currentlyLoadedTrack.howl.on("load", () => {
-            const duration = this.currentlyLoadedTrack!.howl.duration()!;
-            resolve(duration);
-          });
-        }
-      } else {
+      if (!this.currentlyLoadedTrack) {
         reject(new Error("No track currently loaded."));
+        return;
+      }
+
+      const onLoad = () => {
+        const duration = this.currentlyLoadedTrack!.howl.duration();
+        if (isNumber(duration)) {
+          this.currentlyLoadedTrack!.howl.off("load", onLoad);
+          resolve(duration);
+        } else {
+          reject(new Error("Failed to retrieve track duration."));
+        }
+      };
+
+      const onError = () => {
+        this.currentlyLoadedTrack!.howl.off("load", onLoad);
+        this.currentlyLoadedTrack!.howl.off("loaderror", onError);
+        reject(new Error("Error loading track."));
+      };
+
+      if (this.currentlyLoadedTrack.howl.state() === "loaded") {
+        resolve(this.currentlyLoadedTrack.howl.duration()!);
+      } else {
+        this.currentlyLoadedTrack.howl.once("load", onLoad);
+        this.currentlyLoadedTrack.howl.once("loaderror", onError);
       }
     });
   }
@@ -160,6 +172,9 @@ export class AudioPlayer {
 
   loadTrack = (details: TrackDetails): Track => {
     const track = this.findTrackByUrl(details.url) || this.createTrack(details);
+
+    // console.log(track);
+    // console.log("hello", typeof track.howl._onend);
 
     if (!this.findTrackByUrl(track.url)) {
       this.tracks.push(track);
