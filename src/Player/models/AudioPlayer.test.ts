@@ -1,4 +1,5 @@
 import { Howl } from "howler";
+import { Mock } from "vitest";
 
 import { AudioPlayer, TrackDetails } from "./AudioPlayer";
 
@@ -14,24 +15,6 @@ describe("AudioPlayer", () => {
   afterEach(() => {
     vi.clearAllMocks();
   });
-
-  // test("should return false when no track is playing", () => {
-  //   const isCurrentlyPlaying = audioPlayer.isPlaying();
-  //   expect(isCurrentlyPlaying).toBe(false);
-  // });
-
-  // test("should return true when a track is playing", () => {
-  //   const trackDetails = {
-  //     artist: "Artist 1",
-  //     url: "test.mp3",
-  //     title: "Track 1",
-  //     label: "Label 1",
-  //   };
-  //   const track = audioPlayer.createTrack(trackDetails);
-  //   audioPlayer.playTrack(track);
-  //   const isCurrentlyPlaying = audioPlayer.isPlaying();
-  //   expect(isCurrentlyPlaying).toBe(true);
-  // });
 
   test("createTrack should return a valid track", () => {
     const trackDetails: TrackDetails = {
@@ -123,6 +106,26 @@ describe("AudioPlayer", () => {
       "title",
       "Test Track 2",
     );
+  });
+
+  test("playTrack should return false when no track is playing", () => {
+    const isCurrentlyPlaying = audioPlayer.isPlaying();
+    expect(isCurrentlyPlaying).toBe(false);
+  });
+
+  test("playTrack should return true when a track is playing", () => {
+    const trackDetails = {
+      artist: "Artist 1",
+      url: "test.mp3",
+      title: "Track 1",
+      label: "Label 1",
+    };
+    const track = audioPlayer.createTrack(trackDetails);
+    audioPlayer.playTrack(track);
+    expect(track.howl.play).toHaveBeenCalled();
+    (track.howl.playing as Mock).mockReturnValue(true);
+    const isCurrentlyPlaying = audioPlayer.isPlaying();
+    expect(isCurrentlyPlaying).toBe(true);
   });
 
   test("removeTrack should remove a track from the playlist", () => {

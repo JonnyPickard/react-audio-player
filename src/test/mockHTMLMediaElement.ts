@@ -1,3 +1,5 @@
+// Taken from https://github.com/jsdom/jsdom/issues/2155
+
 // Jest's setup file, setup.js
 
 // Mock data and helper methods
