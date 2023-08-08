@@ -4,6 +4,7 @@ import clone from "lodash.clone";
 import remove from "lodash.remove";
 import { v4 } from "uuid";
 
+import { AudioPlayerError } from "../constants/errors";
 import { getTimePlayed, getTimeRemaining } from "../utils/durationHelpers";
 import { isNumber } from "../utils/isNumber";
 
@@ -112,10 +113,10 @@ export class AudioPlayer {
     Howler.mute(shouldMute);
   }
 
-  getDurationAsync(): Promise<number | null> {
+  getDurationAsync(): Promise<number> {
     return new Promise((resolve, reject) => {
       if (!this.currentlyLoadedTrack) {
-        reject(new Error("No track currently loaded."));
+        reject(new Error(AudioPlayerError.NO_TRACK_LOADED));
         return;
       }
 
@@ -123,16 +124,17 @@ export class AudioPlayer {
         const duration = this.currentlyLoadedTrack!.howl.duration();
         if (isNumber(duration)) {
           this.currentlyLoadedTrack!.howl.off("load", onLoad);
+          this.currentlyLoadedTrack!.howl.off("loaderror", onError);
           resolve(duration);
         } else {
-          reject(new Error("Failed to retrieve track duration."));
+          reject(new Error(AudioPlayerError.NO_DURATION));
         }
       };
 
       const onError = () => {
         this.currentlyLoadedTrack!.howl.off("load", onLoad);
         this.currentlyLoadedTrack!.howl.off("loaderror", onError);
-        reject(new Error("Error loading track."));
+        reject(new Error(AudioPlayerError.LOAD_TRACK_FAILURE));
       };
 
       if (this.currentlyLoadedTrack.howl.state() === "loaded") {
