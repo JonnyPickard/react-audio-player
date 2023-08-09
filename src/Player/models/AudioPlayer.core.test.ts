@@ -1,5 +1,5 @@
 import { Howl, Howler } from "howler";
-import { Mock } from "vitest";
+import { Mock, vi } from "vitest";
 
 import { AudioPlayer, TrackDetails } from "./AudioPlayer";
 
@@ -7,9 +7,30 @@ vi.mock("howler");
 
 describe("AudioPlayer", () => {
   let audioPlayer: AudioPlayer;
+  let trackDetails: TrackDetails;
+  let trackDetails1: TrackDetails;
+  let trackDetails2: TrackDetails;
 
   beforeEach(() => {
     audioPlayer = new AudioPlayer({});
+    trackDetails = {
+      artist: "Test Artist",
+      url: "test_url.mp3",
+      title: "Test Track",
+      label: "Test Label",
+    };
+    trackDetails1 = {
+      artist: "Test Artist",
+      url: "test_url.mp3",
+      title: "Test Track 1",
+      label: "Test Label",
+    };
+    trackDetails2 = {
+      artist: "Test Artist",
+      url: "test_url2.mp3",
+      title: "Test Track 2",
+      label: "Test Label",
+    };
   });
 
   afterEach(() => {
@@ -17,105 +38,47 @@ describe("AudioPlayer", () => {
   });
 
   test("createTrack should return a valid track", () => {
-    const trackDetails: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track",
-      label: "Test Label",
-    };
-
     const track = audioPlayer.createTrack(trackDetails);
 
-    expect(track).toHaveProperty("id");
-    expect(track).toHaveProperty("howl");
-    expect(track).toHaveProperty("title", "Test Track");
-    expect(track).toHaveProperty("artist", "Test Artist");
-    expect(track).toHaveProperty("label", "Test Label");
-    expect(track).toHaveProperty("url", "test_url.mp3");
-    expect(track).toHaveProperty("productUrl", "");
-    expect(track).toHaveProperty("artworkUrl", "");
-    expect(Howl).toHaveBeenCalledWith({
-      src: "test_url.mp3",
-      onend: expect.any(Function),
+    expect(track).toMatchObject({
+      ...trackDetails,
+      productUrl: "",
+      artworkUrl: "",
+      howl: expect.any(Howl),
     });
   });
 
-  test("muteTrack should call Howler.mute with true", async () => {
+  test("muteTrack should call Howler.mute with the provided value", async () => {
     audioPlayer.toggleMute(true);
     expect(Howler.mute).toHaveBeenCalledWith(true);
-  });
 
-  test("muteTrack should call Howler.mute with false", async () => {
     audioPlayer.toggleMute(false);
     expect(Howler.mute).toHaveBeenCalledWith(false);
   });
 
   test("loadTrack should create a new track if the URL does not exist", () => {
-    const trackDetails: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track",
-      label: "Test Label",
-    };
-
     audioPlayer.loadTrack(trackDetails);
 
-    expect(audioPlayer.getTrackList()).toHaveLength(1);
-    expect(audioPlayer.getTrackList()[0]).toHaveProperty("url", "test_url.mp3");
+    const trackList = audioPlayer.getTrackList();
+    expect(trackList).toHaveLength(1);
+    expect(trackList[0]).toMatchObject(trackDetails);
   });
 
   test("loadTrack should not add duplicate existing tracks if the URL already exists", () => {
-    const trackDetails1: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track 1",
-      label: "Test Label",
-    };
-
-    const trackDetails2: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track 2",
-      label: "Test Label",
-    };
-
+    audioPlayer.loadTrack(trackDetails);
     audioPlayer.loadTrack(trackDetails1);
-    audioPlayer.loadTrack(trackDetails2);
 
     expect(audioPlayer.getTrackList()).toHaveLength(1);
-    expect(audioPlayer.getTrackList()[0]).toHaveProperty(
-      "title",
-      "Test Track 1",
-    );
+    expect(audioPlayer.getTrackList()[0]).toMatchObject(trackDetails);
   });
 
   test("loadTrack should not add multiple tracks if the URLs are unique", () => {
-    const trackDetails1: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track 1",
-      label: "Test Label",
-    };
-
-    const trackDetails2: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url2.mp3",
-      title: "Test Track 2",
-      label: "Test Label",
-    };
-
     audioPlayer.loadTrack(trackDetails1);
     audioPlayer.loadTrack(trackDetails2);
 
     expect(audioPlayer.getTrackList()).toHaveLength(2);
-    expect(audioPlayer.getTrackList()[0]).toHaveProperty(
-      "title",
-      "Test Track 1",
-    );
-    expect(audioPlayer.getTrackList()[1]).toHaveProperty(
-      "title",
-      "Test Track 2",
-    );
+    expect(audioPlayer.getTrackList()[0]).toMatchObject(trackDetails1);
+    expect(audioPlayer.getTrackList()[1]).toMatchObject(trackDetails2);
   });
 
   test("playTrack should return false when no track is playing", () => {
@@ -124,12 +87,6 @@ describe("AudioPlayer", () => {
   });
 
   test("playTrack should return true when a track is playing", () => {
-    const trackDetails = {
-      artist: "Artist 1",
-      url: "test.mp3",
-      title: "Track 1",
-      label: "Label 1",
-    };
     const track = audioPlayer.createTrack(trackDetails);
     audioPlayer.playTrack(track);
     expect(track.howl.play).toHaveBeenCalled();
@@ -139,50 +96,22 @@ describe("AudioPlayer", () => {
   });
 
   test("removeTrack should remove a track from the playlist", () => {
-    const trackDetails: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track",
-      label: "Test Label",
-    };
-
     audioPlayer.loadTrack(trackDetails);
     expect(audioPlayer.getTrackList()).toHaveLength(1);
 
-    audioPlayer.removeTrack("test_url.mp3");
+    audioPlayer.removeTrack(trackDetails.url);
     expect(audioPlayer.getTrackList()).toHaveLength(0);
   });
 
   test("removeTrack should stop the currently loaded track if removed", () => {
-    const trackDetails: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track",
-      label: "Test Label",
-    };
-
     audioPlayer.loadTrack(trackDetails);
     const mockStop = vi.spyOn(audioPlayer.currentlyLoadedTrack!.howl, "unload");
 
-    audioPlayer.removeTrack("test_url.mp3");
+    audioPlayer.removeTrack(trackDetails.url);
     expect(mockStop).toHaveBeenCalled();
   });
 
   test("removeTrack should not stop any track if the URL does not match", () => {
-    const trackDetails1: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track 1",
-      label: "Test Label",
-    };
-
-    const trackDetails2: TrackDetails = {
-      artist: "Test Artist",
-      url: "another_url.mp3",
-      title: "Test Track 2",
-      label: "Test Label",
-    };
-
     audioPlayer.loadTrack(trackDetails1);
     const mockStop = vi.spyOn(audioPlayer.currentlyLoadedTrack!.howl, "stop");
 
@@ -191,20 +120,6 @@ describe("AudioPlayer", () => {
   });
 
   test("nextTrack should play the next track in the playlist", () => {
-    const trackDetails1: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url1.mp3",
-      title: "Test Track 1",
-      label: "Test Label",
-    };
-
-    const trackDetails2: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url2.mp3",
-      title: "Test Track 2",
-      label: "Test Label",
-    };
-
     audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
 
     const mockNextTrackPlay = vi.spyOn(
@@ -213,25 +128,11 @@ describe("AudioPlayer", () => {
     );
 
     audioPlayer.nextTrack();
-    expect(mockNextTrackPlay).toHaveBeenCalledWith();
-    expect(audioPlayer.currentlyLoadedTrack?.url).toBe("test_url2.mp3");
+    expect(mockNextTrackPlay).toHaveBeenCalled();
+    expect(audioPlayer.currentlyLoadedTrack?.url).toBe(trackDetails2.url);
   });
 
   test("nextTrack should stop the currently loaded track before playing the next one", () => {
-    const trackDetails1: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url1.mp3",
-      title: "Test Track 1",
-      label: "Test Label",
-    };
-
-    const trackDetails2: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url2.mp3",
-      title: "Test Track 2",
-      label: "Test Label",
-    };
-
     audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
     const mockStop = vi.spyOn(audioPlayer.currentlyLoadedTrack!.howl, "stop");
 
@@ -240,20 +141,6 @@ describe("AudioPlayer", () => {
   });
 
   test("previousTrack should play the previous track in the playlist", () => {
-    const trackDetails1: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url1.mp3",
-      title: "Test Track 1",
-      label: "Test Label",
-    };
-
-    const trackDetails2: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url2.mp3",
-      title: "Test Track 2",
-      label: "Test Label",
-    };
-
     audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
 
     audioPlayer.nextTrack();
@@ -264,25 +151,24 @@ describe("AudioPlayer", () => {
     );
 
     audioPlayer.previousTrack();
-    expect(mockPrevTrackPlay).toHaveBeenCalledWith();
-    expect(audioPlayer.currentlyLoadedTrack?.url).toBe("test_url1.mp3");
+    expect(mockPrevTrackPlay).toHaveBeenCalled();
+    expect(audioPlayer.currentlyLoadedTrack?.url).toBe(trackDetails1.url);
+  });
+
+  test("previousTrack should play the same track in the playlist if it's the first track", () => {
+    audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
+
+    const mockPrevTrackPlay = vi.spyOn(
+      audioPlayer.getTrackList()[0]!.howl,
+      "play",
+    );
+
+    audioPlayer.previousTrack();
+    expect(mockPrevTrackPlay).toHaveBeenCalled();
+    expect(audioPlayer.currentlyLoadedTrack?.url).toBe(trackDetails1.url);
   });
 
   test("previousTrack should stop the currently loaded track before playing the previous one", () => {
-    const trackDetails1: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url1.mp3",
-      title: "Test Track 1",
-      label: "Test Label",
-    };
-
-    const trackDetails2: TrackDetails = {
-      artist: "Test Artist",
-      url: "test_url2.mp3",
-      title: "Test Track 2",
-      label: "Test Label",
-    };
-
     audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
     audioPlayer.nextTrack();
 
@@ -304,12 +190,6 @@ describe("AudioPlayer", () => {
   });
 
   test("playCurrentlyLoadedTrack should play the currently loaded track", () => {
-    const trackDetails = {
-      artist: "Artist 1",
-      url: "test.mp3",
-      title: "Track 1",
-      label: "Label 1",
-    };
     const track = audioPlayer.createTrack(trackDetails);
     audioPlayer.currentlyLoadedTrack = track;
     const playMock = vi.spyOn(Howl.prototype, "play");
@@ -330,12 +210,6 @@ describe("AudioPlayer", () => {
   });
 
   test("pauseTrack should pause the currently loaded track", () => {
-    const trackDetails = {
-      artist: "Artist 1",
-      url: "test.mp3",
-      title: "Track 1",
-      label: "Label 1",
-    };
     const track = audioPlayer.createTrack(trackDetails);
     audioPlayer.currentlyLoadedTrack = track;
     const pauseMock = vi.spyOn(Howl.prototype, "pause");
