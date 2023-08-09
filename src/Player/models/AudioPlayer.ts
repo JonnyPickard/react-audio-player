@@ -5,7 +5,7 @@ import remove from "lodash.remove";
 import { v4 } from "uuid";
 
 import { AudioPlayerError } from "../constants/errors";
-import { getTimePlayed, getTimeRemaining } from "../utils/durationHelpers";
+import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";
 import { isNumber } from "../utils/isNumber";
 
 export type Track = {
@@ -151,7 +151,7 @@ export class AudioPlayer {
       const duration = this.currentlyLoadedTrack.howl.duration()!;
       const seekTime = this.seek()!;
 
-      return getTimeRemaining(duration, seekTime);
+      return calcTimeRemaining(duration, seekTime);
     }
 
     return null;
@@ -161,7 +161,7 @@ export class AudioPlayer {
     const seekTime = this.seek();
 
     if (seekTime && isNumber(seekTime)) {
-      return getTimePlayed(seekTime);
+      return calcTimePlayed(seekTime);
     }
 
     return null;
