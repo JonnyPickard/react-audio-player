@@ -302,4 +302,56 @@ describe("AudioPlayer", () => {
     // Call the method and check if the callback was set
     expect(audioPlayer.onTrackEndCallback).toBe(mockCallback);
   });
+
+  test("playCurrentlyLoadedTrack should play the currently loaded track", () => {
+    const trackDetails = {
+      artist: "Artist 1",
+      url: "test.mp3",
+      title: "Track 1",
+      label: "Label 1",
+    };
+    const track = audioPlayer.createTrack(trackDetails);
+    audioPlayer.currentlyLoadedTrack = track;
+    const playMock = vi.spyOn(Howl.prototype, "play");
+
+    audioPlayer.playCurrentlyLoadedTrack();
+
+    expect(playMock).toHaveBeenCalled();
+    playMock.mockRestore();
+  });
+
+  test("playCurrentlyLoadedTrack should not play if no track is loaded", () => {
+    const playMock = vi.spyOn(Howl.prototype, "play");
+
+    audioPlayer.playCurrentlyLoadedTrack();
+
+    expect(playMock).not.toHaveBeenCalled();
+    playMock.mockRestore();
+  });
+
+  test("pauseTrack should pause the currently loaded track", () => {
+    const trackDetails = {
+      artist: "Artist 1",
+      url: "test.mp3",
+      title: "Track 1",
+      label: "Label 1",
+    };
+    const track = audioPlayer.createTrack(trackDetails);
+    audioPlayer.currentlyLoadedTrack = track;
+    const pauseMock = vi.spyOn(Howl.prototype, "pause");
+
+    audioPlayer.pauseTrack();
+
+    expect(pauseMock).toHaveBeenCalled();
+    pauseMock.mockRestore();
+  });
+
+  test("pauseTrack should not pause if no track is loaded", () => {
+    const pauseMock = vi.spyOn(Howl.prototype, "pause");
+
+    audioPlayer.pauseTrack();
+
+    expect(pauseMock).not.toHaveBeenCalled();
+    pauseMock.mockRestore();
+  });
 });
