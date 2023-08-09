@@ -18,6 +18,7 @@ class MockHowl {
   on() {}
   off() {}
   once() {}
+  seek() {}
   state() {
     return this.loaded; // Mock state value for testing
   }

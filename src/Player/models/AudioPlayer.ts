@@ -300,6 +300,7 @@ export class AudioPlayer {
     if (previousTrack) {
       this.playTrack(previousTrack);
     }
+    // Restart track on backwards click if first track in list
     if (!previousTrack && this.currentlyLoadedTrack) {
       this.playTrack(this.currentlyLoadedTrack);
     }
