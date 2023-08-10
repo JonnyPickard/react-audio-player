@@ -42,12 +42,12 @@ interface PlayerOptions {
 export class AudioPlayer {
   /* For all currently loaded tracks in the playlist */
   tracks: Array<Track | undefined>;
-  currentlyLoadedTrack: Track | null;
+  loadedTrack: Track | null;
   onTrackEndCallback: () => void;
 
   constructor({ initVolume = 1 }: PlayerOptions) {
     this.tracks = [];
-    this.currentlyLoadedTrack = null;
+    this.loadedTrack = null;
     this.onTrackEndCallback = () => {};
 
     Howler.volume(initVolume);
@@ -84,10 +84,7 @@ export class AudioPlayer {
   };
 
   isPlaying(): boolean {
-    if (
-      this.currentlyLoadedTrack !== null &&
-      this.currentlyLoadedTrack.howl.playing()
-    ) {
+    if (this.loadedTrack !== null && this.loadedTrack.howl.playing()) {
       return true;
     } else {
       return false;
@@ -115,16 +112,16 @@ export class AudioPlayer {
 
   getDurationAsync(): Promise<number> {
     return new Promise((resolve, reject) => {
-      if (!this.currentlyLoadedTrack) {
+      if (!this.loadedTrack) {
         reject(new Error(AudioPlayerError.NO_TRACK_LOADED));
         return;
       }
 
       const onLoad = () => {
-        const duration = this.currentlyLoadedTrack!.howl.duration();
+        const duration = this.loadedTrack!.howl.duration();
         if (isNumber(duration)) {
-          this.currentlyLoadedTrack!.howl.off("load", onLoad);
-          this.currentlyLoadedTrack!.howl.off("loaderror", onError);
+          this.loadedTrack!.howl.off("load", onLoad);
+          this.loadedTrack!.howl.off("loaderror", onError);
           resolve(duration);
         } else {
           reject(new Error(AudioPlayerError.NO_DURATION));
@@ -132,23 +129,23 @@ export class AudioPlayer {
       };
 
       const onError = () => {
-        this.currentlyLoadedTrack!.howl.off("load", onLoad);
-        this.currentlyLoadedTrack!.howl.off("loaderror", onError);
+        this.loadedTrack!.howl.off("load", onLoad);
+        this.loadedTrack!.howl.off("loaderror", onError);
         reject(new Error(AudioPlayerError.LOAD_TRACK_FAILURE));
       };
 
-      if (this.currentlyLoadedTrack.howl.state() === "loaded") {
-        resolve(this.currentlyLoadedTrack.howl.duration()!);
+      if (this.loadedTrack.howl.state() === "loaded") {
+        resolve(this.loadedTrack.howl.duration()!);
       } else {
-        this.currentlyLoadedTrack.howl.once("load", onLoad);
-        this.currentlyLoadedTrack.howl.once("loaderror", onError);
+        this.loadedTrack.howl.once("load", onLoad);
+        this.loadedTrack.howl.once("loaderror", onError);
       }
     });
   }
 
   getTimeRemaining(): number | null {
-    if (this.currentlyLoadedTrack && isNumber(this.seek())) {
-      const duration = this.currentlyLoadedTrack.howl.duration()!;
+    if (this.loadedTrack && isNumber(this.seek())) {
+      const duration = this.loadedTrack.howl.duration()!;
       const seekTime = this.seek()!;
 
       return calcTimeRemaining(duration, seekTime);
@@ -182,7 +179,7 @@ export class AudioPlayer {
       this.tracks.push(track);
     }
 
-    this.currentlyLoadedTrack = track;
+    this.loadedTrack = track;
 
     return track;
   };
@@ -196,33 +193,33 @@ export class AudioPlayer {
 
     this.tracks.push(...playlist);
 
-    if (!this.currentlyLoadedTrack) {
-      this.currentlyLoadedTrack = playlist[0];
+    if (!this.loadedTrack) {
+      this.loadedTrack = playlist[0];
     }
   };
 
   playTrack(track: Track) {
     if (track) {
-      this.currentlyLoadedTrack = track;
-      this.currentlyLoadedTrack.howl.play();
+      this.loadedTrack = track;
+      this.loadedTrack.howl.play();
     }
   }
 
   playCurrentlyLoadedTrack() {
-    if (this.currentlyLoadedTrack) {
-      this.currentlyLoadedTrack.howl.play();
+    if (this.loadedTrack) {
+      this.loadedTrack.howl.play();
     }
   }
 
   stopLoadedTrack() {
-    if (this.currentlyLoadedTrack) {
-      this.currentlyLoadedTrack.howl.stop();
+    if (this.loadedTrack) {
+      this.loadedTrack.howl.stop();
     }
   }
 
   pauseTrack() {
-    if (this.currentlyLoadedTrack) {
-      this.currentlyLoadedTrack.howl.pause();
+    if (this.loadedTrack) {
+      this.loadedTrack.howl.pause();
     }
   }
 
@@ -230,9 +227,9 @@ export class AudioPlayer {
     const track = this.findTrackByUrl(url);
 
     if (track) {
-      if (track.id === this.currentlyLoadedTrack?.id) {
-        this.currentlyLoadedTrack.howl.unload();
-        this.currentlyLoadedTrack = null;
+      if (track.id === this.loadedTrack?.id) {
+        this.loadedTrack.howl.unload();
+        this.loadedTrack = null;
       }
 
       remove(this.tracks, (t) => t && t.id === track.id);
@@ -243,7 +240,7 @@ export class AudioPlayer {
     Howler.unload();
 
     this.tracks = [];
-    this.currentlyLoadedTrack = null;
+    this.loadedTrack = null;
   }
 
   stopAllTracks() {
@@ -255,8 +252,8 @@ export class AudioPlayer {
     return falsy or next track
   */
   getNextTrack() {
-    if (this.tracks.length > 1 && this.currentlyLoadedTrack) {
-      const currentTrackIndex = this.tracks.indexOf(this.currentlyLoadedTrack);
+    if (this.tracks.length > 1 && this.loadedTrack) {
+      const currentTrackIndex = this.tracks.indexOf(this.loadedTrack);
 
       const nextTrack = this.tracks[currentTrackIndex + 1];
 
@@ -269,8 +266,8 @@ export class AudioPlayer {
 
   /* Check to see if its possible to skip backwards */
   getPreviousTrack() {
-    if (this.tracks.length > 1 && this.currentlyLoadedTrack) {
-      const currentTrackIndex = this.tracks.indexOf(this.currentlyLoadedTrack);
+    if (this.tracks.length > 1 && this.loadedTrack) {
+      const currentTrackIndex = this.tracks.indexOf(this.loadedTrack);
 
       const previousTrack = this.tracks[currentTrackIndex - 1];
 
@@ -301,8 +298,8 @@ export class AudioPlayer {
       this.playTrack(previousTrack);
     }
     // Restart track on backwards click if first track in list
-    if (!previousTrack && this.currentlyLoadedTrack) {
-      this.playTrack(this.currentlyLoadedTrack);
+    if (!previousTrack && this.loadedTrack) {
+      this.playTrack(this.loadedTrack);
     }
   }
 
@@ -311,15 +308,12 @@ export class AudioPlayer {
       Returns seek time
   */
   seek(position?: number): number | null {
-    if (
-      this.currentlyLoadedTrack &&
-      this.currentlyLoadedTrack.howl.state() === "loaded"
-    ) {
+    if (this.loadedTrack && this.loadedTrack.howl.state() === "loaded") {
       if (isNumber(position)) {
-        this.currentlyLoadedTrack.howl.seek(position);
+        this.loadedTrack.howl.seek(position);
       }
 
-      const seekTime = this.currentlyLoadedTrack.howl.seek();
+      const seekTime = this.loadedTrack.howl.seek();
 
       if (isNumber(seekTime)) {
         return seekTime;
