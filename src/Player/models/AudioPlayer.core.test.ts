@@ -189,6 +189,10 @@ describe("AudioPlayer", () => {
     expect(audioPlayer.onTrackEndCallback).toBe(mockCallback);
   });
 
+  // test("onTrackEndCallBack defaults to a void function", () => {
+  //   expectTypeOf(audioPlayer.onTrackEndCallback).returns.toBeVoid();
+  // });
+
   test("playCurrentlyLoadedTrack should play the currently loaded track", () => {
     const track = audioPlayer.createTrack(trackDetails);
     audioPlayer.loadedTrack = track;

@@ -169,6 +169,7 @@ export class AudioPlayer {
     return this.tracks.find((track) => track && track.url === url);
   }
 
+  // TODO: Call this add track ?
   loadTrack = (details: TrackDetails): Track => {
     const track = this.findTrackByUrl(details.url) || this.createTrack(details);
 
@@ -181,6 +182,7 @@ export class AudioPlayer {
     return track;
   };
 
+  // TODO: call this loadMultiple?
   addMultipleTracks = (tracklist: TrackDetails[]) => {
     /* creates an array of track objects to add to the Players playlist */
     const playlist = tracklist.map(
@@ -299,6 +301,13 @@ export class AudioPlayer {
       this.playTrack(this.loadedTrack);
     }
   }
+
+  // TODO: Potentially use a shared utility func like this
+  // private currentTrackIsLoaded() {
+  //   if (this.loadedTrack && this.loadedTrack.howl.state() === "loaded") {
+  //     return true;
+  //   }
+  // }
 
   /* 
     Seeks to position if given number
