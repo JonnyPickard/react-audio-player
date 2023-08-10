@@ -117,17 +117,17 @@ export class AudioPlayer {
         return;
       }
 
+      // on "load"
       const onLoad = () => {
         const duration = this.loadedTrack!.howl.duration();
-        if (isNumber(duration)) {
-          this.loadedTrack!.howl.off("load", onLoad);
-          this.loadedTrack!.howl.off("loaderror", onError);
-          resolve(duration);
-        } else {
-          reject(new Error(AudioPlayerError.NO_DURATION));
-        }
+
+        this.loadedTrack!.howl.off("load", onLoad);
+        this.loadedTrack!.howl.off("loaderror", onError);
+
+        resolve(duration);
       };
 
+      // on "loaderror"
       const onError = () => {
         this.loadedTrack!.howl.off("load", onLoad);
         this.loadedTrack!.howl.off("loaderror", onError);
@@ -171,9 +171,6 @@ export class AudioPlayer {
 
   loadTrack = (details: TrackDetails): Track => {
     const track = this.findTrackByUrl(details.url) || this.createTrack(details);
-
-    // console.log(track);
-    // console.log("hello", typeof track.howl._onend);
 
     if (!this.findTrackByUrl(track.url)) {
       this.tracks.push(track);
