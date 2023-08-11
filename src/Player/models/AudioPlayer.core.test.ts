@@ -127,7 +127,7 @@ describe("AudioPlayer", () => {
       "play",
     );
 
-    audioPlayer.nextTrack();
+    audioPlayer.playNextTrack();
     expect(mockNextTrackPlay).toHaveBeenCalled();
     expect(audioPlayer.loadedTrack?.url).toBe(trackDetails2.url);
   });
@@ -136,21 +136,21 @@ describe("AudioPlayer", () => {
     audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
     const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");
 
-    audioPlayer.nextTrack();
+    audioPlayer.playNextTrack();
     expect(mockStop).toHaveBeenCalled();
   });
 
   test("previousTrack should play the previous track in the playlist", () => {
     audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
 
-    audioPlayer.nextTrack();
+    audioPlayer.playNextTrack();
 
     const mockPrevTrackPlay = vi.spyOn(
       audioPlayer.getTrackList()[0]!.howl,
       "play",
     );
 
-    audioPlayer.previousTrack();
+    audioPlayer.playPreviousTrack();
     expect(mockPrevTrackPlay).toHaveBeenCalled();
     expect(audioPlayer.loadedTrack?.url).toBe(trackDetails1.url);
   });
@@ -163,18 +163,18 @@ describe("AudioPlayer", () => {
       "play",
     );
 
-    audioPlayer.previousTrack();
+    audioPlayer.playPreviousTrack();
     expect(mockPrevTrackPlay).toHaveBeenCalled();
     expect(audioPlayer.loadedTrack?.url).toBe(trackDetails1.url);
   });
 
   test("previousTrack should stop the currently loaded track before playing the previous one", () => {
     audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
-    audioPlayer.nextTrack();
+    audioPlayer.playNextTrack();
 
     const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");
 
-    audioPlayer.previousTrack();
+    audioPlayer.playPreviousTrack();
     expect(mockStop).toHaveBeenCalled();
   });
 

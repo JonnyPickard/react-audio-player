@@ -280,7 +280,7 @@ export class AudioPlayer {
   /* 
     Adds + Loads the next track in the tracklist
   */
-  nextTrack() {
+  playNextTrack() {
     this.stopLoadedTrack();
     const nextTrack = this.getNextTrack();
 
@@ -289,7 +289,7 @@ export class AudioPlayer {
     }
   }
 
-  previousTrack() {
+  playPreviousTrack() {
     this.stopLoadedTrack();
     const previousTrack = this.getPreviousTrack();
 
