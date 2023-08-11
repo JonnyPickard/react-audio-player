@@ -8,14 +8,14 @@ import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";
 import { isNumber } from "../utils/isNumber";
 import { AudioTrack } from "./AudioTrack";
 
-export type TrackDetails = {
+export interface TrackDetails {
   artist: string;
   url: string;
   title: string;
   label: string;
   productUrl?: string;
   artworkUrl?: string;
-};
+}
 
 interface PlayerOptions {
   initVolume?: number;
