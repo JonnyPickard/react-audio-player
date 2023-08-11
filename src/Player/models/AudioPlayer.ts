@@ -1,26 +1,12 @@
-import { Howl, Howler } from "howler";
+import { Howler } from "howler";
 import clamp from "lodash.clamp";
 import clone from "lodash.clone";
 import remove from "lodash.remove";
-import { v4 } from "uuid";
 
 import { AudioPlayerError } from "../constants/errors";
 import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";
 import { isNumber } from "../utils/isNumber";
-
-export type Track = {
-  id: string;
-  /* creates howler instances using howler player to play the tracks */
-  howl: Howl;
-  title: string;
-  artist: string;
-  /* Under vendor in shopify fields */
-  label: string;
-  url: string;
-  /* Url to navigate to Product page*/
-  productUrl: string | undefined;
-  artworkUrl: string | undefined;
-};
+import { AudioTrack } from "./AudioTrack";
 
 export type TrackDetails = {
   artist: string;
@@ -31,17 +17,13 @@ export type TrackDetails = {
   artworkUrl?: string;
 };
 
-const howlOptions = {
-  // html5: true,
-};
-
 interface PlayerOptions {
   initVolume?: number;
 }
 
 export class AudioPlayer {
-  trackList: Array<Track | undefined>;
-  loadedTrack: Track | null;
+  trackList: AudioTrack[];
+  loadedTrack: AudioTrack | null;
   onTrackEndCallback: () => void;
 
   constructor({ initVolume = 1 }: PlayerOptions) {
@@ -56,31 +38,19 @@ export class AudioPlayer {
     this.onTrackEndCallback = callback;
   }
 
-  createTrack = ({
+  createTrack({
     artist,
     url,
     title,
     label,
     productUrl = "",
     artworkUrl = "",
-  }: TrackDetails): Track => {
-    const track: Track = {
-      artist,
-      url,
-      title,
-      label,
-      productUrl,
-      artworkUrl,
-      id: v4(),
-      howl: new Howl({
-        ...howlOptions,
-        src: url,
-        onend: this.onTrackEndCallback,
-      }),
-    };
-
-    return track;
-  };
+  }: TrackDetails) {
+    return new AudioTrack(
+      { artist, url, title, label, productUrl, artworkUrl },
+      this.onTrackEndCallback,
+    );
+  }
 
   isPlaying(): boolean {
     if (this.loadedTrack !== null && this.loadedTrack.howl.playing()) {
@@ -172,7 +142,7 @@ export class AudioPlayer {
     Selects track given provided track details
     Will add new track if it doesn't exist
   */
-  loadTrack(details: TrackDetails): Track {
+  loadTrack(details: TrackDetails): AudioTrack {
     const track = this.addTrackToTrackList(details);
 
     this.loadedTrack = track;
@@ -180,7 +150,7 @@ export class AudioPlayer {
     return track;
   }
 
-  addTrackToTrackList(details: TrackDetails): Track {
+  addTrackToTrackList(details: TrackDetails): AudioTrack {
     const track = this.findTrackByUrl(details.url) || this.createTrack(details);
 
     if (!this.findTrackByUrl(track.url)) {
@@ -210,7 +180,7 @@ export class AudioPlayer {
     }
   }
 
-  playTrack(track: Track) {
+  playTrack(track: AudioTrack) {
     if (track) {
       this.loadedTrack = track;
       this.loadedTrack.howl.play();
