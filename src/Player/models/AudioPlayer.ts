@@ -41,12 +41,12 @@ interface PlayerOptions {
 
 export class AudioPlayer {
   /* For all currently loaded tracks in the playlist */
-  tracks: Array<Track | undefined>;
+  trackList: Array<Track | undefined>;
   loadedTrack: Track | null;
   onTrackEndCallback: () => void;
 
   constructor({ initVolume = 1 }: PlayerOptions) {
-    this.tracks = [];
+    this.trackList = [];
     this.loadedTrack = null;
     this.onTrackEndCallback = () => {};
 
@@ -92,7 +92,7 @@ export class AudioPlayer {
   }
 
   getTrackList() {
-    return clone(this.tracks);
+    return clone(this.trackList);
   }
 
   getVolume() {
@@ -166,7 +166,7 @@ export class AudioPlayer {
 
   /* Finds the track in the playlist [tracks] using the tracks src url */
   findTrackByUrl(url: string) {
-    return this.tracks.find((track) => track && track.url === url);
+    return this.trackList.find((track) => track && track.url === url);
   }
 
   // TODO: Call this add track ?
@@ -174,7 +174,7 @@ export class AudioPlayer {
     const track = this.findTrackByUrl(details.url) || this.createTrack(details);
 
     if (!this.findTrackByUrl(track.url)) {
-      this.tracks.push(track);
+      this.trackList.push(track);
     }
 
     this.loadedTrack = track;
@@ -190,7 +190,7 @@ export class AudioPlayer {
         this.findTrackByUrl(trackDetails.url) || this.createTrack(trackDetails),
     );
 
-    this.tracks.push(...playlist);
+    this.trackList.push(...playlist);
 
     if (!this.loadedTrack) {
       this.loadedTrack = playlist[0];
@@ -231,14 +231,14 @@ export class AudioPlayer {
         this.loadedTrack = null;
       }
 
-      remove(this.tracks, (t) => t && t.id === track.id);
+      remove(this.trackList, (t) => t && t.id === track.id);
     }
   }
 
   removeAllTracks() {
     Howler.unload();
 
-    this.tracks = [];
+    this.trackList = [];
     this.loadedTrack = null;
   }
 
@@ -251,10 +251,10 @@ export class AudioPlayer {
     return falsy or next track
   */
   getNextTrack() {
-    if (this.tracks.length > 1 && this.loadedTrack) {
-      const currentTrackIndex = this.tracks.indexOf(this.loadedTrack);
+    if (this.trackList.length > 1 && this.loadedTrack) {
+      const currentTrackIndex = this.trackList.indexOf(this.loadedTrack);
 
-      const nextTrack = this.tracks[currentTrackIndex + 1];
+      const nextTrack = this.trackList[currentTrackIndex + 1];
 
       /* If a track object exists at position + 1 */
       if (nextTrack) {
@@ -265,10 +265,10 @@ export class AudioPlayer {
 
   /* Check to see if its possible to skip backwards */
   getPreviousTrack() {
-    if (this.tracks.length > 1 && this.loadedTrack) {
-      const currentTrackIndex = this.tracks.indexOf(this.loadedTrack);
+    if (this.trackList.length > 1 && this.loadedTrack) {
+      const currentTrackIndex = this.trackList.indexOf(this.loadedTrack);
 
-      const previousTrack = this.tracks[currentTrackIndex - 1];
+      const previousTrack = this.trackList[currentTrackIndex - 1];
 
       /* If a track object exists at position - 1 */
       if (previousTrack) {
