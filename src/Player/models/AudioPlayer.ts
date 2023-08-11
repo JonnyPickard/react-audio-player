@@ -179,7 +179,7 @@ export class AudioPlayer {
     }
   }
 
-  playCurrentlySelectedTrack() {
+  playSelectedTrack() {
     if (this.selectedTrack) {
       this.selectedTrack.howl.play();
     }
@@ -271,7 +271,7 @@ export class AudioPlayer {
     if (previousTrack) {
       this.playTrack(previousTrack);
     }
-    // Restart track on backwards click if first track in list
+    // Restart track on backwards click if first track in trackList
     if (!previousTrack && this.selectedTrack) {
       this.playTrack(this.selectedTrack);
     }

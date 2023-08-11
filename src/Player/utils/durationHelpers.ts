@@ -1,12 +1,12 @@
 export const calcTimeRemaining = (
   duration: number,
-  seekValue: number /* Current timestamp of the loaded songs playback*/,
+  seekTimestamp: number /* Playback head timestamp for the selectedTrack */,
 ): number => {
-  return Math.round(duration - seekValue) || 0;
+  return Math.round(duration - seekTimestamp) || 0;
 };
 
 export const calcTimePlayed = (
-  seekValue: number /* Current timestamp of the loaded songs playback*/,
+  seekTimestamp: number /* Playback head timestamp for the selectedTrack */,
 ): number => {
-  return Math.round(seekValue) || 0;
+  return Math.round(seekTimestamp) || 0;
 };

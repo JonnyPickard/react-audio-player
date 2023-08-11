@@ -34,7 +34,7 @@ describe("AudioPlayer getDurationAsync", () => {
     expect(duration).toBe(123);
   });
 
-  test("should reject with an error if no track is loaded", async () => {
+  test("should reject with an error if no selectedTrack", async () => {
     await expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
       AudioPlayerError.NO_TRACK_LOADED,
     );

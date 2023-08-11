@@ -23,14 +23,14 @@ describe("AudioPlayer getTimeRemaining & getTimePlayed", () => {
     vi.restoreAllMocks();
   });
 
-  test("should return null if no track is loaded", () => {
+  test("should return null if no selectedTrack", () => {
     expect(audioPlayer.getTimeRemaining()).toBeNull();
   });
 
   test("should return correct time remaining while playing", () => {
     vi.spyOn(howler.Howl.prototype, "duration").mockReturnValue(300);
     vi.spyOn(howler.Howl.prototype, "state").mockReturnValue("loaded");
-    audioPlayer.playCurrentlySelectedTrack();
+    audioPlayer.playSelectedTrack();
 
     // Seek to 100 seconds (out of 300 total duration)
     vi.spyOn(howler.Howl.prototype, "seek").mockReturnValue(100);
@@ -52,12 +52,12 @@ describe("AudioPlayer getTimeRemaining & getTimePlayed", () => {
     expect(audioPlayer.getTimeRemaining()).toBeNull();
   });
 
-  test("getTimePlayed should return null if no track is loaded", () => {
+  test("getTimePlayed should return null if no selectedTrack", () => {
     expect(audioPlayer.getTimePlayed()).toBeNull();
   });
 
   test("getTimePlayed should return correct time played while playing", () => {
-    audioPlayer.playCurrentlySelectedTrack();
+    audioPlayer.playSelectedTrack();
 
     // Seek to 50 seconds (out of total duration)
     vi.spyOn(howler.Howl.prototype, "state").mockReturnValue("loaded");
