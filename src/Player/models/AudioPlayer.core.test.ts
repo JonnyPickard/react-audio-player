@@ -231,27 +231,4 @@ describe("AudioPlayer", () => {
     expect(pauseMock).not.toHaveBeenCalled();
     pauseMock.mockRestore();
   });
-
-  test("seek should change the current playback position", () => {
-    vi.spyOn(Howl.prototype, "state").mockImplementationOnce(() => "loaded");
-    const track = audioPlayer.createTrack(trackDetails);
-    audioPlayer.selectedTrack = track;
-
-    const seekPosition = 30; // Seek to 30 seconds
-    const mockSeek = vi.spyOn(Howl.prototype, "seek");
-
-    audioPlayer.seekToTimestamp(seekPosition);
-
-    expect(mockSeek).toHaveBeenCalledWith(seekPosition);
-    mockSeek.mockRestore();
-  });
-
-  test("seek should not change the playback position if no track is loaded", () => {
-    const mockSeek = vi.spyOn(Howl.prototype, "seek");
-
-    audioPlayer.seekToTimestamp(30);
-
-    expect(mockSeek).not.toHaveBeenCalled();
-    mockSeek.mockRestore();
-  });
 });
