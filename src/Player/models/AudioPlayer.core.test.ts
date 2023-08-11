@@ -57,7 +57,7 @@ describe("AudioPlayer", () => {
   });
 
   test("loadTrack should create a new AudioTrack, add it trackList & set it as the loadedTrack", () => {
-    const track = audioPlayer.loadTrack(trackDetails);
+    const track = audioPlayer.addTrackToTrackList(trackDetails, true);
     const trackList = audioPlayer.getTrackList();
 
     expect(trackList).toHaveLength(1);
@@ -80,7 +80,7 @@ describe("AudioPlayer", () => {
   });
 
   test("removeTrack should remove a track from the trackList", () => {
-    audioPlayer.loadTrack(trackDetails);
+    audioPlayer.addTrackToTrackList(trackDetails, true);
     expect(audioPlayer.getTrackList()).toHaveLength(1);
 
     audioPlayer.removeTrack(trackDetails.url);
@@ -88,7 +88,7 @@ describe("AudioPlayer", () => {
   });
 
   test("removeTrack should stop the currently loaded track if removed", () => {
-    audioPlayer.loadTrack(trackDetails);
+    audioPlayer.addTrackToTrackList(trackDetails, true);
     const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "unload");
 
     audioPlayer.removeTrack(trackDetails.url);
@@ -96,7 +96,7 @@ describe("AudioPlayer", () => {
   });
 
   test("removeTrack should not stop any track if the URL does not match", () => {
-    audioPlayer.loadTrack(trackDetails1);
+    audioPlayer.addTrackToTrackList(trackDetails, true);
     const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");
 
     audioPlayer.removeTrack(trackDetails2.url);

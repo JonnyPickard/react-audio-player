@@ -27,7 +27,7 @@ describe("AudioPlayer getDurationAsync", () => {
     vi.spyOn(howler.Howl.prototype, "state").mockImplementation(() => "loaded");
     vi.spyOn(howler.Howl.prototype, "duration").mockImplementation(() => 123);
 
-    audioPlayer.loadTrack(trackDetails);
+    audioPlayer.addTrackToTrackList(trackDetails, true);
 
     const duration = await audioPlayer.getDurationAsync();
 
@@ -44,7 +44,7 @@ describe("AudioPlayer getDurationAsync", () => {
     vi.spyOn(howler.Howl.prototype, "state").mockImplementation(
       () => "unloaded",
     );
-    audioPlayer.loadTrack(trackDetails);
+    audioPlayer.addTrackToTrackList(trackDetails, true);
 
     expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
       AudioPlayerError.LOAD_TRACK_FAILURE,
@@ -57,7 +57,7 @@ describe("AudioPlayer getDurationAsync", () => {
       () => "unloaded",
     );
     vi.spyOn(howler.Howl.prototype, "duration").mockImplementation(() => 123);
-    audioPlayer.loadTrack(trackDetails);
+    audioPlayer.addTrackToTrackList(trackDetails, true);
 
     expect(audioPlayer.getDurationAsync()).resolves.toEqual(123);
     audioPlayer.loadedTrack!.howl._emit("load");

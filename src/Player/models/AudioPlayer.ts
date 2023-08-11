@@ -139,15 +139,15 @@ export class AudioPlayer {
   }
 
   /* 
-    Will add and load a new track
+    Will load a new track
   */
-  loadTrack(details: TrackDetails): AudioTrack {
-    const track = this.addTrackToTrackList(details);
+  // selectTrack(details: TrackDetails): AudioTrack {
+  //   const track = this.addTrackToTrackList(details);
 
-    this.loadedTrack = track;
+  //   this.loadedTrack = track;
 
-    return track;
-  }
+  //   return track;
+  // }
 
   addTrackToTrackList(
     details: TrackDetails,

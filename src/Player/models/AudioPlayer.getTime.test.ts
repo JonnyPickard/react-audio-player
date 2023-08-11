@@ -14,7 +14,7 @@ describe("AudioPlayer getTimeRemaining & getTimePlayed", () => {
       title: "Track 1",
       label: "Label 1",
     };
-    audioPlayer.loadTrack(trackDetails);
+    audioPlayer.addTrackToTrackList(trackDetails, true);
   });
 
   afterEach(() => {
