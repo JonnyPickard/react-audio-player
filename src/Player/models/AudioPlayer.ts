@@ -234,6 +234,8 @@ export class AudioPlayer {
         return nextTrack;
       }
     }
+
+    return null;
   }
 
   /* Check to see if its possible to skip backwards */
@@ -248,6 +250,8 @@ export class AudioPlayer {
         return previousTrack;
       }
     }
+
+    return null;
   }
 
   /* 
