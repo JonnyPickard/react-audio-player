@@ -169,21 +169,30 @@ export class AudioPlayer {
     return this.trackList.find((track) => track && track.url === url);
   }
 
-  // TODO: Call this add track ?
-  loadTrack = (details: TrackDetails): Track => {
+  /* 
+    Selects track given provided track details
+    Will add new track if it doesn't exist
+  */
+  loadTrack(details: TrackDetails): Track {
+    const track = this.addTrack(details);
+
+    this.loadedTrack = track;
+
+    return track;
+  }
+
+  addTrack(details: TrackDetails): Track {
     const track = this.findTrackByUrl(details.url) || this.createTrack(details);
 
     if (!this.findTrackByUrl(track.url)) {
       this.trackList.push(track);
     }
 
-    this.loadedTrack = track;
-
     return track;
-  };
+  }
 
-  // TODO: call this loadMultiple?
-  addMultipleTracks = (tracklist: TrackDetails[]) => {
+  // TODO: addMultipleTracks(trackList, shouldLoadTrack) {}
+  addMultipleTracks(tracklist: TrackDetails[]) {
     /* creates an array of track objects to add to the Players playlist */
     const playlist = tracklist.map(
       (trackDetails) =>
@@ -195,7 +204,7 @@ export class AudioPlayer {
     if (!this.loadedTrack) {
       this.loadedTrack = playlist[0];
     }
-  };
+  }
 
   playTrack(track: Track) {
     if (track) {
