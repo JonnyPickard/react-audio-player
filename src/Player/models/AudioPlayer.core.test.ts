@@ -104,7 +104,10 @@ describe("AudioPlayer", () => {
   });
 
   test("nextTrack should play the next track in the trackList", () => {
-    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
+    audioPlayer.addMultipleTracksToTrackList(
+      [trackDetails1, trackDetails2],
+      true,
+    );
 
     const mockNextTrackPlay = vi.spyOn(
       audioPlayer.getTrackList()[1]!.howl,
@@ -117,7 +120,10 @@ describe("AudioPlayer", () => {
   });
 
   test("nextTrack should stop the currently loaded track before playing the next one", () => {
-    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
+    audioPlayer.addMultipleTracksToTrackList(
+      [trackDetails1, trackDetails2],
+      true,
+    );
     const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");
 
     audioPlayer.playNextTrack();
@@ -125,7 +131,10 @@ describe("AudioPlayer", () => {
   });
 
   test("previousTrack should play the previous track in the trackList", () => {
-    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
+    audioPlayer.addMultipleTracksToTrackList(
+      [trackDetails1, trackDetails2],
+      true,
+    );
 
     audioPlayer.playNextTrack();
 
@@ -140,7 +149,10 @@ describe("AudioPlayer", () => {
   });
 
   test("previousTrack should play the same track in the trackList if it's the first track", () => {
-    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
+    audioPlayer.addMultipleTracksToTrackList(
+      [trackDetails1, trackDetails2],
+      true,
+    );
 
     const mockPrevTrackPlay = vi.spyOn(
       audioPlayer.getTrackList()[0]!.howl,
@@ -153,7 +165,10 @@ describe("AudioPlayer", () => {
   });
 
   test("previousTrack should stop the currently loaded track before playing the previous one", () => {
-    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
+    audioPlayer.addMultipleTracksToTrackList(
+      [trackDetails1, trackDetails2],
+      true,
+    );
     audioPlayer.playNextTrack();
 
     const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");

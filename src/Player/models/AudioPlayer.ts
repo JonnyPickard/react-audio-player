@@ -139,8 +139,7 @@ export class AudioPlayer {
   }
 
   /* 
-    Selects track given provided track details
-    Will add new track if it doesn't exist
+    Will add and load a new track
   */
   loadTrack(details: TrackDetails): AudioTrack {
     const track = this.addTrackToTrackList(details);
@@ -150,31 +149,37 @@ export class AudioPlayer {
     return track;
   }
 
-  addTrackToTrackList(details: TrackDetails): AudioTrack {
+  addTrackToTrackList(
+    details: TrackDetails,
+    shouldSelectTrack: boolean = false,
+  ): AudioTrack {
     const track = this.createTrack(details);
 
     this.trackList.push(track);
 
+    if (shouldSelectTrack) {
+      this.loadedTrack = track;
+    }
+
     return track;
   }
 
-  // TODO: addMultipleTracksToTrackList(trackList, shouldLoadTrack) {}
-  addMultipleTracksToTrackList(tracks: TrackDetails[]) {
+  addMultipleTracksToTrackList(
+    tracks: TrackDetails[],
+    shouldSelectTrack: boolean = false,
+  ) {
     if (!tracks.length) {
       return;
     }
 
-    /* creates an array of track objects to add to the Players trackList */
-    this.trackList.push(
-      ...tracks.map(
-        (trackDetails) =>
-          this.findTrackByUrl(trackDetails.url) ||
-          this.createTrack(trackDetails),
-      ),
+    const trackList = tracks.map((trackDetails) =>
+      this.createTrack(trackDetails),
     );
 
-    if (!this.loadedTrack) {
-      this.loadedTrack = this.trackList[0]!;
+    this.trackList.push(...trackList);
+
+    if (shouldSelectTrack) {
+      this.loadedTrack = trackList[0];
     }
   }
 
