@@ -86,7 +86,6 @@ export class AudioPlayer {
         return;
       }
 
-      // on "load"
       const onLoad = () => {
         const duration = this.selectedTrack!.howl.duration();
 
@@ -96,7 +95,6 @@ export class AudioPlayer {
         resolve(duration);
       };
 
-      // on "loaderror"
       const onError = () => {
         this.selectedTrack!.howl.off("load", onLoad);
         this.selectedTrack!.howl.off("loaderror", onError);
@@ -133,7 +131,7 @@ export class AudioPlayer {
     return null;
   }
 
-  /* Finds the track in the trackList using the tracks src url */
+  /* Finds track in the trackList */
   findTrackByUrl(url: string) {
     return this.trackList.find((track) => track && track.url === url);
   }
@@ -309,20 +307,4 @@ export class AudioPlayer {
 
     return null;
   }
-
-  /* 
-    Will load a track
-  */
-  // selectTrack(track: AudioTrack): AudioTrack {
-  //   this.selectedTrack = track;
-
-  //   return track;
-  // }
-
-  // TODO: Potentially use a shared utility func like this
-  // private currentTrackIsLoaded() {
-  //   if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
-  //     return true;
-  //   }
-  // }
 }
