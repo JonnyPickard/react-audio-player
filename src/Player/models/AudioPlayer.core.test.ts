@@ -95,7 +95,7 @@ describe("AudioPlayer", () => {
     expect(isCurrentlyPlaying).toBe(true);
   });
 
-  test("removeTrack should remove a track from the playlist", () => {
+  test("removeTrack should remove a track from the trackList", () => {
     audioPlayer.loadTrack(trackDetails);
     expect(audioPlayer.getTrackList()).toHaveLength(1);
 
@@ -119,8 +119,8 @@ describe("AudioPlayer", () => {
     expect(mockStop).not.toHaveBeenCalled();
   });
 
-  test("nextTrack should play the next track in the playlist", () => {
-    audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
+  test("nextTrack should play the next track in the trackList", () => {
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
 
     const mockNextTrackPlay = vi.spyOn(
       audioPlayer.getTrackList()[1]!.howl,
@@ -133,15 +133,15 @@ describe("AudioPlayer", () => {
   });
 
   test("nextTrack should stop the currently loaded track before playing the next one", () => {
-    audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
     const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");
 
     audioPlayer.playNextTrack();
     expect(mockStop).toHaveBeenCalled();
   });
 
-  test("previousTrack should play the previous track in the playlist", () => {
-    audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
+  test("previousTrack should play the previous track in the trackList", () => {
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
 
     audioPlayer.playNextTrack();
 
@@ -155,8 +155,8 @@ describe("AudioPlayer", () => {
     expect(audioPlayer.loadedTrack?.url).toBe(trackDetails1.url);
   });
 
-  test("previousTrack should play the same track in the playlist if it's the first track", () => {
-    audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
+  test("previousTrack should play the same track in the trackList if it's the first track", () => {
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
 
     const mockPrevTrackPlay = vi.spyOn(
       audioPlayer.getTrackList()[0]!.howl,
@@ -169,7 +169,7 @@ describe("AudioPlayer", () => {
   });
 
   test("previousTrack should stop the currently loaded track before playing the previous one", () => {
-    audioPlayer.addMultipleTracks([trackDetails1, trackDetails2]);
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2]);
     audioPlayer.playNextTrack();
 
     const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");

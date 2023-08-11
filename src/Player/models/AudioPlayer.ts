@@ -40,7 +40,6 @@ interface PlayerOptions {
 }
 
 export class AudioPlayer {
-  /* For all currently loaded tracks in the playlist */
   trackList: Array<Track | undefined>;
   loadedTrack: Track | null;
   onTrackEndCallback: () => void;
@@ -164,7 +163,7 @@ export class AudioPlayer {
     return null;
   }
 
-  /* Finds the track in the playlist [tracks] using the tracks src url */
+  /* Finds the track in the trackList using the tracks src url */
   findTrackByUrl(url: string) {
     return this.trackList.find((track) => track && track.url === url);
   }
@@ -174,14 +173,14 @@ export class AudioPlayer {
     Will add new track if it doesn't exist
   */
   loadTrack(details: TrackDetails): Track {
-    const track = this.addTrack(details);
+    const track = this.addTrackToTrackList(details);
 
     this.loadedTrack = track;
 
     return track;
   }
 
-  addTrack(details: TrackDetails): Track {
+  addTrackToTrackList(details: TrackDetails): Track {
     const track = this.findTrackByUrl(details.url) || this.createTrack(details);
 
     if (!this.findTrackByUrl(track.url)) {
@@ -191,18 +190,23 @@ export class AudioPlayer {
     return track;
   }
 
-  // TODO: addMultipleTracks(trackList, shouldLoadTrack) {}
-  addMultipleTracks(tracklist: TrackDetails[]) {
-    /* creates an array of track objects to add to the Players playlist */
-    const playlist = tracklist.map(
-      (trackDetails) =>
-        this.findTrackByUrl(trackDetails.url) || this.createTrack(trackDetails),
+  // TODO: addMultipleTracksToTrackList(trackList, shouldLoadTrack) {}
+  addMultipleTracksToTrackList(tracks: TrackDetails[]) {
+    if (!tracks.length) {
+      return;
+    }
+
+    /* creates an array of track objects to add to the Players trackList */
+    this.trackList.push(
+      ...tracks.map(
+        (trackDetails) =>
+          this.findTrackByUrl(trackDetails.url) ||
+          this.createTrack(trackDetails),
+      ),
     );
 
-    this.trackList.push(...playlist);
-
     if (!this.loadedTrack) {
-      this.loadedTrack = playlist[0];
+      this.loadedTrack = this.trackList[0]!;
     }
   }
 
