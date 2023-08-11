@@ -197,7 +197,7 @@ export class AudioPlayer {
     }
   }
 
-  removeTrack(url: string) {
+  removeTrackByUrl(url: string) {
     const track = this.findTrackByUrl(url);
 
     if (track) {

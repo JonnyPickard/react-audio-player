@@ -79,27 +79,27 @@ describe("AudioPlayer", () => {
     expect(isCurrentlyPlaying).toBe(true);
   });
 
-  test("removeTrack should remove a track from the trackList", () => {
+  test("removeTrackByUrl should remove a track from the trackList", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
     expect(audioPlayer.getTrackList()).toHaveLength(1);
 
-    audioPlayer.removeTrack(trackDetails.url);
+    audioPlayer.removeTrackByUrl(trackDetails.url);
     expect(audioPlayer.getTrackList()).toHaveLength(0);
   });
 
-  test("removeTrack should stop the currently loaded track if removed", () => {
+  test("removeTrackByUrl should stop the currently loaded track if removed", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "unload");
 
-    audioPlayer.removeTrack(trackDetails.url);
+    audioPlayer.removeTrackByUrl(trackDetails.url);
     expect(mockStop).toHaveBeenCalled();
   });
 
-  test("removeTrack should not stop any track if the URL does not match", () => {
+  test("removeTrackByUrl should not stop any track if the URL does not match", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
-    audioPlayer.removeTrack(trackDetails2.url);
+    audioPlayer.removeTrackByUrl(trackDetails2.url);
     expect(mockStop).not.toHaveBeenCalled();
   });
 
