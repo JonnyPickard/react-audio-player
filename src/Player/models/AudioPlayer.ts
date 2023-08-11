@@ -151,11 +151,9 @@ export class AudioPlayer {
   }
 
   addTrackToTrackList(details: TrackDetails): AudioTrack {
-    const track = this.findTrackByUrl(details.url) || this.createTrack(details);
+    const track = this.createTrack(details);
 
-    if (!this.findTrackByUrl(track.url)) {
-      this.trackList.push(track);
-    }
+    this.trackList.push(track);
 
     return track;
   }

@@ -56,29 +56,13 @@ describe("AudioPlayer", () => {
     expect(Howler.mute).toHaveBeenCalledWith(false);
   });
 
-  test("loadTrack should create a new track if the URL does not exist", () => {
-    audioPlayer.loadTrack(trackDetails);
-
+  test("loadTrack should create a new AudioTrack, add it trackList & set it as the loadedTrack", () => {
+    const track = audioPlayer.loadTrack(trackDetails);
     const trackList = audioPlayer.getTrackList();
+
     expect(trackList).toHaveLength(1);
     expect(trackList[0]).toMatchObject(trackDetails);
-  });
-
-  test("loadTrack should not add duplicate existing tracks if the URL already exists", () => {
-    audioPlayer.loadTrack(trackDetails);
-    audioPlayer.loadTrack(trackDetails1);
-
-    expect(audioPlayer.getTrackList()).toHaveLength(1);
-    expect(audioPlayer.getTrackList()[0]).toMatchObject(trackDetails);
-  });
-
-  test("loadTrack should not add multiple tracks if the URLs are unique", () => {
-    audioPlayer.loadTrack(trackDetails1);
-    audioPlayer.loadTrack(trackDetails2);
-
-    expect(audioPlayer.getTrackList()).toHaveLength(2);
-    expect(audioPlayer.getTrackList()[0]).toMatchObject(trackDetails1);
-    expect(audioPlayer.getTrackList()[1]).toMatchObject(trackDetails2);
+    expect(audioPlayer.loadedTrack).toEqual(track);
   });
 
   test("playTrack should return false when no track is playing", () => {
