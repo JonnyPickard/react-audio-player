@@ -53,11 +53,11 @@ export class AudioPlayer {
   }
 
   isPlaying(): boolean {
-    if (this.selectedTrack !== null && this.selectedTrack.howl.playing()) {
-      return true;
-    } else {
+    if (this.selectedTrack === null) {
       return false;
     }
+
+    return this.selectedTrack.howl.playing();
   }
 
   getTrackList() {
@@ -75,7 +75,7 @@ export class AudioPlayer {
     return Howler.volume();
   }
 
-  toggleMute(shouldMute: boolean) {
+  mute(shouldMute: boolean) {
     Howler.mute(shouldMute);
   }
 
@@ -113,21 +113,21 @@ export class AudioPlayer {
   }
 
   getTimeRemaining(): number | null {
-    if (this.selectedTrack && isNumber(this.seek())) {
+    if (this.selectedTrack && isNumber(this.getSeekTimestamp())) {
       const duration = this.selectedTrack.howl.duration()!;
-      const seekTime = this.seek()!;
+      const seekTimestamp = this.getSeekTimestamp()!;
 
-      return calcTimeRemaining(duration, seekTime);
+      return calcTimeRemaining(duration, seekTimestamp);
     }
 
     return null;
   }
 
   getTimePlayed() {
-    const seekTime = this.seek();
+    const seekTimestamp = this.getSeekTimestamp();
 
-    if (seekTime && isNumber(seekTime)) {
-      return calcTimePlayed(seekTime);
+    if (seekTimestamp && isNumber(seekTimestamp)) {
+      return calcTimePlayed(seekTimestamp);
     }
 
     return null;
@@ -278,19 +278,32 @@ export class AudioPlayer {
   }
 
   /* 
-    Seeks to position if given number
-      Returns seek time
+    Seeks to a given timestamp
+      
+    Returns seek timestamp
   */
-  seek(position?: number): number | null {
+  seekToTimestamp(timestamp: number): number | null {
     if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
-      if (isNumber(position)) {
-        this.selectedTrack.howl.seek(position);
+      if (isNumber(timestamp)) {
+        this.selectedTrack.howl.seek(timestamp);
       }
 
-      const seekTime = this.selectedTrack.howl.seek();
+      const seekTimestamp = this.selectedTrack.howl.seek();
 
-      if (isNumber(seekTime)) {
-        return seekTime;
+      if (isNumber(seekTimestamp)) {
+        return seekTimestamp;
+      }
+    }
+
+    return null;
+  }
+
+  getSeekTimestamp(): number | null {
+    if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
+      const seekTimestamp = this.selectedTrack.howl.seek();
+
+      if (isNumber(seekTimestamp)) {
+        return seekTimestamp;
       }
     }
 

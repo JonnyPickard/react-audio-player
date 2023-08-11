@@ -49,10 +49,10 @@ describe("AudioPlayer", () => {
   });
 
   test("muteTrack should call Howler.mute with the provided value", async () => {
-    audioPlayer.toggleMute(true);
+    audioPlayer.mute(true);
     expect(Howler.mute).toHaveBeenCalledWith(true);
 
-    audioPlayer.toggleMute(false);
+    audioPlayer.mute(false);
     expect(Howler.mute).toHaveBeenCalledWith(false);
   });
 
@@ -240,7 +240,7 @@ describe("AudioPlayer", () => {
     const seekPosition = 30; // Seek to 30 seconds
     const mockSeek = vi.spyOn(Howl.prototype, "seek");
 
-    audioPlayer.seek(seekPosition);
+    audioPlayer.seekToTimestamp(seekPosition);
 
     expect(mockSeek).toHaveBeenCalledWith(seekPosition);
     mockSeek.mockRestore();
@@ -249,7 +249,7 @@ describe("AudioPlayer", () => {
   test("seek should not change the playback position if no track is loaded", () => {
     const mockSeek = vi.spyOn(Howl.prototype, "seek");
 
-    audioPlayer.seek(30);
+    audioPlayer.seekToTimestamp(30);
 
     expect(mockSeek).not.toHaveBeenCalled();
     mockSeek.mockRestore();
