@@ -1,15 +1,15 @@
 import { Howl, Howler } from "howler";
 import { Mock, vi } from "vitest";
 
-import { AudioPlayer, TrackDetails } from "./AudioPlayer";
+import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
 
 vi.mock("howler");
 
 describe("AudioPlayer", () => {
   let audioPlayer: AudioPlayer;
-  let trackDetails: TrackDetails;
-  let trackDetails1: TrackDetails;
-  let trackDetails2: TrackDetails;
+  let trackDetails: NewTrackDetails;
+  let trackDetails1: NewTrackDetails;
+  let trackDetails2: NewTrackDetails;
 
   beforeEach(() => {
     audioPlayer = new AudioPlayer({});
@@ -56,13 +56,13 @@ describe("AudioPlayer", () => {
     expect(Howler.mute).toHaveBeenCalledWith(false);
   });
 
-  test("loadTrack should create a new AudioTrack, add it trackList & set it as the loadedTrack", () => {
+  test("loadTrack should create a new AudioTrack, add it trackList & set it as the selectedTrack", () => {
     const track = audioPlayer.addTrackToTrackList(trackDetails, true);
     const trackList = audioPlayer.getTrackList();
 
     expect(trackList).toHaveLength(1);
     expect(trackList[0]).toMatchObject(trackDetails);
-    expect(audioPlayer.loadedTrack).toEqual(track);
+    expect(audioPlayer.selectedTrack).toEqual(track);
   });
 
   test("playTrack should return false when no track is playing", () => {
@@ -89,7 +89,7 @@ describe("AudioPlayer", () => {
 
   test("removeTrack should stop the currently loaded track if removed", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
-    const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "unload");
+    const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "unload");
 
     audioPlayer.removeTrack(trackDetails.url);
     expect(mockStop).toHaveBeenCalled();
@@ -97,7 +97,7 @@ describe("AudioPlayer", () => {
 
   test("removeTrack should not stop any track if the URL does not match", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
-    const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");
+    const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
     audioPlayer.removeTrack(trackDetails2.url);
     expect(mockStop).not.toHaveBeenCalled();
@@ -116,7 +116,7 @@ describe("AudioPlayer", () => {
 
     audioPlayer.playNextTrack();
     expect(mockNextTrackPlay).toHaveBeenCalled();
-    expect(audioPlayer.loadedTrack?.url).toBe(trackDetails2.url);
+    expect(audioPlayer.selectedTrack?.url).toBe(trackDetails2.url);
   });
 
   test("nextTrack should stop the currently loaded track before playing the next one", () => {
@@ -124,7 +124,7 @@ describe("AudioPlayer", () => {
       [trackDetails1, trackDetails2],
       true,
     );
-    const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");
+    const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
     audioPlayer.playNextTrack();
     expect(mockStop).toHaveBeenCalled();
@@ -145,7 +145,7 @@ describe("AudioPlayer", () => {
 
     audioPlayer.playPreviousTrack();
     expect(mockPrevTrackPlay).toHaveBeenCalled();
-    expect(audioPlayer.loadedTrack?.url).toBe(trackDetails1.url);
+    expect(audioPlayer.selectedTrack?.url).toBe(trackDetails1.url);
   });
 
   test("previousTrack should play the same track in the trackList if it's the first track", () => {
@@ -161,7 +161,7 @@ describe("AudioPlayer", () => {
 
     audioPlayer.playPreviousTrack();
     expect(mockPrevTrackPlay).toHaveBeenCalled();
-    expect(audioPlayer.loadedTrack?.url).toBe(trackDetails1.url);
+    expect(audioPlayer.selectedTrack?.url).toBe(trackDetails1.url);
   });
 
   test("previousTrack should stop the currently loaded track before playing the previous one", () => {
@@ -171,7 +171,7 @@ describe("AudioPlayer", () => {
     );
     audioPlayer.playNextTrack();
 
-    const mockStop = vi.spyOn(audioPlayer.loadedTrack!.howl, "stop");
+    const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
     audioPlayer.playPreviousTrack();
     expect(mockStop).toHaveBeenCalled();
@@ -192,21 +192,21 @@ describe("AudioPlayer", () => {
   //   expectTypeOf(audioPlayer.onTrackEndCallback).returns.toBeVoid();
   // });
 
-  test("playCurrentlyLoadedTrack should play the currently loaded track", () => {
+  test("playCurrentlySelectedTrack should play the currently loaded track", () => {
     const track = audioPlayer.createTrack(trackDetails);
-    audioPlayer.loadedTrack = track;
+    audioPlayer.selectedTrack = track;
     const playMock = vi.spyOn(Howl.prototype, "play");
 
-    audioPlayer.playCurrentlyLoadedTrack();
+    audioPlayer.playCurrentlySelectedTrack();
 
     expect(playMock).toHaveBeenCalled();
     playMock.mockRestore();
   });
 
-  test("playCurrentlyLoadedTrack should not play if no track is loaded", () => {
+  test("playCurrentlySelectedTrack should not play if no track is loaded", () => {
     const playMock = vi.spyOn(Howl.prototype, "play");
 
-    audioPlayer.playCurrentlyLoadedTrack();
+    audioPlayer.playCurrentlySelectedTrack();
 
     expect(playMock).not.toHaveBeenCalled();
     playMock.mockRestore();
@@ -214,7 +214,7 @@ describe("AudioPlayer", () => {
 
   test("pauseTrack should pause the currently loaded track", () => {
     const track = audioPlayer.createTrack(trackDetails);
-    audioPlayer.loadedTrack = track;
+    audioPlayer.selectedTrack = track;
     const pauseMock = vi.spyOn(Howl.prototype, "pause");
 
     audioPlayer.pauseTrack();
@@ -235,7 +235,7 @@ describe("AudioPlayer", () => {
   test("seek should change the current playback position", () => {
     vi.spyOn(Howl.prototype, "state").mockImplementationOnce(() => "loaded");
     const track = audioPlayer.createTrack(trackDetails);
-    audioPlayer.loadedTrack = track;
+    audioPlayer.selectedTrack = track;
 
     const seekPosition = 30; // Seek to 30 seconds
     const mockSeek = vi.spyOn(Howl.prototype, "seek");

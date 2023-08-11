@@ -1,8 +1,8 @@
-import { AudioPlayer, TrackDetails } from "./AudioPlayer";
+import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
 
 describe("AudioPlayer Volume", () => {
   let audioPlayer: AudioPlayer;
-  let trackDetails: TrackDetails;
+  let trackDetails: NewTrackDetails;
 
   beforeEach(() => {
     audioPlayer = new AudioPlayer({});

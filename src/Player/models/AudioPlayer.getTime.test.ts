@@ -1,10 +1,10 @@
 import * as howler from "howler";
 
-import { AudioPlayer, TrackDetails } from "./AudioPlayer";
+import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
 
 describe("AudioPlayer getTimeRemaining & getTimePlayed", () => {
   let audioPlayer: AudioPlayer;
-  let trackDetails: TrackDetails;
+  let trackDetails: NewTrackDetails;
 
   beforeEach(() => {
     audioPlayer = new AudioPlayer({});
@@ -30,7 +30,7 @@ describe("AudioPlayer getTimeRemaining & getTimePlayed", () => {
   test("should return correct time remaining while playing", () => {
     vi.spyOn(howler.Howl.prototype, "duration").mockReturnValue(300);
     vi.spyOn(howler.Howl.prototype, "state").mockReturnValue("loaded");
-    audioPlayer.playCurrentlyLoadedTrack();
+    audioPlayer.playCurrentlySelectedTrack();
 
     // Seek to 100 seconds (out of 300 total duration)
     vi.spyOn(howler.Howl.prototype, "seek").mockReturnValue(100);
@@ -57,7 +57,7 @@ describe("AudioPlayer getTimeRemaining & getTimePlayed", () => {
   });
 
   test("getTimePlayed should return correct time played while playing", () => {
-    audioPlayer.playCurrentlyLoadedTrack();
+    audioPlayer.playCurrentlySelectedTrack();
 
     // Seek to 50 seconds (out of total duration)
     vi.spyOn(howler.Howl.prototype, "state").mockReturnValue("loaded");

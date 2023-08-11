@@ -1,11 +1,11 @@
 import * as howler from "howler";
 
 import { AudioPlayerError } from "../constants/errors";
-import { AudioPlayer, TrackDetails } from "./AudioPlayer";
+import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
 
 describe("AudioPlayer getDurationAsync", () => {
   let audioPlayer: AudioPlayer;
-  let trackDetails: TrackDetails;
+  let trackDetails: NewTrackDetails;
 
   beforeEach(() => {
     audioPlayer = new AudioPlayer({});
@@ -49,7 +49,7 @@ describe("AudioPlayer getDurationAsync", () => {
     expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
       AudioPlayerError.LOAD_TRACK_FAILURE,
     );
-    audioPlayer.loadedTrack!.howl._emit("loaderror");
+    audioPlayer.selectedTrack!.howl._emit("loaderror");
   });
 
   test("should resolve with duration if tracks internal state becomes loaded", async () => {
@@ -60,6 +60,6 @@ describe("AudioPlayer getDurationAsync", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
 
     expect(audioPlayer.getDurationAsync()).resolves.toEqual(123);
-    audioPlayer.loadedTrack!.howl._emit("load");
+    audioPlayer.selectedTrack!.howl._emit("load");
   });
 });
