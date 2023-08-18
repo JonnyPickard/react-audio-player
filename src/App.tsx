@@ -1,9 +1,12 @@
 import { useState } from "react";
 
 import reactLogo from "./assets/react.svg";
+import { testTrack1 } from "./components/Player/fixtures/test-tracks";
+import { AudioPlayer } from "./components/Player/models/AudioPlayer";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [Player] = useState(() => new AudioPlayer());
+  const [trackList, setTrackList] = useState(Player.getTrackList());
 
   return (
     <>
@@ -13,10 +16,24 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <h2>Selected Track</h2>
+      {Player.getSelectedTrack()?.title}
+      <h2>Track List</h2>
+      <ul>
+        {trackList.map((track, i) => (
+          <li key={`tracklist-${i}`}>{track.title}</li>
+        ))}
+      </ul>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button
+          onClick={() => {
+            Player.addTrackToTrackList(testTrack1, true);
+            setTrackList(Player.getTrackList());
+          }}
+        >
+          Add Track
         </button>
+        <button onClick={() => Player.playSelectedTrack()}>Play Track</button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

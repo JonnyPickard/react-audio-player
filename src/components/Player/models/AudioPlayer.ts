@@ -17,21 +17,15 @@ export interface NewTrackDetails {
   artworkUrl?: string;
 }
 
-interface PlayerOptions {
-  initVolume?: number;
-}
-
 export class AudioPlayer {
   trackList: AudioTrack[];
   selectedTrack: AudioTrack | null;
   onTrackEndCallback: () => void;
 
-  constructor({ initVolume = 1 }: PlayerOptions) {
+  constructor() {
     this.trackList = [];
     this.selectedTrack = null;
     this.onTrackEndCallback = () => {};
-
-    Howler.volume(initVolume);
   }
 
   setOnTrackEndCallback(callback: () => void) {
@@ -62,6 +56,10 @@ export class AudioPlayer {
 
   getTrackList() {
     return clone(this.trackList);
+  }
+
+  getSelectedTrack() {
+    return this.selectedTrack;
   }
 
   getVolume() {
@@ -141,11 +139,14 @@ export class AudioPlayer {
     shouldSelectTrack: boolean = false,
   ): AudioTrack {
     const track = this.createTrack(details);
+    console.log("track", track);
 
     this.trackList.push(track);
 
     if (shouldSelectTrack) {
+      console.log("here");
       this.selectedTrack = track;
+      console.log(this.selectedTrack);
     }
 
     return track;
@@ -177,7 +178,11 @@ export class AudioPlayer {
     }
   }
 
+  // TODO: do nothing if already playing
   playSelectedTrack() {
+    console.log(this.selectedTrack);
+    console.log(this.getSelectedTrack());
+    console.log(this.trackList);
     if (this.selectedTrack) {
       this.selectedTrack.howl.play();
     }
