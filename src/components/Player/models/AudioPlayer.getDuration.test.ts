@@ -8,7 +8,7 @@ describe("AudioPlayer getDurationAsync", () => {
   let trackDetails: NewTrackDetails;
 
   beforeEach(() => {
-    audioPlayer = new AudioPlayer({});
+    audioPlayer = new AudioPlayer();
     trackDetails = {
       artist: "Artist 1",
       url: "test.mp3",

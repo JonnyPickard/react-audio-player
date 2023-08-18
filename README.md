@@ -16,3 +16,13 @@
 - Get the core player.ts functionality robust & add the tests back.
 - Remove specific project related code and replace with more generic code.
 - fix/ rework the ui.
+
+## Generate Type Docs
+
+Runs [typedoc](https://typedoc.org/) against the Player model code.
+
+Open `docs/index.html` to see the generated API documentation.
+
+```sh
+  npm run documentation
+```

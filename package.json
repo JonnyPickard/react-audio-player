@@ -11,7 +11,8 @@
     "format": "prettier . --write",
     "test": "vitest",
     "test:coverage": "vitest --coverage --ui --open",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "documentation": "typedoc src/components/Player/models/AudioPlayer.ts src/components/Player/models/AudioTrack.ts"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -54,6 +55,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "jsdom": "^22.1.0",
     "prettier": "^3.0.0",
+    "typedoc": "^0.24.8",
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vitest": "^0.33.0"

@@ -12,7 +12,7 @@ describe("AudioPlayer", () => {
   let trackDetails2: NewTrackDetails;
 
   beforeEach(() => {
-    audioPlayer = new AudioPlayer({});
+    audioPlayer = new AudioPlayer();
     trackDetails = {
       artist: "Test Artist",
       url: "test_url.mp3",
