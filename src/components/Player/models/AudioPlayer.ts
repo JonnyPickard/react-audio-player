@@ -2,6 +2,7 @@ import { Howler } from "howler";
 import clamp from "lodash.clamp";
 import clone from "lodash.clone";
 import remove from "lodash.remove";
+import { ILogObj, Logger } from "tslog";
 
 import { AudioPlayerError } from "../constants/errors";
 import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";
@@ -21,11 +22,22 @@ export class AudioPlayer {
   trackList: AudioTrack[];
   selectedTrack: AudioTrack | null;
   onTrackEndCallback: () => void;
+  logger: Logger<ILogObj>;
 
   constructor() {
     this.trackList = [];
     this.selectedTrack = null;
     this.onTrackEndCallback = () => {};
+    this.logger = new Logger({
+      /* 3: only show warn and above */
+      // minLevel: 3,
+      /* 
+        Hides all log output 
+        TODO: Probably want to use this by default unless DEBUG env is set?
+      */
+      type: "hidden",
+      name: "AudioPlayer",
+    });
   }
 
   setOnTrackEndCallback(callback: () => void) {
@@ -134,19 +146,20 @@ export class AudioPlayer {
     return this.trackList.find((track) => track && track.url === url);
   }
 
+  /* 
+    TODO: shouldSelectTrack
+    is probably cleaner as { selectTrack: boolean }
+  */
   addTrackToTrackList(
     details: NewTrackDetails,
     shouldSelectTrack: boolean = false,
   ): AudioTrack {
     const track = this.createTrack(details);
-    console.log("track", track);
 
     this.trackList.push(track);
 
     if (shouldSelectTrack) {
-      console.log("here");
       this.selectedTrack = track;
-      console.log(this.selectedTrack);
     }
 
     return track;
@@ -180,20 +193,29 @@ export class AudioPlayer {
 
   // TODO: do nothing if already playing
   playSelectedTrack() {
-    console.log(this.selectedTrack);
-    console.log(this.getSelectedTrack());
-    console.log(this.trackList);
+    console.log("playSelectedTrack selectedTrack", this.selectedTrack);
+    console.log("playSelectedTrack trackList", this.trackList);
+
     if (this.selectedTrack) {
+      if (this.selectedTrack.howl.playing()) {
+        this.logger.debug(
+          "playSelectedTrack: selectedTrack is already playing",
+        );
+        return;
+      }
       this.selectedTrack.howl.play();
     }
   }
 
+  /* Stops + resets seek timestamp to 0 */
   stopSelectedTrack() {
     if (this.selectedTrack) {
       this.selectedTrack.howl.stop();
     }
   }
 
+  /* Stops but keeps seek timestamp */
+  // TODO: pauseSelectedTrack rename
   pauseTrack() {
     if (this.selectedTrack) {
       this.selectedTrack.howl.pause();

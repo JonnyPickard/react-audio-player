@@ -34,13 +34,8 @@ function App() {
           Add Track
         </button>
         <button onClick={() => Player.playSelectedTrack()}>Play Track</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <button onClick={() => Player.stopSelectedTrack()}>Stop Track</button>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
