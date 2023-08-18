@@ -6,7 +6,6 @@
 
 ## TODO
 
-- [x] keep tracks immutable if new track is added make a new AudioTrack dont return the existing track object
 - [ ] Add some error logging to make it more obvious what issues are
 - [ ] Add some api documentation/ TSDOC autogenerate API spec?
 - [ ] Logical grouping of player elements
