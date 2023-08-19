@@ -23,7 +23,7 @@ describe("AudioPlayer Seek", () => {
 
   test("seekToTimestamp should change the current playback position", () => {
     vi.spyOn(Howl.prototype, "state").mockImplementationOnce(() => "loaded");
-    vi.spyOn(Howl.prototype, "seek").mockReturnValue(40);
+    vi.spyOn(Howl.prototype, "seek").mockReturnValueOnce(40);
     const track = audioPlayer.createTrack(trackDetails);
     audioPlayer.selectedTrack = track;
 
@@ -49,7 +49,7 @@ describe("AudioPlayer Seek", () => {
     vi.spyOn(Howl.prototype, "state").mockImplementationOnce(() => "loaded");
     const mockSeek = vi
       .spyOn(Howl.prototype, "seek")
-      .mockReturnValue({} as Howl);
+      .mockReturnValueOnce({} as Howl);
     audioPlayer.seekToTimestamp(30);
 
     expect(mockSeek).not.toHaveBeenCalled();

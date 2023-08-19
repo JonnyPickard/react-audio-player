@@ -8,3 +8,5 @@
 | selectedTrack | The track currently selected by the player to interact with. (Play, Pause etc...)               |
 
 <!-- https://www.tablesgenerator.com/markdown_tables -->
+
+<!-- TODO: Add informaation about seek timestamps -->

@@ -36,7 +36,7 @@ describe("AudioPlayer getDurationAsync", () => {
 
   test("should reject with an error if no selectedTrack", async () => {
     await expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
-      AudioPlayerError.NO_TRACK_LOADED,
+      AudioPlayerError.getDurationAsync.NO_TRACK_LOADED,
     );
   });
 
@@ -47,7 +47,7 @@ describe("AudioPlayer getDurationAsync", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
 
     expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
-      AudioPlayerError.LOAD_TRACK_FAILURE,
+      AudioPlayerError.getDurationAsync.LOAD_TRACK_FAILURE,
     );
     audioPlayer.selectedTrack!.howl._emit("loaderror");
   });

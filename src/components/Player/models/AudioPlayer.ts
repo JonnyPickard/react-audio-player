@@ -2,13 +2,16 @@ import { Howler } from "howler";
 import clamp from "lodash.clamp";
 import clone from "lodash.clone";
 import remove from "lodash.remove";
-import { ILogObj, Logger } from "tslog";
 
+import { logger } from "../../../services";
 import { AudioPlayerError } from "../constants/errors";
 import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";
 import { isNumber } from "../utils/isNumber";
 import { AudioTrack } from "./AudioTrack";
 
+/**
+ * Details required to create a new audio track.
+ */
 export interface NewTrackDetails {
   artist: string;
   url: string;
@@ -18,32 +21,52 @@ export interface NewTrackDetails {
   artworkUrl?: string;
 }
 
+/**
+ * AudioPlayer class for managing audio playback, track list and track information.
+ */
 export class AudioPlayer {
+  /**
+   * List of audio tracks managed by the player.
+   */
   trackList: AudioTrack[];
+  /**
+   * Currently selected audio track.
+   */
   selectedTrack: AudioTrack | null;
+  /**
+   * Callback function triggered when a track ends.
+   */
   onTrackEndCallback: () => void;
-  logger: Logger<ILogObj>;
+  /**
+   * Logger instance for the AudioPlayer class.
+   *
+   * Uses: {@link https://tslog.js.org/ | tslog}
+   */
+  logger;
 
-  constructor() {
+  /**
+   * Constructs an instance of the AudioPlayer class.
+   */
+  constructor(debug: boolean = false) {
     this.trackList = [];
     this.selectedTrack = null;
     this.onTrackEndCallback = () => {};
-    this.logger = new Logger({
-      /* 3: only show warn and above */
-      // minLevel: 3,
-      /* 
-        Hides all log output 
-        TODO: Probably want to use this by default unless DEBUG env is set?
-      */
-      type: "hidden",
-      name: "AudioPlayer",
-    });
+    this.logger = logger({ debug, name: "AudioPlayer" });
   }
 
+  /**
+   * Sets the callback function to be triggered when a track ends.
+   * @param callback - The callback function.
+   */
   setOnTrackEndCallback(callback: () => void) {
     this.onTrackEndCallback = callback;
   }
 
+  /**
+   * Creates a new AudioTrack instance based on provided track details.
+   * @param details - Details for the new track.
+   * @returns The created AudioTrack instance.
+   */
   createTrack({
     artist,
     url,
@@ -58,6 +81,10 @@ export class AudioPlayer {
     );
   }
 
+  /**
+   * Checks if any track is currently playing.
+   * @returns `true` if a track is playing, otherwise `false`.
+   */
   isPlaying(): boolean {
     if (this.selectedTrack === null) {
       return false;
@@ -66,18 +93,36 @@ export class AudioPlayer {
     return this.selectedTrack.howl.playing();
   }
 
+  /**
+   * Retrieves a copy of the track list.
+   * @returns A copy of the track list.
+   */
   getTrackList() {
+    // TODO: Maybe map here & only return relevent details?
     return clone(this.trackList);
   }
 
+  /**
+   * Retrieves the currently selected track.
+   * @returns The currently selected track.
+   */
   getSelectedTrack() {
     return this.selectedTrack;
   }
 
+  /**
+   * Retrieves the current volume level.
+   * @returns The current volume level.
+   */
   getVolume() {
     return Howler.volume();
   }
 
+  /**
+   * Sets the volume level for audio playback.
+   * @param volume - The new volume level (between 0 and 1).
+   * @returns The updated volume level.
+   */
   setVolume(volume: number) {
     /* Ensures volume is between 0 - 1 */
     Howler.volume(clamp(volume, 0, 1));
@@ -85,14 +130,24 @@ export class AudioPlayer {
     return Howler.volume();
   }
 
+  /**
+   * Mutes or unmutes the audio playback.
+   * @param shouldMute - Set to `true` to mute, `false` to unmute.
+   */
   mute(shouldMute: boolean) {
     Howler.mute(shouldMute);
   }
 
+  // TODO: maybe workout more gracefull errors for this?
+  /**
+   * Retrieves the duration of the currently selected track asynchronously.
+   * @returns A promise that resolves with the duration of the track.
+   * @throws {Error} If no track is loaded.
+   */
   getDurationAsync(): Promise<number> {
     return new Promise((resolve, reject) => {
       if (!this.selectedTrack) {
-        reject(new Error(AudioPlayerError.NO_TRACK_LOADED));
+        reject(new Error(AudioPlayerError.getDurationAsync.NO_TRACK_LOADED));
         return;
       }
 
@@ -108,7 +163,7 @@ export class AudioPlayer {
       const onError = () => {
         this.selectedTrack!.howl.off("load", onLoad);
         this.selectedTrack!.howl.off("loaderror", onError);
-        reject(new Error(AudioPlayerError.LOAD_TRACK_FAILURE));
+        reject(new Error(AudioPlayerError.getDurationAsync.LOAD_TRACK_FAILURE));
       };
 
       if (this.selectedTrack.howl.state() === "loaded") {
@@ -120,6 +175,10 @@ export class AudioPlayer {
     });
   }
 
+  /**
+   * Calculates the remaining time of the currently selected track.
+   * @returns The remaining time in seconds, or `null` if no track is selected.
+   */
   getTimeRemaining(): number | null {
     if (this.selectedTrack && isNumber(this.getSeekTimestamp())) {
       const duration = this.selectedTrack.howl.duration()!;
@@ -131,6 +190,10 @@ export class AudioPlayer {
     return null;
   }
 
+  /**
+   * Calculates the played time of the currently selected track.
+   * @returns The played time in seconds, or `null` if no track is selected.
+   */
   getTimePlayed() {
     const seekTimestamp = this.getSeekTimestamp();
 
@@ -141,7 +204,11 @@ export class AudioPlayer {
     return null;
   }
 
-  /* Finds track in the trackList */
+  /**
+   * Finds a track in the track list by its URL.
+   * @param url - The URL of the track.
+   * @returns The found AudioTrack instance, or `undefined` if not found.
+   */
   findTrackByUrl(url: string) {
     return this.trackList.find((track) => track && track.url === url);
   }
@@ -150,6 +217,12 @@ export class AudioPlayer {
     TODO: shouldSelectTrack
     is probably cleaner as { selectTrack: boolean }
   */
+  /**
+   * Adds a new track to the track list.
+   * @param details - Details of the new track.
+   * @param shouldSelectTrack - Set to `true` to select the added track, `false` by default.
+   * @returns The newly created AudioTrack instance.
+   */
   addTrackToTrackList(
     details: NewTrackDetails,
     shouldSelectTrack: boolean = false,
@@ -165,6 +238,11 @@ export class AudioPlayer {
     return track;
   }
 
+  /**
+   * Adds multiple tracks to the track list.
+   * @param tracks - Array of track details.
+   * @param shouldSelectTrack - Set to `true` to select the first added track, `false` by default.
+   */
   addMultipleTracksToTrackList(
     tracks: NewTrackDetails[],
     shouldSelectTrack: boolean = false,
@@ -184,6 +262,10 @@ export class AudioPlayer {
     }
   }
 
+  /**
+   * Plays the specified track.
+   * @param track - The track to be played.
+   */
   playTrack(track: AudioTrack) {
     if (track) {
       this.selectedTrack = track;
@@ -191,37 +273,52 @@ export class AudioPlayer {
     }
   }
 
-  // TODO: do nothing if already playing
+  /**
+   * Plays the currently selected track.
+   */
   playSelectedTrack() {
-    console.log("playSelectedTrack selectedTrack", this.selectedTrack);
-    console.log("playSelectedTrack trackList", this.trackList);
-
-    if (this.selectedTrack) {
-      if (this.selectedTrack.howl.playing()) {
-        this.logger.debug(
-          "playSelectedTrack: selectedTrack is already playing",
-        );
-        return;
-      }
-      this.selectedTrack.howl.play();
+    if (!this.selectedTrack) {
+      this.logger.log({
+        fn: "playSelectedTrack",
+        message: AudioPlayerError.playSelectedTrack.NO_TRACK_SELECTED,
+      });
+      return;
     }
+
+    if (this.isPlaying()) {
+      this.logger.log({
+        fn: "playSelectedTrack",
+        message: AudioPlayerError.playSelectedTrack.TRACK_ALREADY_PLAYING,
+      });
+      return;
+    }
+
+    this.selectedTrack.howl.play();
   }
 
-  /* Stops + resets seek timestamp to 0 */
+  /**
+   * Stops the currently selected track and resets its seek timestamp to 0.
+   */
   stopSelectedTrack() {
     if (this.selectedTrack) {
       this.selectedTrack.howl.stop();
     }
   }
 
-  /* Stops but keeps seek timestamp */
   // TODO: pauseSelectedTrack rename
+  /**
+   * Pauses the currently selected track at it's current seek timestamp.
+   */
   pauseTrack() {
     if (this.selectedTrack) {
       this.selectedTrack.howl.pause();
     }
   }
 
+  /**
+   * Removes a track from the track list by its URL.
+   * @param url - The URL of the track to be removed.
+   */
   removeTrackByUrl(url: string) {
     const track = this.findTrackByUrl(url);
 
@@ -235,6 +332,9 @@ export class AudioPlayer {
     }
   }
 
+  /**
+   * Removes all tracks from the track list and stops playback.
+   */
   removeAllTracks() {
     Howler.unload();
 
@@ -242,14 +342,17 @@ export class AudioPlayer {
     this.selectedTrack = null;
   }
 
+  /**
+   * Stops playback of all tracks.
+   */
   stopAllTracks() {
     Howler.stop();
   }
 
-  /* 
-    Check to see if its possible to skip forwards 
-    return falsy or next track
-  */
+  /**
+   * Retrieves the next track in the track list if available.
+   * @returns The next track or `null` if not available.
+   */
   getNextTrack() {
     if (this.trackList.length > 1 && this.selectedTrack) {
       const currentTrackIndex = this.trackList.indexOf(this.selectedTrack);
@@ -265,7 +368,10 @@ export class AudioPlayer {
     return null;
   }
 
-  /* Check to see if its possible to skip backwards */
+  /**
+   * Retrieves the previous track in the track list if available.
+   * @returns The previous track or `null` if not available.
+   */
   getPreviousTrack() {
     if (this.trackList.length > 1 && this.selectedTrack) {
       const currentTrackIndex = this.trackList.indexOf(this.selectedTrack);
@@ -281,9 +387,9 @@ export class AudioPlayer {
     return null;
   }
 
-  /* 
-    Adds + Loads the next track in the tracklist
-  */
+  /**
+   * Plays the next track in the track list.
+   */
   playNextTrack() {
     this.stopSelectedTrack();
     const nextTrack = this.getNextTrack();
@@ -293,6 +399,9 @@ export class AudioPlayer {
     }
   }
 
+  /**
+   * Plays the previous track in the track list or restarts the current track if it's the first.
+   */
   playPreviousTrack() {
     this.stopSelectedTrack();
     const previousTrack = this.getPreviousTrack();
@@ -306,11 +415,11 @@ export class AudioPlayer {
     }
   }
 
-  /* 
-    Seeks to a given timestamp
-      
-    Returns seek timestamp
-  */
+  /**
+   * Seeks to a specified timestamp in the currently selected track.
+   * @param timestamp - The timestamp to seek to in seconds.
+   * @returns The updated seek timestamp or `null` if seeking failed.
+   */
   seekToTimestamp(timestamp: number): number | null {
     if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
       if (isNumber(timestamp)) {
@@ -327,6 +436,10 @@ export class AudioPlayer {
     return null;
   }
 
+  /**
+   * Retrieves the current seek timestamp of the selected track.
+   * @returns The current seek timestamp in seconds or `null` if unavailable.
+   */
   getSeekTimestamp(): number | null {
     if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
       const seekTimestamp = this.selectedTrack.howl.seek();

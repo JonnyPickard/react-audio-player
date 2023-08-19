@@ -12,7 +12,8 @@
     "test": "vitest",
     "test:coverage": "vitest --coverage --ui --open",
     "preview": "vite preview",
-    "documentation": "typedoc src/components/Player/models/AudioPlayer.ts src/components/Player/models/AudioTrack.ts"
+    "documentation": "typedoc src/components/Player/models/AudioPlayer.ts src/components/Player/models/AudioTrack.ts",
+    "documentation:open": "open ./docs/index.html"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",

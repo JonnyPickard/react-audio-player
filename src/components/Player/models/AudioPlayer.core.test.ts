@@ -1,6 +1,8 @@
 import { Howl, Howler } from "howler";
+import { Logger } from "tslog";
 import { Mock, vi } from "vitest";
 
+import { AudioPlayerError } from "../constants/errors";
 import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
 
 vi.mock("howler");
@@ -74,7 +76,7 @@ describe("AudioPlayer", () => {
     const track = audioPlayer.createTrack(trackDetails);
     audioPlayer.playTrack(track);
     expect(track.howl.play).toHaveBeenCalled();
-    (track.howl.playing as Mock).mockReturnValue(true);
+    (track.howl.playing as Mock).mockReturnValueOnce(true);
     const isPlaying = audioPlayer.isPlaying();
     expect(isPlaying).toBe(true);
   });
@@ -192,15 +194,43 @@ describe("AudioPlayer", () => {
   //   expectTypeOf(audioPlayer.onTrackEndCallback).returns.toBeVoid();
   // });
 
-  test("playSelectedTrack should play the currently selectedTrack", () => {
-    const track = audioPlayer.createTrack(trackDetails);
-    audioPlayer.selectedTrack = track;
+  test("playSelectedTrack should play the currently selectedTrack if it's not playing", () => {
+    audioPlayer.addTrackToTrackList(trackDetails, true);
     const playMock = vi.spyOn(Howl.prototype, "play");
 
     audioPlayer.playSelectedTrack();
 
     expect(playMock).toHaveBeenCalled();
     playMock.mockRestore();
+  });
+
+  test("playSelectedTrack should do nothing & log if no track is selected", () => {
+    audioPlayer.addTrackToTrackList(trackDetails);
+    const playMock = vi.spyOn(Howl.prototype, "play");
+    const loggerMock = vi.spyOn(Logger.prototype, "debug");
+
+    audioPlayer.playSelectedTrack();
+
+    expect(playMock).not.toHaveBeenCalled();
+    expect(loggerMock).toHaveBeenCalledWith(
+      "playSelectedTrack: " +
+        AudioPlayerError.playSelectedTrack.NO_TRACK_SELECTED,
+    );
+    playMock.mockRestore();
+  });
+
+  test("playSelectedTrack should not play the currently selectedTrack if it is already playing", () => {
+    audioPlayer.addTrackToTrackList(trackDetails, true);
+    const playingMock = vi
+      .spyOn(Howl.prototype, "playing")
+      .mockReturnValue(true);
+    const playMock = vi.spyOn(Howl.prototype, "play");
+
+    audioPlayer.playSelectedTrack();
+
+    expect(playMock).not.toHaveBeenCalled();
+    playMock.mockRestore();
+    playingMock.mockRestore();
   });
 
   test("playSelectedTrack should not play if no track is selected", () => {
