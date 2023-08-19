@@ -247,7 +247,7 @@ describe("AudioPlayer", () => {
     audioPlayer.selectedTrack = track;
     const pauseMock = vi.spyOn(Howl.prototype, "pause");
 
-    audioPlayer.pauseTrack();
+    audioPlayer.pauseSelectedTrack();
 
     expect(pauseMock).toHaveBeenCalled();
     pauseMock.mockRestore();
@@ -256,7 +256,7 @@ describe("AudioPlayer", () => {
   test("pauseTrack should not pause if no track is selected", () => {
     const pauseMock = vi.spyOn(Howl.prototype, "pause");
 
-    audioPlayer.pauseTrack();
+    audioPlayer.pauseSelectedTrack();
 
     expect(pauseMock).not.toHaveBeenCalled();
     pauseMock.mockRestore();

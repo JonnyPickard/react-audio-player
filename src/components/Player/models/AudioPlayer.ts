@@ -99,6 +99,8 @@ export class AudioPlayer {
    */
   getTrackList() {
     // TODO: Maybe map here & only return relevent details?
+    // _pick function? or _omit
+    // Warning: I've used the getTrackList()[0].howl in a few tests
     return clone(this.trackList);
   }
 
@@ -305,11 +307,10 @@ export class AudioPlayer {
     }
   }
 
-  // TODO: pauseSelectedTrack rename
   /**
    * Pauses the currently selected track at it's current seek timestamp.
    */
-  pauseTrack() {
+  pauseSelectedTrack() {
     if (this.selectedTrack) {
       this.selectedTrack.howl.pause();
     }
