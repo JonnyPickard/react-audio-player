@@ -40,7 +40,7 @@ describe("AudioPlayer", () => {
   });
 
   test("createTrack should return a valid track", () => {
-    const track = audioPlayer.createTrack(trackDetails);
+    const track = audioPlayer["createTrack"](trackDetails);
 
     expect(track).toMatchObject({
       ...trackDetails,
@@ -73,7 +73,7 @@ describe("AudioPlayer", () => {
   });
 
   test("playTrack should return true when a track is playing", () => {
-    const track = audioPlayer.createTrack(trackDetails);
+    const track = audioPlayer["createTrack"](trackDetails);
     audioPlayer.playTrack(track);
     expect(track.howl.play).toHaveBeenCalled();
     (track.howl.playing as Mock).mockReturnValueOnce(true);
@@ -85,7 +85,7 @@ describe("AudioPlayer", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
     expect(audioPlayer.getTrackList()).toHaveLength(1);
 
-    audioPlayer.removeTrackByUrl(trackDetails.url);
+    audioPlayer["removeTrackByUrl"](trackDetails.url);
     expect(audioPlayer.getTrackList()).toHaveLength(0);
   });
 
@@ -93,7 +93,7 @@ describe("AudioPlayer", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "unload");
 
-    audioPlayer.removeTrackByUrl(trackDetails.url);
+    audioPlayer["removeTrackByUrl"](trackDetails.url);
     expect(mockStop).toHaveBeenCalled();
   });
 
@@ -101,7 +101,7 @@ describe("AudioPlayer", () => {
     audioPlayer.addTrackToTrackList(trackDetails, true);
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
-    audioPlayer.removeTrackByUrl(trackDetails2.url);
+    audioPlayer["removeTrackByUrl"](trackDetails2.url);
     expect(mockStop).not.toHaveBeenCalled();
   });
 
@@ -243,7 +243,7 @@ describe("AudioPlayer", () => {
   });
 
   test("pauseTrack should pause the currently selectedTrack", () => {
-    const track = audioPlayer.createTrack(trackDetails);
+    const track = audioPlayer["createTrack"](trackDetails);
     audioPlayer.selectedTrack = track;
     const pauseMock = vi.spyOn(Howl.prototype, "pause");
 

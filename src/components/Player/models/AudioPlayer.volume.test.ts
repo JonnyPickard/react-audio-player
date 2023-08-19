@@ -12,7 +12,7 @@ describe("AudioPlayer Volume", () => {
       title: "Track 1",
       label: "Label 1",
     };
-    audioPlayer.createTrack(trackDetails);
+    audioPlayer["createTrack"](trackDetails);
   });
 
   afterEach(() => {

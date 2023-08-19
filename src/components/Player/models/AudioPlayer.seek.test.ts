@@ -24,7 +24,7 @@ describe("AudioPlayer Seek", () => {
   test("seekToTimestamp should change the current playback position", () => {
     vi.spyOn(Howl.prototype, "state").mockImplementationOnce(() => "loaded");
     vi.spyOn(Howl.prototype, "seek").mockReturnValueOnce(40);
-    const track = audioPlayer.createTrack(trackDetails);
+    const track = audioPlayer["createTrack"](trackDetails);
     audioPlayer.selectedTrack = track;
 
     const seekPosition = 30; // Seek to 30 seconds

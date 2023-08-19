@@ -62,12 +62,15 @@ export class AudioPlayer {
     this.onTrackEndCallback = callback;
   }
 
+  /* TRACKLIST CONTROLS */
+  /* CRUD for tracklist */
+
   /**
    * Creates a new AudioTrack instance based on provided track details.
    * @param details - Details for the new track.
    * @returns The created AudioTrack instance.
    */
-  createTrack({
+  private createTrack({
     artist,
     url,
     title,
@@ -82,15 +85,31 @@ export class AudioPlayer {
   }
 
   /**
-   * Checks if any track is currently playing.
-   * @returns `true` if a track is playing, otherwise `false`.
+   * Finds a track in the track list by its URL.
+   * @param url - The URL of the track.
+   * @returns The found AudioTrack instance, or `undefined` if not found.
    */
-  isPlaying(): boolean {
-    if (this.selectedTrack === null) {
-      return false;
-    }
+  private findTrackByUrl(url: string) {
+    return this.trackList.find((track) => track && track.url === url);
+  }
 
-    return this.selectedTrack.howl.playing();
+  // TODO: Can now add multiple tracks with same URL
+  // removeAllTracksByUrl? removeFirstTrackByUrl?
+  /**
+   * Removes a track from the track list by its URL.
+   * @param url - The URL of the track to be removed.
+   */
+  private removeTrackByUrl(url: string) {
+    const track = this.findTrackByUrl(url);
+
+    if (track) {
+      if (track.id === this.selectedTrack?.id) {
+        this.selectedTrack.howl.unload();
+        this.selectedTrack = null;
+      }
+
+      remove(this.trackList, (t) => t && t.id === track.id);
+    }
   }
 
   /**
@@ -104,6 +123,55 @@ export class AudioPlayer {
     return clone(this.trackList);
   }
 
+  /* 
+    TODO: shouldSelectTrack
+    is probably cleaner as { selectTrack: boolean }
+  */
+  /**
+   * Adds a new track to the track list.
+   * @param details - Details of the new track.
+   * @param shouldSelectTrack - Set to `true` to select the added track, `false` by default.
+   * @returns The newly created AudioTrack instance.
+   */
+  addTrackToTrackList(
+    details: NewTrackDetails,
+    shouldSelectTrack: boolean = false,
+  ): AudioTrack {
+    const track = this.createTrack(details);
+
+    this.trackList.push(track);
+
+    if (shouldSelectTrack) {
+      this.selectedTrack = track;
+    }
+
+    return track;
+  }
+
+  /**
+   * Adds multiple tracks to the track list.
+   * @param tracks - Array of track details.
+   * @param shouldSelectTrack - Set to `true` to select the first added track, `false` by default.
+   */
+  addMultipleTracksToTrackList(
+    tracks: NewTrackDetails[],
+    shouldSelectTrack: boolean = false,
+  ) {
+    if (!tracks.length) {
+      return;
+    }
+
+    const trackList = tracks.map((trackDetails) =>
+      this.createTrack(trackDetails),
+    );
+
+    this.trackList.push(...trackList);
+
+    if (shouldSelectTrack) {
+      this.selectedTrack = trackList[0];
+    }
+  }
+
   /**
    * Retrieves the currently selected track.
    * @returns The currently selected track.
@@ -111,6 +179,58 @@ export class AudioPlayer {
   getSelectedTrack() {
     return this.selectedTrack;
   }
+
+  /**
+   * Retrieves the next track in the track list if available.
+   * @returns The next track or `null` if not available.
+   */
+  getNextTrack() {
+    if (this.trackList.length > 1 && this.selectedTrack) {
+      const currentTrackIndex = this.trackList.indexOf(this.selectedTrack);
+
+      const nextTrack = this.trackList[currentTrackIndex + 1];
+
+      /* If a track object exists at position + 1 */
+      if (nextTrack) {
+        return nextTrack;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Retrieves the previous track in the track list if available.
+   * @returns The previous track or `null` if not available.
+   */
+  getPreviousTrack() {
+    if (this.trackList.length > 1 && this.selectedTrack) {
+      const currentTrackIndex = this.trackList.indexOf(this.selectedTrack);
+
+      const previousTrack = this.trackList[currentTrackIndex - 1];
+
+      /* If a track object exists at position - 1 */
+      if (previousTrack) {
+        return previousTrack;
+      }
+    }
+
+    return null;
+  }
+
+  /**
+   * Removes all tracks from the track list and stops playback.
+   */
+  removeAllTracks() {
+    Howler.unload();
+
+    this.trackList = [];
+    this.selectedTrack = null;
+  }
+
+  /* END TRACKLIST CONTROLS */
+
+  /* PLAYER GLOBAL CONTROLS */
 
   /**
    * Retrieves the current volume level.
@@ -138,6 +258,27 @@ export class AudioPlayer {
    */
   mute(shouldMute: boolean) {
     Howler.mute(shouldMute);
+  }
+
+  /**
+   * Stops playback of all tracks and resets their seek timestamps to 0.
+   */
+  stopAllTracks() {
+    Howler.stop();
+  }
+
+  /* END PLAYER GLOBAL CONTROLS */
+
+  /**
+   * Checks if any track is currently playing.
+   * @returns `true` if a track is playing, otherwise `false`.
+   */
+  isPlaying(): boolean {
+    if (this.selectedTrack === null) {
+      return false;
+    }
+
+    return this.selectedTrack.howl.playing();
   }
 
   // TODO: maybe workout more gracefull errors for this?
@@ -207,64 +348,6 @@ export class AudioPlayer {
   }
 
   /**
-   * Finds a track in the track list by its URL.
-   * @param url - The URL of the track.
-   * @returns The found AudioTrack instance, or `undefined` if not found.
-   */
-  findTrackByUrl(url: string) {
-    return this.trackList.find((track) => track && track.url === url);
-  }
-
-  /* 
-    TODO: shouldSelectTrack
-    is probably cleaner as { selectTrack: boolean }
-  */
-  /**
-   * Adds a new track to the track list.
-   * @param details - Details of the new track.
-   * @param shouldSelectTrack - Set to `true` to select the added track, `false` by default.
-   * @returns The newly created AudioTrack instance.
-   */
-  addTrackToTrackList(
-    details: NewTrackDetails,
-    shouldSelectTrack: boolean = false,
-  ): AudioTrack {
-    const track = this.createTrack(details);
-
-    this.trackList.push(track);
-
-    if (shouldSelectTrack) {
-      this.selectedTrack = track;
-    }
-
-    return track;
-  }
-
-  /**
-   * Adds multiple tracks to the track list.
-   * @param tracks - Array of track details.
-   * @param shouldSelectTrack - Set to `true` to select the first added track, `false` by default.
-   */
-  addMultipleTracksToTrackList(
-    tracks: NewTrackDetails[],
-    shouldSelectTrack: boolean = false,
-  ) {
-    if (!tracks.length) {
-      return;
-    }
-
-    const trackList = tracks.map((trackDetails) =>
-      this.createTrack(trackDetails),
-    );
-
-    this.trackList.push(...trackList);
-
-    if (shouldSelectTrack) {
-      this.selectedTrack = trackList[0];
-    }
-  }
-
-  /**
    * Plays the specified track.
    * @param track - The track to be played.
    */
@@ -314,78 +397,6 @@ export class AudioPlayer {
     if (this.selectedTrack) {
       this.selectedTrack.howl.pause();
     }
-  }
-
-  /**
-   * Removes a track from the track list by its URL.
-   * @param url - The URL of the track to be removed.
-   */
-  removeTrackByUrl(url: string) {
-    const track = this.findTrackByUrl(url);
-
-    if (track) {
-      if (track.id === this.selectedTrack?.id) {
-        this.selectedTrack.howl.unload();
-        this.selectedTrack = null;
-      }
-
-      remove(this.trackList, (t) => t && t.id === track.id);
-    }
-  }
-
-  /**
-   * Removes all tracks from the track list and stops playback.
-   */
-  removeAllTracks() {
-    Howler.unload();
-
-    this.trackList = [];
-    this.selectedTrack = null;
-  }
-
-  /**
-   * Stops playback of all tracks.
-   */
-  stopAllTracks() {
-    Howler.stop();
-  }
-
-  /**
-   * Retrieves the next track in the track list if available.
-   * @returns The next track or `null` if not available.
-   */
-  getNextTrack() {
-    if (this.trackList.length > 1 && this.selectedTrack) {
-      const currentTrackIndex = this.trackList.indexOf(this.selectedTrack);
-
-      const nextTrack = this.trackList[currentTrackIndex + 1];
-
-      /* If a track object exists at position + 1 */
-      if (nextTrack) {
-        return nextTrack;
-      }
-    }
-
-    return null;
-  }
-
-  /**
-   * Retrieves the previous track in the track list if available.
-   * @returns The previous track or `null` if not available.
-   */
-  getPreviousTrack() {
-    if (this.trackList.length > 1 && this.selectedTrack) {
-      const currentTrackIndex = this.trackList.indexOf(this.selectedTrack);
-
-      const previousTrack = this.trackList[currentTrackIndex - 1];
-
-      /* If a track object exists at position - 1 */
-      if (previousTrack) {
-        return previousTrack;
-      }
-    }
-
-    return null;
   }
 
   /**
