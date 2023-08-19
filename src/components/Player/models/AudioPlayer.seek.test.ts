@@ -30,7 +30,7 @@ describe("AudioPlayer Seek", () => {
     const seekPosition = 30; // Seek to 30 seconds
     const mockSeek = vi.spyOn(Howl.prototype, "seek");
 
-    audioPlayer.seekToTimestamp(seekPosition);
+    audioPlayer.seekToTimestampForSelectedTrack(seekPosition);
 
     expect(mockSeek).toHaveBeenCalledWith(seekPosition);
     mockSeek.mockRestore();
@@ -39,7 +39,7 @@ describe("AudioPlayer Seek", () => {
   test("seekToTimestamp should not change the playback position if no track is loaded", () => {
     const mockSeek = vi.spyOn(Howl.prototype, "seek");
 
-    audioPlayer.seekToTimestamp(30);
+    audioPlayer.seekToTimestampForSelectedTrack(30);
 
     expect(mockSeek).not.toHaveBeenCalled();
     mockSeek.mockRestore();
@@ -50,7 +50,7 @@ describe("AudioPlayer Seek", () => {
     const mockSeek = vi
       .spyOn(Howl.prototype, "seek")
       .mockReturnValueOnce({} as Howl);
-    audioPlayer.seekToTimestamp(30);
+    audioPlayer.seekToTimestampForSelectedTrack(30);
 
     expect(mockSeek).not.toHaveBeenCalled();
     mockSeek.mockRestore();

@@ -3,7 +3,7 @@ import * as howler from "howler";
 import { AudioPlayerError } from "../constants/errors";
 import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
 
-describe("AudioPlayer getDurationAsync", () => {
+describe("AudioPlayer getSelectedTrackDurationAsync", () => {
   let audioPlayer: AudioPlayer;
   let trackDetails: NewTrackDetails;
 
@@ -29,14 +29,16 @@ describe("AudioPlayer getDurationAsync", () => {
 
     audioPlayer.addTrackToTrackList(trackDetails, true);
 
-    const duration = await audioPlayer.getDurationAsync();
+    const duration = await audioPlayer.getSelectedTrackDurationAsync();
 
     expect(duration).toBe(123);
   });
 
   test("should reject with an error if no selectedTrack", async () => {
-    await expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
-      AudioPlayerError.getDurationAsync.NO_TRACK_LOADED,
+    await expect(
+      audioPlayer.getSelectedTrackDurationAsync(),
+    ).rejects.toThrowError(
+      AudioPlayerError.getSelectedTrackDurationAsync.NO_TRACK_LOADED,
     );
   });
 
@@ -46,8 +48,8 @@ describe("AudioPlayer getDurationAsync", () => {
     );
     audioPlayer.addTrackToTrackList(trackDetails, true);
 
-    expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
-      AudioPlayerError.getDurationAsync.LOAD_TRACK_FAILURE,
+    expect(audioPlayer.getSelectedTrackDurationAsync()).rejects.toThrowError(
+      AudioPlayerError.getSelectedTrackDurationAsync.LOAD_TRACK_FAILURE,
     );
     audioPlayer.selectedTrack!.howl._emit("loaderror");
   });
@@ -59,7 +61,7 @@ describe("AudioPlayer getDurationAsync", () => {
     vi.spyOn(howler.Howl.prototype, "duration").mockImplementation(() => 123);
     audioPlayer.addTrackToTrackList(trackDetails, true);
 
-    expect(audioPlayer.getDurationAsync()).resolves.toEqual(123);
+    expect(audioPlayer.getSelectedTrackDurationAsync()).resolves.toEqual(123);
     audioPlayer.selectedTrack!.howl._emit("load");
   });
 });

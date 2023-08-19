@@ -173,14 +173,6 @@ export class AudioPlayer {
   }
 
   /**
-   * Retrieves the currently selected track.
-   * @returns The currently selected track.
-   */
-  getSelectedTrack() {
-    return this.selectedTrack;
-  }
-
-  /**
    * Retrieves the next track in the track list if available.
    * @returns The next track or `null` if not available.
    */
@@ -269,11 +261,20 @@ export class AudioPlayer {
 
   /* END PLAYER GLOBAL CONTROLS */
 
+  /* SELECTED TRACK CONTROLS */
+  /**
+   * Retrieves the currently selected track.
+   * @returns The currently selected track.
+   */
+  getSelectedTrack() {
+    return this.selectedTrack;
+  }
+
   /**
    * Checks if any track is currently playing.
    * @returns `true` if a track is playing, otherwise `false`.
    */
-  isPlaying(): boolean {
+  selectedTrackIsPlaying(): boolean {
     if (this.selectedTrack === null) {
       return false;
     }
@@ -287,10 +288,14 @@ export class AudioPlayer {
    * @returns A promise that resolves with the duration of the track.
    * @throws {Error} If no track is loaded.
    */
-  getDurationAsync(): Promise<number> {
+  getSelectedTrackDurationAsync(): Promise<number> {
     return new Promise((resolve, reject) => {
       if (!this.selectedTrack) {
-        reject(new Error(AudioPlayerError.getDurationAsync.NO_TRACK_LOADED));
+        reject(
+          new Error(
+            AudioPlayerError.getSelectedTrackDurationAsync.NO_TRACK_LOADED,
+          ),
+        );
         return;
       }
 
@@ -306,7 +311,11 @@ export class AudioPlayer {
       const onError = () => {
         this.selectedTrack!.howl.off("load", onLoad);
         this.selectedTrack!.howl.off("loaderror", onError);
-        reject(new Error(AudioPlayerError.getDurationAsync.LOAD_TRACK_FAILURE));
+        reject(
+          new Error(
+            AudioPlayerError.getSelectedTrackDurationAsync.LOAD_TRACK_FAILURE,
+          ),
+        );
       };
 
       if (this.selectedTrack.howl.state() === "loaded") {
@@ -322,10 +331,10 @@ export class AudioPlayer {
    * Calculates the remaining time of the currently selected track.
    * @returns The remaining time in seconds, or `null` if no track is selected.
    */
-  getTimeRemaining(): number | null {
-    if (this.selectedTrack && isNumber(this.getSeekTimestamp())) {
+  getSelectedTrackTimeRemaining(): number | null {
+    if (this.selectedTrack && isNumber(this.getSelectedTrackSeekTimestamp())) {
       const duration = this.selectedTrack.howl.duration()!;
-      const seekTimestamp = this.getSeekTimestamp()!;
+      const seekTimestamp = this.getSelectedTrackSeekTimestamp()!;
 
       return calcTimeRemaining(duration, seekTimestamp);
     }
@@ -337,8 +346,8 @@ export class AudioPlayer {
    * Calculates the played time of the currently selected track.
    * @returns The played time in seconds, or `null` if no track is selected.
    */
-  getTimePlayed() {
-    const seekTimestamp = this.getSeekTimestamp();
+  getSelectedTrackTimePlayed() {
+    const seekTimestamp = this.getSelectedTrackSeekTimestamp();
 
     if (seekTimestamp && isNumber(seekTimestamp)) {
       return calcTimePlayed(seekTimestamp);
@@ -351,7 +360,7 @@ export class AudioPlayer {
    * Plays the specified track.
    * @param track - The track to be played.
    */
-  playTrack(track: AudioTrack) {
+  selectAndPlayTrack(track: AudioTrack) {
     if (track) {
       this.selectedTrack = track;
       this.selectedTrack.howl.play();
@@ -370,7 +379,7 @@ export class AudioPlayer {
       return;
     }
 
-    if (this.isPlaying()) {
+    if (this.selectedTrackIsPlaying()) {
       this.logger.log({
         fn: "playSelectedTrack",
         message: AudioPlayerError.playSelectedTrack.TRACK_ALREADY_PLAYING,
@@ -402,29 +411,45 @@ export class AudioPlayer {
   /**
    * Plays the next track in the track list.
    */
-  playNextTrack() {
+  selectAndPlayNextTrack() {
     this.stopSelectedTrack();
     const nextTrack = this.getNextTrack();
 
     if (nextTrack) {
-      this.playTrack(nextTrack);
+      this.selectAndPlayTrack(nextTrack);
     }
   }
 
   /**
    * Plays the previous track in the track list or restarts the current track if it's the first.
    */
-  playPreviousTrack() {
+  selectAndPlayPreviousTrack() {
     this.stopSelectedTrack();
     const previousTrack = this.getPreviousTrack();
 
     if (previousTrack) {
-      this.playTrack(previousTrack);
+      this.selectAndPlayTrack(previousTrack);
     }
     // Restart track on backwards click if first track in trackList
     if (!previousTrack && this.selectedTrack) {
-      this.playTrack(this.selectedTrack);
+      this.selectAndPlayTrack(this.selectedTrack);
     }
+  }
+
+  /**
+   * Retrieves the current seek timestamp of the selected track.
+   * @returns The current seek timestamp in seconds or `null` if unavailable.
+   */
+  getSelectedTrackSeekTimestamp(): number | null {
+    if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
+      const seekTimestamp = this.selectedTrack.howl.seek();
+
+      if (isNumber(seekTimestamp)) {
+        return seekTimestamp;
+      }
+    }
+
+    return null;
   }
 
   /**
@@ -432,7 +457,7 @@ export class AudioPlayer {
    * @param timestamp - The timestamp to seek to in seconds.
    * @returns The updated seek timestamp or `null` if seeking failed.
    */
-  seekToTimestamp(timestamp: number): number | null {
+  seekToTimestampForSelectedTrack(timestamp: number): number | null {
     if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
       if (isNumber(timestamp)) {
         this.selectedTrack.howl.seek(timestamp);
@@ -447,20 +472,5 @@ export class AudioPlayer {
 
     return null;
   }
-
-  /**
-   * Retrieves the current seek timestamp of the selected track.
-   * @returns The current seek timestamp in seconds or `null` if unavailable.
-   */
-  getSeekTimestamp(): number | null {
-    if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
-      const seekTimestamp = this.selectedTrack.howl.seek();
-
-      if (isNumber(seekTimestamp)) {
-        return seekTimestamp;
-      }
-    }
-
-    return null;
-  }
+  /* END SELECTED TRACK CONTROLS */
 }

@@ -68,17 +68,17 @@ describe("AudioPlayer", () => {
   });
 
   test("playTrack should return false when no track is playing", () => {
-    const isPlaying = audioPlayer.isPlaying();
-    expect(isPlaying).toBe(false);
+    const selectedTrackIsPlaying = audioPlayer.selectedTrackIsPlaying();
+    expect(selectedTrackIsPlaying).toBe(false);
   });
 
   test("playTrack should return true when a track is playing", () => {
     const track = audioPlayer["createTrack"](trackDetails);
-    audioPlayer.playTrack(track);
+    audioPlayer.selectAndPlayTrack(track);
     expect(track.howl.play).toHaveBeenCalled();
     (track.howl.playing as Mock).mockReturnValueOnce(true);
-    const isPlaying = audioPlayer.isPlaying();
-    expect(isPlaying).toBe(true);
+    const selectedTrackIsPlaying = audioPlayer.selectedTrackIsPlaying();
+    expect(selectedTrackIsPlaying).toBe(true);
   });
 
   test("removeTrackByUrl should remove a track from the trackList", () => {
@@ -116,7 +116,7 @@ describe("AudioPlayer", () => {
       "play",
     );
 
-    audioPlayer.playNextTrack();
+    audioPlayer.selectAndPlayNextTrack();
     expect(mockNextTrackPlay).toHaveBeenCalled();
     expect(audioPlayer.selectedTrack?.url).toBe(trackDetails2.url);
   });
@@ -128,7 +128,7 @@ describe("AudioPlayer", () => {
     );
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
-    audioPlayer.playNextTrack();
+    audioPlayer.selectAndPlayNextTrack();
     expect(mockStop).toHaveBeenCalled();
   });
 
@@ -138,14 +138,14 @@ describe("AudioPlayer", () => {
       true,
     );
 
-    audioPlayer.playNextTrack();
+    audioPlayer.selectAndPlayNextTrack();
 
     const mockPrevTrackPlay = vi.spyOn(
       audioPlayer.getTrackList()[0]!.howl,
       "play",
     );
 
-    audioPlayer.playPreviousTrack();
+    audioPlayer.selectAndPlayPreviousTrack();
     expect(mockPrevTrackPlay).toHaveBeenCalled();
     expect(audioPlayer.selectedTrack?.url).toBe(trackDetails1.url);
   });
@@ -161,7 +161,7 @@ describe("AudioPlayer", () => {
       "play",
     );
 
-    audioPlayer.playPreviousTrack();
+    audioPlayer.selectAndPlayPreviousTrack();
     expect(mockPrevTrackPlay).toHaveBeenCalled();
     expect(audioPlayer.selectedTrack?.url).toBe(trackDetails1.url);
   });
@@ -171,11 +171,11 @@ describe("AudioPlayer", () => {
       [trackDetails1, trackDetails2],
       true,
     );
-    audioPlayer.playNextTrack();
+    audioPlayer.selectAndPlayNextTrack();
 
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
-    audioPlayer.playPreviousTrack();
+    audioPlayer.selectAndPlayPreviousTrack();
     expect(mockStop).toHaveBeenCalled();
   });
 
