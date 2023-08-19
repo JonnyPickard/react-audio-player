@@ -360,10 +360,10 @@ export class AudioPlayer {
    * Plays the specified track.
    * @param track - The track to be played.
    */
-  selectAndPlayTrack(track: AudioTrack) {
+  private selectAndPlayTrack(track: AudioTrack) {
     if (track) {
       this.selectedTrack = track;
-      this.selectedTrack.howl.play();
+      this.playSelectedTrack();
     }
   }
 

@@ -74,7 +74,7 @@ describe("AudioPlayer", () => {
 
   test("playTrack should return true when a track is playing", () => {
     const track = audioPlayer["createTrack"](trackDetails);
-    audioPlayer.selectAndPlayTrack(track);
+    audioPlayer["selectAndPlayTrack"](track);
     expect(track.howl.play).toHaveBeenCalled();
     (track.howl.playing as Mock).mockReturnValueOnce(true);
     const selectedTrackIsPlaying = audioPlayer.selectedTrackIsPlaying();
