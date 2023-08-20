@@ -3,12 +3,12 @@ import * as howler from "howler";
 import { AudioPlayerError } from "../constants/errors";
 import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
 
-describe("AudioPlayer getDurationAsync", () => {
+describe("AudioPlayer getSelectedTrackDurationAsync", () => {
   let audioPlayer: AudioPlayer;
   let trackDetails: NewTrackDetails;
 
   beforeEach(() => {
-    audioPlayer = new AudioPlayer({});
+    audioPlayer = new AudioPlayer();
     trackDetails = {
       artist: "Artist 1",
       url: "test.mp3",
@@ -27,16 +27,18 @@ describe("AudioPlayer getDurationAsync", () => {
     vi.spyOn(howler.Howl.prototype, "state").mockImplementation(() => "loaded");
     vi.spyOn(howler.Howl.prototype, "duration").mockImplementation(() => 123);
 
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
 
-    const duration = await audioPlayer.getDurationAsync();
+    const duration = await audioPlayer.getSelectedTrackDurationAsync();
 
     expect(duration).toBe(123);
   });
 
   test("should reject with an error if no selectedTrack", async () => {
-    await expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
-      AudioPlayerError.NO_TRACK_LOADED,
+    await expect(
+      audioPlayer.getSelectedTrackDurationAsync(),
+    ).rejects.toThrowError(
+      AudioPlayerError.getSelectedTrackDurationAsync.NO_TRACK_LOADED,
     );
   });
 
@@ -44,10 +46,10 @@ describe("AudioPlayer getDurationAsync", () => {
     vi.spyOn(howler.Howl.prototype, "state").mockImplementation(
       () => "unloaded",
     );
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
 
-    expect(audioPlayer.getDurationAsync()).rejects.toThrowError(
-      AudioPlayerError.LOAD_TRACK_FAILURE,
+    expect(audioPlayer.getSelectedTrackDurationAsync()).rejects.toThrowError(
+      AudioPlayerError.getSelectedTrackDurationAsync.LOAD_TRACK_FAILURE,
     );
     audioPlayer.selectedTrack!.howl._emit("loaderror");
   });
@@ -57,9 +59,9 @@ describe("AudioPlayer getDurationAsync", () => {
       () => "unloaded",
     );
     vi.spyOn(howler.Howl.prototype, "duration").mockImplementation(() => 123);
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
 
-    expect(audioPlayer.getDurationAsync()).resolves.toEqual(123);
+    expect(audioPlayer.getSelectedTrackDurationAsync()).resolves.toEqual(123);
     audioPlayer.selectedTrack!.howl._emit("load");
   });
 });

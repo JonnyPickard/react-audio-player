@@ -5,14 +5,14 @@ describe("AudioPlayer Volume", () => {
   let trackDetails: NewTrackDetails;
 
   beforeEach(() => {
-    audioPlayer = new AudioPlayer({});
+    audioPlayer = new AudioPlayer();
     trackDetails = {
       artist: "Artist 1",
       url: "test.mp3",
       title: "Track 1",
       label: "Label 1",
     };
-    audioPlayer.createTrack(trackDetails);
+    audioPlayer["createTrack"](trackDetails);
   });
 
   afterEach(() => {

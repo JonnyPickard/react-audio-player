@@ -1,4 +1,4 @@
-import techno from "../../assets/techno.mp3";
+import techno from "../../../assets/techno.mp3";
 
 export const testTrack1 = {
   url: techno,
@@ -9,6 +9,13 @@ export const testTrack1 = {
 };
 
 export const testTrack2 = {
+  url: techno,
+  title: "Test Track 2",
+  label: "Label 2",
+  artist: "Artist 2",
+};
+
+export const testTrack3 = {
   url: techno,
   title: "Test Track 2",
   label: "Label 2",
