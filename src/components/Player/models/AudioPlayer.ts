@@ -89,18 +89,15 @@ export class AudioPlayer {
    * @param url - The URL of the track.
    * @returns The found AudioTrack instance, or `undefined` if not found.
    */
-  private findTrackByUrl(url: string) {
+  private findFirstTrackByUrl(url: string) {
     return this.trackList.find((track) => track && track.url === url);
   }
-
-  // TODO: Can now add multiple tracks with same URL
-  // removeAllTracksByUrl? removeFirstTrackByUrl?
   /**
    * Removes a track from the track list by its URL.
    * @param url - The URL of the track to be removed.
    */
-  private removeTrackByUrl(url: string) {
-    const track = this.findTrackByUrl(url);
+  private removeFirstTrackByUrl(url: string) {
+    const track = this.findFirstTrackByUrl(url);
 
     if (track) {
       if (track.id === this.selectedTrack?.id) {
@@ -123,25 +120,22 @@ export class AudioPlayer {
     return clone(this.trackList);
   }
 
-  /* 
-    TODO: shouldSelectTrack
-    is probably cleaner as { selectTrack: boolean }
-  */
   /**
    * Adds a new track to the track list.
    * @param details - Details of the new track.
-   * @param shouldSelectTrack - Set to `true` to select the added track, `false` by default.
+   * @param options - Additional options for track addition.
+   * @param options.selectTrack - Set to `true` to select the added track, `false` by default.
    * @returns The newly created AudioTrack instance.
    */
   addTrackToTrackList(
     details: NewTrackDetails,
-    shouldSelectTrack: boolean = false,
+    { selectTrack } = { selectTrack: false },
   ): AudioTrack {
     const track = this.createTrack(details);
 
     this.trackList.push(track);
 
-    if (shouldSelectTrack) {
+    if (selectTrack) {
       this.selectedTrack = track;
     }
 
@@ -150,12 +144,18 @@ export class AudioPlayer {
 
   /**
    * Adds multiple tracks to the track list.
-   * @param tracks - Array of track details.
-   * @param shouldSelectTrack - Set to `true` to select the first added track, `false` by default.
+   *
+   * @param tracks - An array of track details to be added.
+   * @param options - Additional options for track addition.
+   * @param options.selectTrack - Set to `true` to select the first added track, `false` by default.
+   *
+   * @remarks
+   * This function adds multiple tracks to the track list and optionally selects one of them as the
+   * currently playing track.
    */
   addMultipleTracksToTrackList(
     tracks: NewTrackDetails[],
-    shouldSelectTrack: boolean = false,
+    { selectTrack } = { selectTrack: false },
   ) {
     if (!tracks.length) {
       return;
@@ -167,7 +167,7 @@ export class AudioPlayer {
 
     this.trackList.push(...trackList);
 
-    if (shouldSelectTrack) {
+    if (selectTrack) {
       this.selectedTrack = trackList[0];
     }
   }

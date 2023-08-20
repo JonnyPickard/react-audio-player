@@ -27,7 +27,7 @@ function App() {
       <div className="card">
         <button
           onClick={() => {
-            Player.addTrackToTrackList(testTrack1, true);
+            Player.addTrackToTrackList(testTrack1, { selectTrack: true });
             setTrackList(Player.getTrackList());
           }}
         >

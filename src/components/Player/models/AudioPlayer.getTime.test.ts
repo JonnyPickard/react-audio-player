@@ -14,7 +14,7 @@ describe("AudioPlayer getSelectedTrackTimeRemaining & getSelectedTrackTimePlayed
       title: "Track 1",
       label: "Label 1",
     };
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
   });
 
   afterEach(() => {

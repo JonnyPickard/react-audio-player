@@ -59,7 +59,9 @@ describe("AudioPlayer", () => {
   });
 
   test("loadTrack should create a new AudioTrack, add it trackList & set it as the selectedTrack", () => {
-    const track = audioPlayer.addTrackToTrackList(trackDetails, true);
+    const track = audioPlayer.addTrackToTrackList(trackDetails, {
+      selectTrack: true,
+    });
     const trackList = audioPlayer.getTrackList();
 
     expect(trackList).toHaveLength(1);
@@ -81,35 +83,34 @@ describe("AudioPlayer", () => {
     expect(selectedTrackIsPlaying).toBe(true);
   });
 
-  test("removeTrackByUrl should remove a track from the trackList", () => {
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+  test("removeFirstTrackByUrl should remove a track from the trackList", () => {
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
     expect(audioPlayer.getTrackList()).toHaveLength(1);
 
-    audioPlayer["removeTrackByUrl"](trackDetails.url);
+    audioPlayer["removeFirstTrackByUrl"](trackDetails.url);
     expect(audioPlayer.getTrackList()).toHaveLength(0);
   });
 
-  test("removeTrackByUrl should stop the currently selectedTrack if removed", () => {
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+  test("removeFirstTrackByUrl should stop the currently selectedTrack if removed", () => {
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "unload");
 
-    audioPlayer["removeTrackByUrl"](trackDetails.url);
+    audioPlayer["removeFirstTrackByUrl"](trackDetails.url);
     expect(mockStop).toHaveBeenCalled();
   });
 
-  test("removeTrackByUrl should not stop any track if the URL does not match", () => {
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+  test("removeFirstTrackByUrl should not stop any track if the URL does not match", () => {
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
-    audioPlayer["removeTrackByUrl"](trackDetails2.url);
+    audioPlayer["removeFirstTrackByUrl"](trackDetails2.url);
     expect(mockStop).not.toHaveBeenCalled();
   });
 
   test("nextTrack should play the next track in the trackList", () => {
-    audioPlayer.addMultipleTracksToTrackList(
-      [trackDetails1, trackDetails2],
-      true,
-    );
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2], {
+      selectTrack: true,
+    });
 
     const mockNextTrackPlay = vi.spyOn(
       audioPlayer.getTrackList()[1]!.howl,
@@ -122,10 +123,9 @@ describe("AudioPlayer", () => {
   });
 
   test("nextTrack should stop the currently selectedTrack before playing the next one", () => {
-    audioPlayer.addMultipleTracksToTrackList(
-      [trackDetails1, trackDetails2],
-      true,
-    );
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2], {
+      selectTrack: true,
+    });
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
 
     audioPlayer.selectAndPlayNextTrack();
@@ -133,10 +133,9 @@ describe("AudioPlayer", () => {
   });
 
   test("previousTrack should play the previous track in the trackList", () => {
-    audioPlayer.addMultipleTracksToTrackList(
-      [trackDetails1, trackDetails2],
-      true,
-    );
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2], {
+      selectTrack: true,
+    });
 
     audioPlayer.selectAndPlayNextTrack();
 
@@ -151,10 +150,9 @@ describe("AudioPlayer", () => {
   });
 
   test("previousTrack should play the same track in the trackList if it's the first track", () => {
-    audioPlayer.addMultipleTracksToTrackList(
-      [trackDetails1, trackDetails2],
-      true,
-    );
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2], {
+      selectTrack: true,
+    });
 
     const mockPrevTrackPlay = vi.spyOn(
       audioPlayer.getTrackList()[0]!.howl,
@@ -167,10 +165,9 @@ describe("AudioPlayer", () => {
   });
 
   test("previousTrack should stop the currently selectedTrack before playing the previous one", () => {
-    audioPlayer.addMultipleTracksToTrackList(
-      [trackDetails1, trackDetails2],
-      true,
-    );
+    audioPlayer.addMultipleTracksToTrackList([trackDetails1, trackDetails2], {
+      selectTrack: true,
+    });
     audioPlayer.selectAndPlayNextTrack();
 
     const mockStop = vi.spyOn(audioPlayer.selectedTrack!.howl, "stop");
@@ -195,7 +192,7 @@ describe("AudioPlayer", () => {
   // });
 
   test("playSelectedTrack should play the currently selectedTrack if it's not playing", () => {
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
     const playMock = vi.spyOn(Howl.prototype, "play");
 
     audioPlayer.playSelectedTrack();
@@ -220,7 +217,7 @@ describe("AudioPlayer", () => {
   });
 
   test("playSelectedTrack should not play the currently selectedTrack if it is already playing", () => {
-    audioPlayer.addTrackToTrackList(trackDetails, true);
+    audioPlayer.addTrackToTrackList(trackDetails, { selectTrack: true });
     const playingMock = vi
       .spyOn(Howl.prototype, "playing")
       .mockReturnValue(true);
