@@ -2,20 +2,19 @@
 
 ## About
 
-- Porting over the Audio player from an old project (Currently not in a great state).
+Having written an audio player in the past, under strict time constraints, I wanted to see if I can make a better one.
+
+Currently in a fairly rough sudo state!
 
 ## TODO
 
-- [ ] Add some error logging to make it more obvious what issues are
-- [ ] Add some api documentation/ TSDOC autogenerate API spec?
-  - [ ] [typedoc](https://typedoc.org/)
-- [ ] Logical grouping of player elements
-
-## Getting this ready for production
-
-- Get the core player.ts functionality robust & add the tests back.
-- Remove specific project related code and replace with more generic code.
-- fix/ rework the ui.
+- [ ] Create the underlying logic required for a UI to function.
+  - [x] Create basic OO class structure for the player.
+    - [x] Logical grouping of player elements
+    - [x] Add basic tests.
+  - [x] Add some api documentation/ TSDOC autogenerate API spec
+    - [x] [typedoc](https://typedoc.org/)
+  - [ ] Add more error logging to make it more obvious what issues are
 
 ## Generate Type Docs
 
