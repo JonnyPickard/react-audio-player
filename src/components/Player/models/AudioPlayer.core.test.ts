@@ -112,10 +112,7 @@ describe("AudioPlayer", () => {
       selectTrack: true,
     });
 
-    const mockNextTrackPlay = vi.spyOn(
-      audioPlayer.getTrackList()[1]!.howl,
-      "play",
-    );
+    const mockNextTrackPlay = vi.spyOn(audioPlayer.trackList[1]!.howl, "play");
 
     audioPlayer.selectAndPlayNextTrack();
     expect(mockNextTrackPlay).toHaveBeenCalled();
@@ -139,10 +136,7 @@ describe("AudioPlayer", () => {
 
     audioPlayer.selectAndPlayNextTrack();
 
-    const mockPrevTrackPlay = vi.spyOn(
-      audioPlayer.getTrackList()[0]!.howl,
-      "play",
-    );
+    const mockPrevTrackPlay = vi.spyOn(audioPlayer.trackList[0].howl, "play");
 
     audioPlayer.selectAndPlayPreviousTrack();
     expect(mockPrevTrackPlay).toHaveBeenCalled();
@@ -154,10 +148,7 @@ describe("AudioPlayer", () => {
       selectTrack: true,
     });
 
-    const mockPrevTrackPlay = vi.spyOn(
-      audioPlayer.getTrackList()[0]!.howl,
-      "play",
-    );
+    const mockPrevTrackPlay = vi.spyOn(audioPlayer.trackList[0].howl, "play");
 
     audioPlayer.selectAndPlayPreviousTrack();
     expect(mockPrevTrackPlay).toHaveBeenCalled();

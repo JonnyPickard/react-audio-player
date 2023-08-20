@@ -1,10 +1,10 @@
 import { Howler } from "howler";
 import clamp from "lodash.clamp";
-import clone from "lodash.clone";
 import remove from "lodash.remove";
 
 import { logger } from "../../../services";
 import { AudioPlayerError } from "../constants/errors";
+import { cleanTrackData } from "../utils/cleanTrackData";
 import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";
 import { isNumber } from "../utils/isNumber";
 import { AudioTrack } from "./AudioTrack";
@@ -92,6 +92,7 @@ export class AudioPlayer {
   private findFirstTrackByUrl(url: string) {
     return this.trackList.find((track) => track && track.url === url);
   }
+
   /**
    * Removes a track from the track list by its URL.
    * @param url - The URL of the track to be removed.
@@ -110,14 +111,11 @@ export class AudioPlayer {
   }
 
   /**
-   * Retrieves a copy of the track list.
+   * Retrieves a copy of the track list without the 'howl' property.
    * @returns A copy of the track list.
    */
   getTrackList() {
-    // TODO: Maybe map here & only return relevent details?
-    // _pick function? or _omit
-    // Warning: I've used the getTrackList()[0].howl in a few tests
-    return clone(this.trackList);
+    return this.trackList.map(cleanTrackData);
   }
 
   /**
