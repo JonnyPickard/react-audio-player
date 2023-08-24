@@ -12,16 +12,21 @@ Currently in a fairly rough sudo state!
   - [x] Create basic OO class structure for the player.
     - [x] Logical grouping of player elements
     - [x] Add basic tests.
-  - [x] Add some api documentation/ TSDOC autogenerate API spec
+  - [x] Add some api documentation/ TSDOC autogenerate API spec.
     - [x] [typedoc](https://typedoc.org/)
-  - [ ] Add more error logging to make it more obvious what issues are
+  - [ ] Add more error logging to make it more obvious what issues are.
+  - [ ] UI Designs/ Blueprints to check all required logic exists.
 
 ## Generate Type Docs
-
-Runs [typedoc](https://typedoc.org/) against the Player model code.
-
-Open `docs/index.html` to see the generated API documentation.
 
 ```sh
   npm run documentation
 ```
+
+Runs [typedoc](https://typedoc.org/) against the Player model code.
+
+```sh
+  npm run documentation:open
+```
+
+Opens `docs/index.html` to see the generated API documentation.
