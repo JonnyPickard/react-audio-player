@@ -8,7 +8,6 @@ import { v4 } from "uuid";
 export interface TrackOptions {
   title: string;
   artist: string;
-  /* Under vendor in shopify fields */
   label: string;
   url: string;
   /* Url to navigate to Product page*/
