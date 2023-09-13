@@ -15,7 +15,13 @@ Currently in a fairly rough sudo state!
   - [x] Add some api documentation/ TSDOC autogenerate API spec.
     - [x] [typedoc](https://typedoc.org/)
   - [ ] Add more error logging to make it more obvious what issues are.
-  - [ ] UI Designs/ Blueprints to check all required logic exists.
+  - [x] UI Designs/ Blueprints to check all required logic exists.
+
+## Wireframes
+
+<p align="center">
+  <img src="./docs/designs/ReactAudioPlayer.drawio.png" alt="Wireframes" style="max-width:600px;">
+</p>
 
 ## Generate Type Docs
 
