@@ -4,7 +4,7 @@
 
 Having written an audio player in the past, under strict time constraints, I wanted to see if I can make a better one.
 
-Currently in a fairly rough sudo state!
+I will potentially end up open-sourcing this, as there seems to be a need for something along these lines.
 
 ## TODO
 
@@ -16,6 +16,7 @@ Currently in a fairly rough sudo state!
     - [x] [typedoc](https://typedoc.org/)
   - [ ] Add more error logging to make it more obvious what issues are.
   - [x] UI Designs/ Blueprints to check all required logic exists.
+- [ ] Static pages site to host the api documentation, designs & player demo.
 
 ## Wireframes
 
