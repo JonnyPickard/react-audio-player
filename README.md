@@ -35,4 +35,4 @@ Runs [typedoc](https://typedoc.org/) against the Player model code.
   npm run documentation:open
 ```
 
-Opens `docs/index.html` to see the generated API documentation.
+Opens `docs/typedoc/index.html` to see the generated API documentation.
