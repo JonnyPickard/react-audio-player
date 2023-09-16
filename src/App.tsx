@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div css={styles.app}>
-      <a css={styles.iconLink} href="/react-audio-player/typedoc">
+      <a css={styles.iconLink} href="/react-audio-player/typedoc/index.html">
         <img
           css={styles.icon}
           src={typedocLogo}
