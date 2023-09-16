@@ -18,10 +18,12 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
     - [x] [typedoc](https://typedoc.org/)
   - [ ] Add more error logging to make it more obvious what issues are.
   - [x] UI Designs/ Blueprints to check all required logic exists.
-- [ ] **Repo/ Docs/ Demos**
+- [ ] **Repo/ Docs/ Demos/ Publishing**
   - [x] Create basic static pages site w/ cd pipeline to host the api documentation, designs & player demo.
+  - [ ] Optimise output to publish to NPM. Potentially also split out player API if users want to create their own GUI's for it.
 - [ ] **Frontend**
-  - [ ] Setup/ create theme + design tokens
+  - [ ] Setup/ create theme solution + design tokens.
+  - [ ] Customizable icon solution.
 
 ## Wireframes
 
