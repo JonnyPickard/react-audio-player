@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import reactLogo from "./assets/react.svg";
+import * as styles from "./App.styles";
+import typedocLogo from "./assets/typedoc.svg";
 import { testTrack1 } from "./components/Player/fixtures/test-tracks";
 import { AudioPlayer } from "./components/Player/models/AudioPlayer";
 
@@ -11,8 +12,17 @@ function App() {
   return (
     <>
       <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a
+          css={styles.iconLink}
+          href="/react-audio-player/typedoc"
+          target="_blank"
+        >
+          <img
+            css={styles.icon}
+            src={typedocLogo}
+            alt="Typedoc API documentation"
+          />
+          Typedoc API documentation
         </a>
       </div>
       <h1>Vite + React</h1>

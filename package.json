@@ -13,7 +13,7 @@
     "test": "vitest",
     "test:coverage": "vitest --coverage --ui --open",
     "preview": "vite preview",
-    "documentation": "typedoc --out ./docs/typedoc src/components/Player/models/AudioPlayer.ts src/components/Player/models/AudioTrack.ts",
+    "documentation:generate": "typedoc --out ./docs/typedoc src/components/Player/models/AudioPlayer.ts src/components/Player/models/AudioTrack.ts",
     "documentation:open": "open ./docs/typedoc/index.html"
   },
   "dependencies": {

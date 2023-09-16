@@ -42,7 +42,7 @@ jobs:
         run: npm run build
       - name: Generate Documentation
         run: |
-          npm run documentation
+          npm run documentation:generate
           cp -R ./docs/typedoc ./dist/typedoc
       - name: Setup Pages
         uses: actions/configure-pages@v3

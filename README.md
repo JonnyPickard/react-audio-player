@@ -27,7 +27,7 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
 ## Generate Type Docs
 
 ```sh
-  npm run documentation
+  npm run documentation:generate
 ```
 
 Runs [typedoc](https://typedoc.org/) against the Player model code.
