@@ -1,5 +1,7 @@
 # React Audio Player
 
+Demo + API documentation: [React Audio Player](https://jonnypickard.github.io/react-audio-player)
+
 ## About
 
 Having written an audio player in the past, under strict time constraints, I wanted to see if I can make a better one.
@@ -8,7 +10,7 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
 
 ## TODO
 
-- [ ] Create the underlying logic required for a UI to function.
+- [ ] **API** - Create the underlying logic required for a UI to function.
   - [x] Create basic OO class structure for the player.
     - [x] Logical grouping of player elements
     - [x] Add basic tests.
@@ -16,7 +18,10 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
     - [x] [typedoc](https://typedoc.org/)
   - [ ] Add more error logging to make it more obvious what issues are.
   - [x] UI Designs/ Blueprints to check all required logic exists.
-- [ ] Static pages site to host the api documentation, designs & player demo.
+- [ ] **Repo/ Docs/ Demos**
+  - [x] Create basic static pages site w/ cd pipeline to host the api documentation, designs & player demo.
+- [ ] **Frontend**
+  - [ ] Setup/ create theme + design tokens
 
 ## Wireframes
 
@@ -27,7 +32,7 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
 ## Generate Type Docs
 
 ```sh
-  npm run documentation
+  npm run documentation:generate
 ```
 
 Runs [typedoc](https://typedoc.org/) against the Player model code.

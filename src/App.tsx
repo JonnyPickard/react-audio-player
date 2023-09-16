@@ -1,6 +1,7 @@
 import { useState } from "react";
 
-import reactLogo from "./assets/react.svg";
+import * as styles from "./App.styles";
+import typedocLogo from "./assets/typedoc.svg";
 import { testTrack1 } from "./components/Player/fixtures/test-tracks";
 import { AudioPlayer } from "./components/Player/models/AudioPlayer";
 
@@ -9,13 +10,16 @@ function App() {
   const [trackList, setTrackList] = useState(Player.getTrackList());
 
   return (
-    <>
-      <div>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
+    <div css={styles.app}>
+      <a css={styles.iconLink} href="/react-audio-player/typedoc">
+        <img
+          css={styles.icon}
+          src={typedocLogo}
+          alt="Typedoc API documentation"
+        />
+        Typedoc API documentation
+      </a>
+      <h1>React Audio Player</h1>
       <h2>Selected Track</h2>
       {Player.getSelectedTrack()?.title}
       <h2>Track List</h2>
@@ -24,7 +28,7 @@ function App() {
           <li key={`tracklist-${i}`}>{track.title}</li>
         ))}
       </ul>
-      <div className="card">
+      <div>
         <button
           onClick={() => {
             Player.addTrackToTrackList(testTrack1, { selectTrack: true });
@@ -36,7 +40,7 @@ function App() {
         <button onClick={() => Player.playSelectedTrack()}>Play Track</button>
         <button onClick={() => Player.stopSelectedTrack()}>Stop Track</button>
       </div>
-    </>
+    </div>
   );
 }
 
