@@ -1,5 +1,9 @@
 import { css } from "@emotion/react";
 
+export const app = css`
+  font-family: Arial, Helvetica, sans-serif;
+`;
+
 export const iconLink = css`
   display: flex;
   align-items: center;
