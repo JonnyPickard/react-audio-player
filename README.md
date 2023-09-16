@@ -1,5 +1,7 @@
 # React Audio Player
 
+Demo + API documentation: [React Audio Player](https://jonnypickard.github.io/react-audio-player)
+
 ## About
 
 Having written an audio player in the past, under strict time constraints, I wanted to see if I can make a better one.

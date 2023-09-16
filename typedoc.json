@@ -1,5 +1,3 @@
 {
-  "sidebarLinks": {
-    "Player": "/react-audio-player"
-  }
+  "titleLink": "/react-audio-player"
 }
