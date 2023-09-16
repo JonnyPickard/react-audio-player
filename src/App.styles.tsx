@@ -4,7 +4,8 @@ export const app = css`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-export const iconLink = css`
+export const iconLink = (theme) => css`
+  background: ${theme.color};
   display: flex;
   align-items: center;
 `;
