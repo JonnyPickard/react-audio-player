@@ -40,6 +40,10 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+      - name: Generate Documentation
+        run: |
+          npm run documentation
+          cp -R ./docs/typedoc ./dist/typedoc
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
