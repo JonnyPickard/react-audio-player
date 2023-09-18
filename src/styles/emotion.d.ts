@@ -1,11 +1,8 @@
 import "@emotion/react";
 
+import { theme } from "./theme";
+
 declare module "@emotion/react" {
-  export interface Theme {
-    color: {
-      primary: string;
-      positive: string;
-      negative: string;
-    };
-  }
+  type Custom = typeof theme;
+  export interface Theme extends Custom {}
 }

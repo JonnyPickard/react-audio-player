@@ -5,13 +5,14 @@ import * as styles from "./App.styles";
 import typedocLogo from "./assets/typedoc.svg";
 import { testTrack1 } from "./components/Player/fixtures/test-tracks";
 import { AudioPlayer } from "./components/Player/models/AudioPlayer";
+import { theme } from "./styles/theme";
 
 function App() {
   const [Player] = useState(() => new AudioPlayer());
   const [trackList, setTrackList] = useState(Player.getTrackList());
 
   return (
-    <ThemeProvider theme={{ color: "blue" }}>
+    <ThemeProvider theme={theme}>
       <div css={styles.app}>
         <a css={styles.iconLink} href="/react-audio-player/typedoc/index.html">
           <img
