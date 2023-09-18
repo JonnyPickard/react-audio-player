@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
+    "paths": {
+      "theme": ["./src/styles/theme"],
+      "assets/*": ["./src/assets/*"]
+    },
     "inlineSourceMap": true,
     "jsxImportSource": "@emotion/react",
     "target": "ES2020",
