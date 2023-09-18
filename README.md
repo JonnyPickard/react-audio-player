@@ -1,11 +1,10 @@
 # React Audio Player
 
+Backup Branch
+
 ## About
 
-- Porting over the Audio player from an old project (Currently not in a great state).
+Having written an audio player in the past, under strict time constraints, I wanted to see if I can make a better one.
 
-## Getting this ready for production
+I will potentially end up open-sourcing this, as there seems to be a need for something along these lines.
 
-- Get the core player.ts functionality robust & add the tests back.
-- Remove specific project related code and replace with more generic code.
-- fix/ rework the ui.
