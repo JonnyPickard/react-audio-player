@@ -1,11 +1,13 @@
-import { Theme, css } from "@emotion/react";
+import { css } from "@emotion/react";
+
+import { theme } from "./styles/theme";
 
 export const app = css`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-export const iconLink = (theme: Theme) => css`
-  background: ${theme.colors.grayscale.black};
+export const iconLink = css`
+  background: ${theme.colors.grayscale.shadedWhite};
   display: flex;
   align-items: center;
 `;
