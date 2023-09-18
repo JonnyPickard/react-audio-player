@@ -1,1 +1,13 @@
-export const theme = {};
+import { grayscale } from "./colors";
+import { mediaQuery } from "./mediaQuery";
+import { spacing } from "./spacing";
+import { typography } from "./typography";
+
+export const theme = {
+  colors: {
+    grayscale,
+  },
+  typography,
+  spacing,
+  mediaQuery,
+};

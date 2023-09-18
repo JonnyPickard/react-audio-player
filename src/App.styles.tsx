@@ -1,11 +1,11 @@
-import { css } from "@emotion/react";
+import { Theme, css } from "@emotion/react";
 
 export const app = css`
   font-family: Arial, Helvetica, sans-serif;
 `;
 
-export const iconLink = (theme) => css`
-  background: ${theme.color};
+export const iconLink = (theme: Theme) => css`
+  background: ${theme.colors.grayscale.black};
   display: flex;
   align-items: center;
 `;
