@@ -1,4 +1,4 @@
-import typedocLogo from "assets/icons/typedoc.svg";
+import typedocLogo from "assets/icons/brands/typedoc.svg";
 import { useState } from "react";
 
 import * as styles from "./App.styles";
