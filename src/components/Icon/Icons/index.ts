@@ -2,3 +2,8 @@ export * from "./PauseCircle";
 export * from "./PlayCircle";
 export * from "./StepBackward";
 export * from "./StepForward";
+export * from "./AngleDown";
+export * from "./AngleUp";
+export * from "./VolumeHigh";
+export * from "./VolumeLow";
+export * from "./VolumeMuted";
