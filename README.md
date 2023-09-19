@@ -44,3 +44,11 @@ Runs [typedoc](https://typedoc.org/) against the Player model code.
 ```
 
 Opens `docs/typedoc/index.html` to see the generated API documentation.
+
+## Dependency Choices
+
+### Chakra UI - Component Library
+
+Instead of manually creating specific components with all required features as a first pass I've decided to use Chakra UI.
+
+The main benefits of Chakra are significant time-saved. And the ability to handle all of the UI-related requirements without having to install multiple dependencies.
