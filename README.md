@@ -24,6 +24,23 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
 - [ ] **Frontend**
   - [ ] Setup/ create theme solution + design tokens.
   - [ ] Customizable icon solution.
+  - [ ] Components (First Pass)
+    - [ ] Atoms
+      - [ ] Image
+      - [ ] Icon
+      - [ ] IconButton
+      - [ ] IconButton
+      - [ ] Text
+      - [ ] Timestamp
+      - [ ] Slider
+    - [ ] Molecules
+      - [ ] Track Details
+      - [ ] Track Controls
+        - [ ] Playback Controls
+        - [ ] Seek Bar
+      - [ ] Player Global Controls
+        - [ ] Volume Bar
+    - [ ] Organisms (Player)
 
 ## Wireframes
 
@@ -51,4 +68,4 @@ Opens `docs/typedoc/index.html` to see the generated API documentation.
 
 Instead of manually creating specific components with all required features as a first pass I've decided to use Chakra UI.
 
-The main benefits of Chakra are significant time-saved. And the ability to handle all of the UI-related requirements without having to install multiple dependencies.
+The main benefits of Chakra are significant time-saved. And the ability to handle all of the UI-related requirements without having to install multiple dependencies. Finally, it has rich accessibility features built in.
