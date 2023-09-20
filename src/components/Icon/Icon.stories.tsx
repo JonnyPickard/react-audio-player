@@ -5,7 +5,6 @@ import * as icons from "./Icons";
 
 const meta: Meta<typeof icons.ChevronDown> = {
   title: "Icon",
-  tags: ["autodocs"],
 };
 
 export default meta;
@@ -40,12 +39,13 @@ export const Icon: Story = {
   },
   argTypes: {
     iconName: {
+      name: "Icon Name",
       options: Object.keys(iconList),
       control: {
         type: "select",
       },
       table: {
-        type: { summary: "select" },
+        type: { summary: "The name of the icon to render" },
         defaultValue: { summary: "ChevronDown" },
       },
     },
