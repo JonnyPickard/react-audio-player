@@ -15,12 +15,15 @@ type IconPropsAndCustomArgs = React.ComponentProps<typeof icons.ChevronDown> & {
 
 type Story = StoryObj<IconPropsAndCustomArgs>;
 
+// TODO: Unified location to import this from
 const iconList = {
   ChevronDown: icons.ChevronDown,
   ChevronUp: icons.ChevronUp,
   PauseCircle: icons.PauseCircle,
   PlayCircle: icons.PlayCircle,
   Repeat: icons.Repeat,
+  SkipBackward: icons.SkipBackward,
+  SkipForward: icons.SkipForward,
   StepBackward: icons.StepBackward,
   StepForward: icons.StepForward,
   VolumeHigh: icons.VolumeHigh,
