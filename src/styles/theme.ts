@@ -1,17 +1,13 @@
 import { extendTheme } from "@chakra-ui/react";
 
 import { grayscale } from "./colors";
-import { mediaQuery } from "./mediaQuery";
-import { spacing } from "./spacing";
 import { typography } from "./typography";
 
-export const theme = {
+// Has to adhere to this structure:
+// https://github.com/chakra-ui/chakra-ui/blob/main/packages/components/theme/src/foundations/index.ts
+export const theme = extendTheme({
   colors: {
     grayscale,
   },
   ...typography,
-  spacing,
-  mediaQuery,
-};
-
-export const chakraTheme = extendTheme(theme);
+});
