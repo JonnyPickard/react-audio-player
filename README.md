@@ -28,8 +28,7 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
     - [ ] Atoms
       - [ ] Image
       - [ ] Icon
-      - [ ] IconButton
-      - [ ] IconButton
+      - [ ] IconButton (w/ Tooltip)
       - [ ] Text
       - [ ] Timestamp
       - [ ] Slider
