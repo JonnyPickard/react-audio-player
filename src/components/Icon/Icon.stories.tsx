@@ -45,7 +45,7 @@ export const Icon: Story = {
         type: "select",
       },
       table: {
-        type: { summary: "The name of the icon to render" },
+        type: { summary: "[Story only] The icon to render" },
         defaultValue: { summary: "ChevronDown" },
       },
     },

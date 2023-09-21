@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { PlayCircle } from "../Icon";
 import { IconButton } from "./IconButton";
 
 const meta = {
@@ -14,4 +15,9 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Primary: Story = {};
+export const Primary: Story = {
+  args: {
+    icon: <PlayCircle />,
+    "aria-label": PlayCircle.name,
+  },
+};
