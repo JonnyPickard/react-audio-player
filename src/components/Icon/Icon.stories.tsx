@@ -33,7 +33,7 @@ export const Icon: Story = {
   render: ({ iconName }) => {
     const SelectedIcon = iconList[iconName] || iconList.ChevronDown;
 
-    return <SelectedIcon boxSize={20} bg={"grayscale.almostBlack"} />;
+    return <SelectedIcon boxSize={20} />;
   },
   parameters: {
     layout: "centered",

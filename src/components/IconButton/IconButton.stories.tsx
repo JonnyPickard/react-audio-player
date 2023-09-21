@@ -1,23 +1,23 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { PlayCircle } from "../Icon";
-import { IconButton } from "./IconButton";
+import * as IconButtonComponent from "./IconButton";
 
 const meta = {
   title: "IconButton",
-  component: IconButton,
   parameters: {
     layout: "centered",
   },
-  tags: ["autodocs"],
-} satisfies Meta<typeof IconButton>;
+} satisfies Meta<typeof IconButtonComponent.IconButton>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
+type Story = StoryObj<typeof IconButtonComponent.IconButton>;
 
-export const Primary: Story = {
+export const IconButton: Story = {
+  render: (props) => <IconButtonComponent.IconButton {...props} />,
   args: {
-    icon: <PlayCircle />,
-    "aria-label": PlayCircle.name,
+    // TODO: Define size constants for icons/ buttons etc
+    icon: <PlayCircle boxSize={8} />,
+    "aria-label": "Play Track",
   },
 };
