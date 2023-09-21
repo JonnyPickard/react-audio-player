@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
+// import { grayscale } from "../../styles/colors";
 import * as icons from "./Icons";
 
 const meta: Meta<typeof icons.ChevronDown> = {
@@ -32,7 +33,7 @@ export const Icon: Story = {
   render: ({ iconName }) => {
     const SelectedIcon = iconList[iconName] || iconList.ChevronDown;
 
-    return <SelectedIcon boxSize={20} />;
+    return <SelectedIcon boxSize={20} bg={"grayscale.almostBlack"} />;
   },
   parameters: {
     layout: "centered",
