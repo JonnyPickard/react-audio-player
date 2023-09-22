@@ -2,9 +2,10 @@
 name: Deploy static content to Pages
 
 on:
+  "push"
   # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+  # push:
+  #   branches: ["main"]
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
@@ -40,6 +41,10 @@ jobs:
         run: |
           npm run documentation:generate
           cp -R ./docs/typedoc ./dist/typedoc
+      - name: Build Storybook
+        run: |
+          npm run storybook:build
+          cp -R ./storybook-static ./dist/storybook
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
