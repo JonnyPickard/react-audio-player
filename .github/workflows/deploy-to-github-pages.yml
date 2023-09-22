@@ -2,10 +2,9 @@
 name: Deploy static content to Pages
 
 on:
-  "push"
   # Runs on pushes targeting the default branch
-  # push:
-  #   branches: ["main"]
+  push:
+    branches: ["main"]
 
 # Sets the GITHUB_TOKEN permissions to allow deployment to GitHub Pages
 permissions:
