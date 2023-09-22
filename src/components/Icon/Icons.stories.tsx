@@ -15,7 +15,7 @@ import type { Meta } from "@storybook/react";
 import * as icons from "./Icons";
 
 const meta: Meta<typeof ChakraIcon> = {
-  title: "Icon/Icons",
+  title: "components/Icon/Icons",
 };
 
 export default meta;

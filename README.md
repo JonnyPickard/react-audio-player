@@ -1,6 +1,8 @@
 # React Audio Player
 
-Demo + API documentation: [React Audio Player](https://jonnypickard.github.io/react-audio-player)
+- [Components](https://jonnypickard.github.io/react-audio-player/storybook/?path=/docs/react-audio-player-overview-links--docs)
+- [Player model API reference](https://jonnypickard.github.io/react-audio-player/typedoc/index.html)
+- (WIP) Demo: [React Audio Player](https://jonnypickard.github.io/react-audio-player)
 
 ## About
 

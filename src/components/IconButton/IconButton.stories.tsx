@@ -4,7 +4,7 @@ import { PlayCircle } from "../Icon";
 import * as IconButtonComponent from "./IconButton";
 
 const meta = {
-  title: "IconButton",
+  title: "components/IconButton",
   parameters: {
     layout: "centered",
   },

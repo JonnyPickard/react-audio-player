@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-// import { grayscale } from "../../styles/colors";
 import * as icons from "./Icons";
 
 const meta: Meta<typeof icons.ChevronDown> = {
-  title: "Icon",
+  title: "components/Icon",
 };
 
 export default meta;
