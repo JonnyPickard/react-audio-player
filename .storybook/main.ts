@@ -1,5 +1,4 @@
 import type { StorybookConfig } from "@storybook/react-vite";
-import path from "node:path";
 import tsconfigPaths from "vite-tsconfig-paths";
 
 const config: StorybookConfig = {
@@ -17,6 +16,11 @@ const config: StorybookConfig = {
   },
   docs: {
     autodocs: "tag",
+  },
+  refs: {
+    "@chakra-ui/react": {
+      disable: true,
+    },
   },
   viteFinal: async (config) => {
     config.plugins!.push(

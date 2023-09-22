@@ -20,6 +20,7 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
   - [x] UI Designs/ Blueprints to check all required logic exists.
 - [ ] **Repo/ Docs/ Demos/ Publishing**
   - [x] Create basic static pages site w/ cd pipeline to host the api documentation, designs & player demo.
+  - [ ] Add steps to build + deploy the storybook library to the GH pages site.
   - [ ] Optimise output to publish to NPM. Potentially also split out player API if users want to create their own GUI's for it.
 - [ ] **Frontend**
   - [ ] Finalised designs (Figma) ideally should be done before building out the components
