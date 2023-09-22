@@ -1,0 +1,30 @@
+import { Canvas, Controls, Meta, Source } from "@storybook/blocks";
+
+import * as IconStories from "./Icon.stories";
+
+import { Heading } from "@chakra-ui/react";
+
+<Meta of={IconStories} />
+
+# Icon
+
+Icons are free to use svg's from the [Ionicons](https://ionic.io/ionicons) library.
+
+They are converted into React components using [Chakra UI's Icon component](https://chakra-ui.com/docs/components/icon#using-the-icon-component).
+
+<Canvas of={IconStories.Icon} sourceState={"none"} />
+<Controls of={IconStories.Icon} />
+
+## Usage
+
+To import a specific Icon you can you the following syntax `import { IconName } from "./Icons"`.
+
+<Source
+  code={`
+// Example using ChevronDown
+
+import { ChevronDown } from "./Icons";
+`}
+/>
+
+A list of all currently included icons with click to copy names can be found on the [icons page](?path=/story/icon-icons--icons).

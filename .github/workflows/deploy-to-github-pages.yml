@@ -40,6 +40,10 @@ jobs:
         run: |
           npm run documentation:generate
           cp -R ./docs/typedoc ./dist/typedoc
+      - name: Build Storybook
+        run: |
+          npm run storybook:build
+          cp -R ./storybook-static ./dist/storybook
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact

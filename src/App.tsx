@@ -1,7 +1,7 @@
+import typedocLogo from "assets/icons/brands/typedoc.svg";
 import { useState } from "react";
 
 import * as styles from "./App.styles";
-import typedocLogo from "./assets/typedoc.svg";
 import { testTrack1 } from "./components/Player/fixtures/test-tracks";
 import { AudioPlayer } from "./components/Player/models/AudioPlayer";
 

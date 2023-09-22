@@ -1,6 +1,8 @@
 # React Audio Player
 
-Demo + API documentation: [React Audio Player](https://jonnypickard.github.io/react-audio-player)
+- [Components](https://jonnypickard.github.io/react-audio-player/storybook/?path=/docs/react-audio-player-overview-links--docs)
+- [Player model API reference](https://jonnypickard.github.io/react-audio-player/typedoc/index.html)
+- (WIP) Demo: [React Audio Player](https://jonnypickard.github.io/react-audio-player)
 
 ## About
 
@@ -20,10 +22,28 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
   - [x] UI Designs/ Blueprints to check all required logic exists.
 - [ ] **Repo/ Docs/ Demos/ Publishing**
   - [x] Create basic static pages site w/ cd pipeline to host the api documentation, designs & player demo.
+  - [ ] Add steps to build + deploy the storybook library to the GH pages site.
   - [ ] Optimise output to publish to NPM. Potentially also split out player API if users want to create their own GUI's for it.
 - [ ] **Frontend**
+  - [ ] Finalised designs (Figma) ideally should be done before building out the components
   - [ ] Setup/ create theme solution + design tokens.
   - [ ] Customizable icon solution.
+  - [ ] Components (First Pass)
+    - [ ] Atoms
+      - [ ] Image
+      - [ ] Icon
+      - [ ] IconButton (w/ Tooltip)
+      - [ ] Text
+      - [ ] Timestamp
+      - [ ] Slider
+    - [ ] Molecules
+      - [ ] Track Details
+      - [ ] Track Controls
+        - [ ] Playback Controls
+        - [ ] Seek Bar
+      - [ ] Player Global Controls
+        - [ ] Volume Bar
+    - [ ] Organisms (Player)
 
 ## Wireframes
 
@@ -44,3 +64,11 @@ Runs [typedoc](https://typedoc.org/) against the Player model code.
 ```
 
 Opens `docs/typedoc/index.html` to see the generated API documentation.
+
+## Dependency Choices
+
+### Chakra UI - Component Library
+
+Instead of manually creating specific components with all required features as a first pass I've decided to use Chakra UI.
+
+The main benefits of Chakra are significant time-saved. And the ability to handle all of the UI-related requirements without having to install multiple dependencies. Finally, it has rich accessibility features built in.

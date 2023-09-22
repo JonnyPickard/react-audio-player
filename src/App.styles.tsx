@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
-
-import { theme } from "./styles/theme";
+import { theme } from "theme";
 
 export const app = css`
   font-family: Arial, Helvetica, sans-serif;
