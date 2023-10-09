@@ -35,7 +35,7 @@ export const Icon: Story = {
   render: ({ iconName }) => {
     const SelectedIcon = iconList[iconName] || iconList.ChevronDown;
 
-    return <SelectedIcon boxSize={20} />;
+    return <SelectedIcon />;
   },
   parameters: {
     layout: "centered",
