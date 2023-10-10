@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { PlayCircle } from "../Icon";
-import * as IconButtonComponent from "./IconButton";
+import { AllIcons } from "../Icon";
+import { IconButton } from "./IconButton";
 
 const meta = {
   title: "components/IconButton",
@@ -9,18 +9,35 @@ const meta = {
   parameters: {
     layout: "centered",
   },
-} satisfies Meta<typeof IconButtonComponent.IconButton>;
+} satisfies Meta<typeof IconButton>;
 
 export default meta;
-type Story = StoryObj<typeof IconButtonComponent.IconButton>;
+type Story = StoryObj<typeof IconButton>;
 
-export const IconButton: Story = {
-  render: (props) => <IconButtonComponent.IconButton {...props} />,
+export const IconButtonStory: Story = {
+  name: "IconButton",
+  render: (props) => <IconButton {...props} />,
+  argTypes: {
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    icon: {
+      options: AllIcons,
+      control: {
+        type: "select",
+      },
+      table: {
+        type: { summary: "Name of the icon to render" },
+        defaultValue: { summary: "ChevronDown" },
+      },
+    },
+  },
   args: {
-    customIcon: "PlayCircle",
-    // TODO: Define size constants for icons/ buttons etc
-    // icon: PlayCircle,
-    // icon: <PlayCircle />,
+    size: "md",
+    icon: AllIcons.PlayCircle,
     "aria-label": "Play Track",
   },
 };

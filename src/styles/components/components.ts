@@ -33,6 +33,7 @@ export const components = {
       variant: "sm",
     },
   },
+  // Note: IconButton & Button use the same config
   Button: defineStyleConfig({
     sizes: {
       sm: defineStyle({
@@ -45,6 +46,5 @@ export const components = {
         size: IconButton.lg.name,
       }),
     },
-    defaultProps: { size: "lg" },
   }),
 };

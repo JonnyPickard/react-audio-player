@@ -4,19 +4,14 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
-import * as icons from "../Icon/Icons";
+import { Icon, Icons } from "../Icon";
 
-type CustomIconType = {
-  [name: string]: keyof typeof icons;
-};
-
-interface IconButtonProps extends ChakraIconButtonProps {
-  customIcon: CustomIconType;
+interface IconButtonProps extends Omit<ChakraIconButtonProps, "icon"> {
+  icon: Icons;
+  size?: "sm" | "md" | "lg";
 }
 
-export function IconButton(props: IconButtonProps) {
-  const CustomIcon = icons["ChevronDown"];
-
+export function IconButton({ icon, size = "sm", ...props }: IconButtonProps) {
   return (
     <Tooltip
       label={props["aria-label"]}
@@ -26,7 +21,8 @@ export function IconButton(props: IconButtonProps) {
     >
       <ChakraIconButton
         {...props}
-        icon={<CustomIcon />}
+        size={size}
+        icon={<Icon icon={icon} size={size} />}
         aria-label={props["aria-label"]}
       />
     </Tooltip>
