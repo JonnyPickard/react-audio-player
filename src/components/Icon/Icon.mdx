@@ -12,19 +12,23 @@ Icons are free to use svg's from the [Ionicons](https://ionic.io/ionicons) libra
 
 They are converted into React components using [Chakra UI's Icon component](https://chakra-ui.com/docs/components/icon#using-the-icon-component).
 
-<Canvas of={IconStories.Icon} sourceState={"none"} />
-<Controls of={IconStories.Icon} />
+<Canvas of={IconStories.IconStory} sourceState={"none"} />
+
+<Controls of={IconStories.IconStory} />
 
 ## Usage
 
-To import a specific Icon you can you the following syntax `import { IconName } from "./Icons"`.
+To pick a specific Icon, import the icons name emum `AllIcons`.
 
 <Source
   code={`
 // Example using ChevronDown
 
-import { ChevronDown } from "./Icons";
-`}
-/>
+import { AllIcons, Icon } from "./Icon";
+
+const Component = () => {
+  return <Icon icon={AllIcons.ChevronDown} />;
+};
+`} />
 
 A list of all currently included icons with click to copy names can be found on the [icons page](?path=/story/icon-icons--icons).

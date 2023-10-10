@@ -1,10 +1,17 @@
 import {
   IconButton as ChakraIconButton,
-  IconButtonProps,
+  IconButtonProps as ChakraIconButtonProps,
   Tooltip,
 } from "@chakra-ui/react";
 
-export function IconButton(props: IconButtonProps) {
+import { Icon, Icons } from "../Icon";
+
+interface IconButtonProps extends Omit<ChakraIconButtonProps, "icon"> {
+  icon: Icons;
+  size?: "sm" | "md" | "lg";
+}
+
+export function IconButton({ icon, size = "sm", ...props }: IconButtonProps) {
   return (
     <Tooltip
       label={props["aria-label"]}
@@ -13,9 +20,9 @@ export function IconButton(props: IconButtonProps) {
       openDelay={500}
     >
       <ChakraIconButton
-        size="lg"
-        onClick={props.onClick}
-        icon={props.icon}
+        {...props}
+        size={size}
+        icon={<Icon icon={icon} size={size} />}
         aria-label={props["aria-label"]}
       />
     </Tooltip>
