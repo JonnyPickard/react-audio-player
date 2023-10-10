@@ -6,7 +6,7 @@
 // https://chakra-ui-git-fix-typescript-autocomplete.chakra-ui.vercel.app/docs/theming/theme#spacing
 
 export const constants = {
-  Button: {
+  IconButton: {
     sm: { px: 32, rem: 2, name: "8" },
     md: { px: 48, rem: 3, name: "12" },
     lg: { px: 56, rem: 3.5, name: "14" },

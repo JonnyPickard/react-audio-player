@@ -1,6 +1,8 @@
+import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
+
 import { constants } from "./constants";
 
-const { Icon, Button } = constants;
+const { Icon, IconButton } = constants;
 
 /*
   Sizes use REM 
@@ -11,6 +13,7 @@ const { Icon, Button } = constants;
   https://chakra-ui-git-fix-typescript-autocomplete.chakra-ui.vercel.app/docs/theming/theme#spacing
 */
 export const components = {
+  // Icon doesn't have the standard component API
   Icon: {
     variants: {
       sm: {
@@ -30,20 +33,18 @@ export const components = {
       variant: "sm",
     },
   },
-  Button: {
-    variants: {
-      sm: {
-        boxSize: Button.sm.name,
-      },
-      md: {
-        boxSize: Button.md.name,
-      },
-      lg: {
-        boxSize: Button.lg.name,
-      },
+  Button: defineStyleConfig({
+    sizes: {
+      sm: defineStyle({
+        size: IconButton.sm.name,
+      }),
+      md: defineStyle({
+        size: IconButton.md.name,
+      }),
+      lg: defineStyle({
+        size: IconButton.lg.name,
+      }),
     },
-    defaultProps: {
-      variant: "sm",
-    },
-  },
+    defaultProps: { size: "lg" },
+  }),
 };

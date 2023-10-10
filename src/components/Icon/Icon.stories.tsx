@@ -1,54 +1,43 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 
-import * as icons from "./Icons";
+import { AllIcons, Icon } from ".";
 
-const meta: Meta<typeof icons.ChevronDown> = {
+const meta: Meta<typeof Icon> = {
   title: "components/Icon",
 };
 
 export default meta;
-type IconPropsAndCustomArgs = React.ComponentProps<typeof icons.ChevronDown> & {
-  iconName: keyof typeof iconList;
-};
+type IconPropsAndCustomArgs = React.ComponentProps<typeof Icon>;
 
 type Story = StoryObj<IconPropsAndCustomArgs>;
 
-// TODO: Unified location to import this from
-const iconList = {
-  ChevronDown: icons.ChevronDown,
-  ChevronUp: icons.ChevronUp,
-  PauseCircle: icons.PauseCircle,
-  PlayCircle: icons.PlayCircle,
-  Repeat: icons.Repeat,
-  SkipBackward: icons.SkipBackward,
-  SkipForward: icons.SkipForward,
-  StepBackward: icons.StepBackward,
-  StepForward: icons.StepForward,
-  VolumeHigh: icons.VolumeHigh,
-  VolumeLow: icons.VolumeLow,
-  VolumeMedium: icons.VolumeMedium,
-  VolumeMuted: icons.VolumeMuted,
-};
-
-export const Icon: Story = {
-  render: ({ iconName }) => {
-    const SelectedIcon = iconList[iconName] || iconList.ChevronDown;
-
-    return <SelectedIcon />;
+export const IconStory: Story = {
+  name: "Icon",
+  render: (props) => {
+    return <Icon {...props} />;
   },
   parameters: {
     layout: "centered",
   },
+  args: {
+    icon: "ChevronDown",
+    size: "sm",
+  },
   argTypes: {
-    iconName: {
-      name: "Icon Name",
-      options: Object.keys(iconList),
+    size: {
+      options: ["sm", "md", "lg"],
+      control: {
+        type: "select",
+      },
+    },
+    icon: {
+      options: AllIcons,
       control: {
         type: "select",
       },
       table: {
-        type: { summary: "[Story only] The icon to render" },
+        type: { summary: "Name of the icon to render" },
         defaultValue: { summary: "ChevronDown" },
       },
     },

@@ -11,3 +11,4 @@ export * from "./VolumeHigh";
 export * from "./VolumeLow";
 export * from "./VolumeMedium";
 export * from "./VolumeMuted";
+export * from "./Icons";
