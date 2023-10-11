@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { AllIcons, Icon } from "components/Icon";
-import { tokens } from "styles/components/tokens";
+import { tokens } from "styles/tokens";
 
 export const IconStyleGuide = () => (
   <>
@@ -28,7 +28,7 @@ export const IconStyleGuide = () => (
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">
-            {`${tokens.Icon.sm.px}px`} x {`${tokens.Icon.sm.px}px`}
+            {`${tokens.Icon.sm.px}`} x {`${tokens.Icon.sm.px}`}
           </Text>
         </CardFooter>
       </Card>
@@ -39,7 +39,7 @@ export const IconStyleGuide = () => (
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">
-            {`${tokens.Icon.md.px}px`} x {`${tokens.Icon.md.px}px`}
+            {`${tokens.Icon.md.px}`} x {`${tokens.Icon.md.px}`}
           </Text>
         </CardFooter>
       </Card>
@@ -50,7 +50,7 @@ export const IconStyleGuide = () => (
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">
-            {`${tokens.Icon.lg.px}px`} x {`${tokens.Icon.lg.px}px`}
+            {`${tokens.Icon.lg.px}`} x {`${tokens.Icon.lg.px}`}
           </Text>
         </CardFooter>
       </Card>

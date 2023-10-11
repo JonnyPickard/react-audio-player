@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { AllIcons } from "components/Icon";
 import { IconButton } from "components/IconButton";
-import { tokens } from "styles/components/tokens";
+import { tokens } from "styles/tokens";
 
 export const IconButtonStyleGuide = () => (
   <>
@@ -29,7 +29,7 @@ export const IconButtonStyleGuide = () => (
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">
-            {`${tokens.IconButton.sm.px}px`} x {`${tokens.IconButton.sm.px}px`}
+            {`${tokens.IconButton.sm.px}`} x {`${tokens.IconButton.sm.px}`}
           </Text>
         </CardFooter>
       </Card>
@@ -44,7 +44,7 @@ export const IconButtonStyleGuide = () => (
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">
-            {`${tokens.IconButton.md.px}px`} x {`${tokens.IconButton.md.px}px`}
+            {`${tokens.IconButton.md.px}`} x {`${tokens.IconButton.md.px}`}
           </Text>
         </CardFooter>
       </Card>
@@ -59,7 +59,7 @@ export const IconButtonStyleGuide = () => (
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">
-            {`${tokens.IconButton.lg.px}px`} x {`${tokens.IconButton.lg.px}px`}
+            {`${tokens.IconButton.lg.px}`} x {`${tokens.IconButton.lg.px}`}
           </Text>
         </CardFooter>
       </Card>
