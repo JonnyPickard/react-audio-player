@@ -1,8 +1,8 @@
 import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
 
-import { constants } from "./constants";
+import { tokens } from "./tokens";
 
-const { Icon, IconButton } = constants;
+const { Icon, IconButton } = tokens;
 
 /*
   Sizes use REM 

@@ -5,7 +5,7 @@
 // Table of [name: number]: rem, px found here:
 // https://chakra-ui-git-fix-typescript-autocomplete.chakra-ui.vercel.app/docs/theming/theme#spacing
 
-export const constants = {
+export const tokens = {
   IconButton: {
     sm: { px: 32, rem: 2, name: "8" },
     md: { px: 48, rem: 3, name: "12" },
