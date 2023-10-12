@@ -10,7 +10,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { AllIcons, Icon } from "components/Icon";
-import { tokens } from "styles/tokens";
+import { tokens } from "styles/components/tokens";
 
 export const IconStyleGuide = () => (
   <>

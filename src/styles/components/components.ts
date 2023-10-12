@@ -1,6 +1,6 @@
 import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
 
-import { tokens } from "../tokens";
+import { tokens } from "./tokens";
 
 const { Icon, IconButton } = tokens;
 

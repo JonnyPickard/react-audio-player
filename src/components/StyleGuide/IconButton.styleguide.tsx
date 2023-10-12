@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { AllIcons } from "components/Icon";
 import { IconButton } from "components/IconButton";
-import { tokens } from "styles/tokens";
+import { tokens } from "styles/components/tokens";
 
 export const IconButtonStyleGuide = () => (
   <>

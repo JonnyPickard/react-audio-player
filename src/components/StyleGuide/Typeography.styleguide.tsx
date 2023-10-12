@@ -1,12 +1,15 @@
 import {
   Card,
   CardBody,
+  CardHeader,
   Divider,
+  HStack,
   Heading,
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { tokens } from "styles/tokens";
+import { tokens } from "styles/components";
+import { typography } from "styles/typography";
 
 export const TypeographyStyleGuide = () => (
   <>
@@ -43,5 +46,39 @@ export const TypeographyStyleGuide = () => (
         </VStack>
       </CardBody>
     </Card>
+    <VStack w="100%" align="start">
+      <Heading as="h3" size="md">
+        Font Families
+      </Heading>
+      <Divider />
+    </VStack>
+    <HStack>
+      <Card align="center" bg="grayscale.almostBlack">
+        <CardHeader>
+          <Text as="b" color="grayscale.almostWhite">
+            Heading
+          </Text>
+        </CardHeader>
+        <CardBody>
+          <VStack align="start">
+            <Text color="grayscale.almostWhite">
+              {typography.fonts.heading}
+            </Text>
+          </VStack>
+        </CardBody>
+      </Card>
+      <Card align="center" bg="grayscale.almostBlack">
+        <CardHeader>
+          <Text as="b" color="grayscale.almostWhite">
+            Body
+          </Text>
+        </CardHeader>
+        <CardBody>
+          <VStack align="start">
+            <Text color="grayscale.almostWhite">{typography.fonts.body}</Text>
+          </VStack>
+        </CardBody>
+      </Card>
+    </HStack>
   </>
 );

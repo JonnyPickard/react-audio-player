@@ -1,4 +1,5 @@
 // Harcoded list of chakra token values used to create component variants
+// Customised component styles overview: https://chakra-ui.com/docs/styled-system/component-style
 
 // Base font size = 16px;
 // name: the chakra sizing name selector
