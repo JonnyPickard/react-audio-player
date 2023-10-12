@@ -16,3 +16,11 @@ export const grayscale = {
   almostWhite: "#eeeeee",
   white: "#ffffff",
 };
+
+export const grayscaleAlpha = {
+  almostBlack: {
+    "0": "rgba(17, 17, 17, 0)",
+    "100": "rgba(17, 17, 17, 0.1)",
+    "500": "rgba(17, 17, 17, 0.5)",
+  },
+};

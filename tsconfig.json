@@ -4,7 +4,8 @@
       "theme": ["./src/styles/theme"],
       "styles/*": ["./src/styles/*"],
       "assets/*": ["./src/assets/*"],
-      "components/*": ["./src/components/*"]
+      "components/*": ["./src/components/*"],
+      "mocks/*": ["./src/mocks/*"]
     },
     "inlineSourceMap": true,
     "target": "ES2020",

@@ -1,6 +1,6 @@
 import { extendTheme } from "@chakra-ui/react";
 
-import { brand, grayscale } from "./colors";
+import { brand, grayscale, grayscaleAlpha } from "./colors";
 import { components } from "./components";
 import { typography } from "./typography";
 
@@ -10,6 +10,7 @@ export const theme = extendTheme({
   components,
   colors: {
     grayscale,
+    grayscaleAlpha,
     brand,
   },
   ...typography,

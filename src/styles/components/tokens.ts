@@ -24,4 +24,8 @@ export const tokens = {
     md: { px: "16px", rem: "1rem" },
     lg: { px: "24px", rem: "1.5rem" },
   },
+  Image: {
+    mobile: { rem: "2.5rem", name: "10" },
+    desktop: { rem: "3.5rem", name: "14" },
+  },
 };
