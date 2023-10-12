@@ -22,7 +22,13 @@ export const IconButtonStyleGuide = () => (
       <Divider />
     </VStack>
     <SimpleGrid gap="2" columns={3}>
-      <Card size="sm" align="center" justify="center">
+      <Card
+        color="white"
+        size="sm"
+        align="center"
+        justify="center"
+        bg="grayscale.almostBlack"
+      >
         <CardHeader>Small</CardHeader>
         <CardBody p={2}>
           <IconButton aria-label="Play Track" icon={AllIcons.PlayCircle} />
@@ -33,7 +39,7 @@ export const IconButtonStyleGuide = () => (
           </Text>
         </CardFooter>
       </Card>
-      <Card size="sm" align="center">
+      <Card color="white" size="sm" align="center" bg="grayscale.almostBlack">
         <CardHeader>Medium</CardHeader>
         <CardBody p={2}>
           <IconButton
@@ -48,7 +54,7 @@ export const IconButtonStyleGuide = () => (
           </Text>
         </CardFooter>
       </Card>
-      <Card size="sm" align="center">
+      <Card color="white" size="sm" align="center" bg="grayscale.almostBlack">
         <CardHeader>Large</CardHeader>
         <CardBody p={2}>
           <IconButton

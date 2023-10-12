@@ -1,11 +1,8 @@
 import {
   Card,
   CardBody,
-  CardFooter,
-  CardHeader,
   Divider,
   Heading,
-  SimpleGrid,
   Text,
   VStack,
 } from "@chakra-ui/react";
@@ -16,6 +13,12 @@ export const TypeographyStyleGuide = () => (
     <VStack w="100%" align="start">
       <Heading as="h2" size="lg">
         Typeography
+      </Heading>
+      <Divider />
+    </VStack>
+    <VStack w="100%" align="start">
+      <Heading as="h3" size="md">
+        Font Sizes
       </Heading>
       <Divider />
     </VStack>

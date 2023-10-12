@@ -1,6 +1,7 @@
 import { Divider, Heading, VStack } from "@chakra-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 
+import { ColorsStyleGuide } from "./Colors.styleguide";
 import { IconStyleGuide } from "./Icon.styleguide";
 import { IconButtonStyleGuide } from "./IconButton.styleguide";
 import { TypeographyStyleGuide } from "./Typeography.styleguide";
@@ -23,6 +24,7 @@ export const StyleGuide: Story = {
       <IconStyleGuide />
       <IconButtonStyleGuide />
       <TypeographyStyleGuide />
+      <ColorsStyleGuide />
     </VStack>
   ),
 };
