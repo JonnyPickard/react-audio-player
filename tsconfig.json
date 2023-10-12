@@ -2,6 +2,7 @@
   "compilerOptions": {
     "paths": {
       "theme": ["./src/styles/theme"],
+      "styles/*": ["./src/styles/*"],
       "assets/*": ["./src/assets/*"],
       "components/*": ["./src/components/*"]
     },

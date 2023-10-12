@@ -23,8 +23,15 @@ export const IconStory: Story = {
   args: {
     icon: "ChevronDown",
     size: "sm",
+    color: "black",
   },
   argTypes: {
+    color: {
+      options: ["black", "white"],
+      control: {
+        type: "select",
+      },
+    },
     size: {
       options: ["sm", "md", "lg"],
       control: {
