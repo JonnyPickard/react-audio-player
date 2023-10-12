@@ -29,13 +29,14 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
   - [x] Customizable icon solution.
   - [ ] Components (First Pass)
     - [ ] Atoms
-      - [ ] Image
-      - [ ] Icon
-      - [ ] IconButton (w/ Tooltip)
-      - [ ] Text
-      - [ ] Timestamp
-      - [ ] Slider
+      - [x] Icon
+      - [ ] Image \*
+      - [ ] Text \*
+      - [ ] Link \*
+      - [ ] Timestamp \*
     - [ ] Molecules
+      - [x] IconButton (w/ Tooltip)
+      - [ ] Slider
       - [ ] Track Details
       - [ ] Track Controls
         - [ ] Playback Controls
@@ -43,6 +44,8 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
       - [ ] Player Global Controls
         - [ ] Volume Bar
     - [ ] Organisms (Player)
+
+\* don't think its worth remaking
 
 ## Wireframes
 
