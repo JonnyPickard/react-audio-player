@@ -11,7 +11,7 @@ const fallbackIcon = icons.AllIcons.ChevronDown;
 export const Icon = ({
   icon = fallbackIcon,
   size = "sm",
-  color = "white",
+  color = "black",
 }: IconProps) => {
   const ChosenIcon = icons[icon];
 

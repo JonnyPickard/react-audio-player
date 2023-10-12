@@ -30,7 +30,7 @@ export const IconStyleGuide = () => (
       >
         <CardHeader>Small</CardHeader>
         <CardBody p={2}>
-          <Icon icon={AllIcons.PlayCircle} />
+          <Icon color="white" icon={AllIcons.PlayCircle} />
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">
@@ -41,7 +41,7 @@ export const IconStyleGuide = () => (
       <Card color="white" bg="grayscale.almostBlack" size="sm" align="center">
         <CardHeader>Medium</CardHeader>
         <CardBody p={2}>
-          <Icon size="md" icon={AllIcons.PlayCircle} />
+          <Icon color="white" size="md" icon={AllIcons.PlayCircle} />
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">
@@ -52,7 +52,7 @@ export const IconStyleGuide = () => (
       <Card color="white" bg="grayscale.almostBlack" size="sm" align="center">
         <CardHeader>Large</CardHeader>
         <CardBody p={2}>
-          <Icon size="lg" icon={AllIcons.PlayCircle} />
+          <Icon color="white" size="lg" icon={AllIcons.PlayCircle} />
         </CardBody>
         <CardFooter>
           <Text fontSize="xs">

@@ -24,7 +24,7 @@ export function IconButton({ icon, size = "sm", ...props }: IconButtonProps) {
         size={size}
         // TODO: Make variants
         bg="grayscale.almostBlack"
-        icon={<Icon icon={icon} size={size} />}
+        icon={<Icon icon={icon} size={size} color="white" />}
         aria-label={props["aria-label"]}
       />
     </Tooltip>
