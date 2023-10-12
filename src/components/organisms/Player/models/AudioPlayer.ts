@@ -2,7 +2,7 @@ import { Howler } from "howler";
 import clamp from "lodash.clamp";
 import remove from "lodash.remove";
 
-import { logger } from "../../../services";
+import { logger } from "../../../../services";
 import { AudioPlayerError } from "../constants/errors";
 import { cleanTrackData } from "../utils/cleanTrackData";
 import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";

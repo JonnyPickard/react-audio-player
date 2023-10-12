@@ -1,9 +1,9 @@
-import techno from "../../../assets/techno.mp3";
+import techno from "assets/techno.mp3";
 
 export const testTrack1 = {
   url: techno,
   title:
-    "Test Track 1 super duper long ass track title super duper long ass track titlesuper duper long ass track title",
+    "Test Track 1 super duper long track title super duper long track title super duper long track title",
   label: "Label 1",
   artist: "Artist 1",
 };
