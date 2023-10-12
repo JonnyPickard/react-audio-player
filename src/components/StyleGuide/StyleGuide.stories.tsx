@@ -3,6 +3,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 
 import { IconStyleGuide } from "./Icon.styleguide";
 import { IconButtonStyleGuide } from "./IconButton.styleguide";
+import { TypeographyStyleGuide } from "./Typeography.styleguide";
 
 const meta = {
   title: "StyleGuide",
@@ -21,6 +22,7 @@ export const StyleGuide: Story = {
       </VStack>
       <IconStyleGuide />
       <IconButtonStyleGuide />
+      <TypeographyStyleGuide />
     </VStack>
   ),
 };

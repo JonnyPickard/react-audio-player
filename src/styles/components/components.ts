@@ -16,21 +16,45 @@ export const components = {
   // Icon doesn't have the standard component API
   Icon: {
     variants: {
-      sm: {
+      "sm-white": {
         // 16px
         boxSize: Icon.sm.name,
+        color: "grayscale.almostWhite",
+        fill: "grayscale.almostWhite",
       },
-      md: {
+      "md-white": {
         // 24px
         boxSize: Icon.md.name,
+        color: "grayscale.almostWhite",
+        fill: "grayscale.almostWhite",
       },
-      lg: {
+      "lg-white": {
         // 32px
         boxSize: Icon.lg.name,
+        color: "grayscale.almostWhite",
+        fill: "grayscale.almostWhite",
+      },
+      "sm-black": {
+        // 16px
+        boxSize: Icon.sm.name,
+        color: "grayscale.almostBlack",
+        fill: "grayscale.almostBlack",
+      },
+      "md-black": {
+        // 24px
+        boxSize: Icon.md.name,
+        color: "grayscale.almostBlack",
+        fill: "grayscale.almostBlack",
+      },
+      "lg-black": {
+        // 32px
+        boxSize: Icon.lg.name,
+        color: "grayscale.almostBlack",
+        fill: "grayscale.almostBlack",
       },
     },
     defaultProps: {
-      variant: "sm",
+      variant: "sm-black",
     },
   },
   // Note: IconButton & Button use the same config

@@ -22,6 +22,8 @@ export function IconButton({ icon, size = "sm", ...props }: IconButtonProps) {
       <ChakraIconButton
         {...props}
         size={size}
+        // TODO: Make variants
+        bg="grayscale.almostBlack"
         icon={<Icon icon={icon} size={size} />}
         aria-label={props["aria-label"]}
       />
