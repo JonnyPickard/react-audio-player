@@ -51,8 +51,6 @@ test("when multiple artist names should append commas to said names, except for 
 test("should not render an artist link when no artist url", () => {
   render(<TrackDetails {...testTrack1} />);
 
-  screen.debug();
-
   const secondArtistNameWithoutUrl = testTrack1.artists[1].name;
 
   expect(
