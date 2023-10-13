@@ -34,7 +34,7 @@ export function TrackDetails({
       <Image
         boxSize={imageSize}
         src={artworkUrl}
-        fallback={<Skeleton />}
+        fallback={<Skeleton h={imageSize} w={imageSize} />}
         alt={`${title} Artwork`}
       />
       <VStack
