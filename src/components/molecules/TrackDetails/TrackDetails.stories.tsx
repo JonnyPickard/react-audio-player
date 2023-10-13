@@ -14,7 +14,16 @@ type Story = StoryObj<typeof TrackDetails>;
 export const TrackDetailsStory: Story = {
   name: "TrackDetails",
   render: (props) => <TrackDetails {...props} />,
+  argTypes: {
+    display: {
+      options: ["mobile", "desktop"],
+      control: {
+        type: "select",
+      },
+    },
+  },
   args: {
+    display: "desktop",
     artists: testTrack1.artists,
     title: testTrack1.title,
     artworkUrl: testTrack1.artworkUrl,
