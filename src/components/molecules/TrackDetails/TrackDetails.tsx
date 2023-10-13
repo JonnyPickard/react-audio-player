@@ -77,7 +77,11 @@ export function TrackDetails({
         }}
       >
         <Box>
-          <Link href={productUrl} fontSize={fontSize}>
+          <Link
+            color="grayscale.almostWhite"
+            href={productUrl}
+            fontSize={fontSize}
+          >
             {title}
           </Link>
         </Box>
@@ -90,11 +94,20 @@ export function TrackDetails({
 
               // Note: Ideally all artists would have a link to an artist page
               return artist.url ? (
-                <Link key={key} href={artist.url} fontSize={fontSize}>
+                <Link
+                  color="grayscale.almostWhite"
+                  key={key}
+                  href={artist.url}
+                  fontSize={fontSize}
+                >
                   {artistName}
                 </Link>
               ) : (
-                <Text key={key} fontSize={fontSize}>
+                <Text
+                  color="grayscale.almostWhite"
+                  key={key}
+                  fontSize={fontSize}
+                >
                   {artistName}
                 </Text>
               );
