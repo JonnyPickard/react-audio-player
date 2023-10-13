@@ -23,6 +23,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fontsource/noto-sans": "^5.0.15",
+    "framer-motion": "^10.16.4",
     "howler": "^2.2.3",
     "lodash.clamp": "^4.0.3",
     "lodash.get": "^4.4.2",
