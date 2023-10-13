@@ -25,8 +25,7 @@ export function TrackDetails({
   artworkUrl,
   productUrl,
   display = "desktop",
-} // variant = "slim",
-: TrackDetailsProps) {
+}: TrackDetailsProps) {
   const fontSize = display === "desktop" ? "sm" : "xs";
   const imageSize = tokens.Image[display].name;
 
