@@ -22,6 +22,7 @@ const config: StorybookConfig = {
       disable: true,
     },
   },
+  staticDirs: ["../src/assets"],
   viteFinal: async (config) => {
     config.plugins!.push(
       /** @see https://github.com/aleclarson/vite-tsconfig-paths */

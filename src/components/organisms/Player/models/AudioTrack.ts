@@ -1,13 +1,11 @@
 import { Howl } from "howler";
 import { v4 } from "uuid";
 
-// const howlOptions = {
-//   html5: true,
-// };
+import { Artist } from "./Artist";
 
 export interface TrackOptions {
   title: string;
-  artist: string;
+  artists: Artist[];
   label: string;
   url: string;
   /* Url to navigate to Product page*/
@@ -16,7 +14,7 @@ export interface TrackOptions {
 }
 
 export class AudioTrack {
-  artist: string;
+  artists: Artist[];
   url: string;
   title: string;
   label: string;
@@ -26,7 +24,7 @@ export class AudioTrack {
   howl: Howl;
 
   constructor(options: TrackOptions, onTrackEndCallback: () => void) {
-    this.artist = options.artist;
+    this.artists = options.artists;
     this.url = options.url;
     this.title = options.title;
     this.label = options.label;
@@ -36,6 +34,8 @@ export class AudioTrack {
     this.howl = new Howl({
       src: options.url,
       onend: onTrackEndCallback,
+      // Note: Set to use html5 audio by default
+      // html5: true,
     });
   }
 }

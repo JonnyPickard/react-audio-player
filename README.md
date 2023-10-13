@@ -29,20 +29,26 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
   - [x] Customizable icon solution.
   - [ ] Components (First Pass)
     - [ ] Atoms
-      - [ ] Image
-      - [ ] Icon
-      - [ ] IconButton (w/ Tooltip)
-      - [ ] Text
-      - [ ] Timestamp
-      - [ ] Slider
+      - [x] Icon
+      - [ ] Image \*
+      - [ ] Text \*
+      - [ ] Link \*
+      - [ ] Timestamp \*
     - [ ] Molecules
+      - [x] IconButton (w/ Tooltip)
+      - [ ] Slider
       - [ ] Track Details
+        - [x] Rework artist -> artists incase there are multiple, with links to their pages.
+        - [ ] Text roll animation if title/ artist name are too long and go off screen.
+          - Will need to calculate visible space + text length
       - [ ] Track Controls
         - [ ] Playback Controls
         - [ ] Seek Bar
       - [ ] Player Global Controls
         - [ ] Volume Bar
     - [ ] Organisms (Player)
+
+\* don't think its worth remaking
 
 ## Wireframes
 

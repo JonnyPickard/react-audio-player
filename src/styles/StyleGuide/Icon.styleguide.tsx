@@ -9,7 +9,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { AllIcons, Icon } from "components/Icon";
+import { AllIcons, Icon } from "components/atoms/Icon";
 import { tokens } from "styles/components/tokens";
 
 export const IconStyleGuide = () => (

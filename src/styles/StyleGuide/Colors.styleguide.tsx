@@ -31,8 +31,10 @@ export const ColorsStyleGuide = () => (
       {Object.entries(brand.primary).map(([name, hexcode], i, arr) => {
         const textColor =
           i < arr.length / 2 ? "grayscale.white" : "grayscale.black";
+        const key = `${name}-${hexcode}`;
         return (
           <Card
+            key={key}
             bg={`brand.primary.${name}`}
             size="lg"
             align="center"
@@ -64,12 +66,14 @@ export const ColorsStyleGuide = () => (
       {Object.entries(brand.secondary).map(([name, hexcode], i, arr) => {
         const textColor =
           i < arr.length / 2 ? "grayscale.white" : "grayscale.black";
+        const key = `${name}-${hexcode}`;
         return (
           <Card
             bg={`brand.secondary.${name}`}
             size="lg"
             align="center"
             justify="center"
+            key={key}
           >
             <CardBody>
               <Text align="center" color={textColor}>
@@ -97,8 +101,10 @@ export const ColorsStyleGuide = () => (
       {Object.entries(grayscale).map(([name, hexcode], i, arr) => {
         const textColor =
           i < arr.length / 2 ? "grayscale.white" : "grayscale.black";
+        const key = `${name}-${hexcode}`;
         return (
           <Card
+            key={key}
             bg={`grayscale.${name}`}
             size="lg"
             align="center"

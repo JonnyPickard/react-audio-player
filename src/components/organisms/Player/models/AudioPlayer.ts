@@ -1,23 +1,24 @@
 import { Howler } from "howler";
 import clamp from "lodash.clamp";
 import remove from "lodash.remove";
+import { logger } from "services";
 
-import { logger } from "../../../services";
 import { AudioPlayerError } from "../constants/errors";
 import { cleanTrackData } from "../utils/cleanTrackData";
 import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";
 import { isNumber } from "../utils/isNumber";
+import { Artist } from "./Artist";
 import { AudioTrack } from "./AudioTrack";
 
 /**
  * Details required to create a new audio track.
  */
 export interface NewTrackDetails {
-  artist: string;
+  artists: Artist[];
   url: string;
   title: string;
   label: string;
-  productUrl?: string;
+  productUrl: string;
   artworkUrl?: string;
 }
 
@@ -71,7 +72,7 @@ export class AudioPlayer {
    * @returns The created AudioTrack instance.
    */
   private createTrack({
-    artist,
+    artists,
     url,
     title,
     label,
@@ -79,7 +80,7 @@ export class AudioPlayer {
     artworkUrl = "",
   }: NewTrackDetails) {
     return new AudioTrack(
-      { artist, url, title, label, productUrl, artworkUrl },
+      { artists, url, title, label, productUrl, artworkUrl },
       this.onTrackEndCallback,
     );
   }

@@ -4,7 +4,7 @@ import {
   Tooltip,
 } from "@chakra-ui/react";
 
-import { Icon, Icons } from "../Icon";
+import { Icon, Icons } from "../../atoms/Icon";
 
 interface IconButtonProps extends Omit<ChakraIconButtonProps, "icon"> {
   icon: Icons;

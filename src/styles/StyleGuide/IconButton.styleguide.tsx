@@ -9,8 +9,8 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
-import { AllIcons } from "components/Icon";
-import { IconButton } from "components/IconButton";
+import { AllIcons } from "components/atoms/Icon";
+import { IconButton } from "components/molecules/IconButton";
 import { tokens } from "styles/components/tokens";
 
 export const IconButtonStyleGuide = () => (
