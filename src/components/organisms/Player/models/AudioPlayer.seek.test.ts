@@ -1,4 +1,5 @@
 import { Howl } from "howler";
+import { testTrack1 } from "mocks/fixtures/test-tracks";
 import { vi } from "vitest";
 
 import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
@@ -9,12 +10,7 @@ describe("AudioPlayer Seek", () => {
 
   beforeEach(() => {
     audioPlayer = new AudioPlayer();
-    trackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track",
-      label: "Test Label",
-    };
+    trackDetails = testTrack1;
   });
 
   afterEach(() => {

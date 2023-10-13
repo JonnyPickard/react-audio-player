@@ -1,3 +1,5 @@
+import { testTrack1 } from "mocks/fixtures/test-tracks";
+
 import { AudioPlayer, NewTrackDetails } from "./AudioPlayer";
 
 describe("AudioPlayer Volume", () => {
@@ -6,12 +8,7 @@ describe("AudioPlayer Volume", () => {
 
   beforeEach(() => {
     audioPlayer = new AudioPlayer();
-    trackDetails = {
-      artist: "Artist 1",
-      url: "test.mp3",
-      title: "Track 1",
-      label: "Label 1",
-    };
+    trackDetails = testTrack1;
     audioPlayer["createTrack"](trackDetails);
   });
 

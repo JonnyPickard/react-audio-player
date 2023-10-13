@@ -15,7 +15,7 @@ export const TrackDetailsStory: Story = {
   name: "TrackDetails",
   render: (props) => <TrackDetails {...props} />,
   args: {
-    artist: testTrack1.artist,
+    artists: testTrack1.artists,
     title: testTrack1.title,
     artworkUrl: testTrack1.artworkUrl,
     productUrl: testTrack1.productUrl,

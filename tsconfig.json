@@ -5,6 +5,7 @@
       "styles/*": ["./src/styles/*"],
       "assets/*": ["./src/assets/*"],
       "components/*": ["./src/components/*"],
+      "services": ["./src/services"],
       "mocks/*": ["./src/mocks/*"]
     },
     "inlineSourceMap": true,

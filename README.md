@@ -38,7 +38,7 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
       - [x] IconButton (w/ Tooltip)
       - [ ] Slider
       - [ ] Track Details
-        - [ ] Might need to rework artists incase there are multiple
+        - [x] Rework artist -> artists incase there are multiple, with links to their pages
         - [ ] Text roll animation if title/ artist name are too long and go off screen.
           - Will need to calculate visible space + text length
       - [ ] Track Controls

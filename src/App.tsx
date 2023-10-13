@@ -1,9 +1,9 @@
 import typedocLogo from "assets/icons/brands/typedoc.svg";
+import { testTrack1 } from "mocks/fixtures/test-tracks";
 import { useState } from "react";
 
 import * as styles from "./App.styles";
 import { AudioPlayer } from "./components/organisms/Player/models/AudioPlayer";
-import { testTrack1 } from "./mocks/fixtures/test-tracks";
 
 function App() {
   const [Player] = useState(() => new AudioPlayer());

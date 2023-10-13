@@ -1,8 +1,17 @@
-import { Box, HStack, Image, Skeleton, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  HStack,
+  Image,
+  Link,
+  Skeleton,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
+import { Artist } from "components/organisms/Player/models/Artist";
 import { tokens } from "styles/components/tokens";
 
 interface TrackDetailsProps {
-  artist: string;
+  artists: Artist[];
   title: string;
   artworkUrl: string;
   productUrl: string;
@@ -11,19 +20,20 @@ interface TrackDetailsProps {
 }
 
 export function TrackDetails({
-  artist,
+  artists,
   title,
   artworkUrl,
-  // productUrl,
-  // variant = "slim",
+  productUrl,
   display = "desktop",
-}: TrackDetailsProps) {
+} // variant = "slim",
+: TrackDetailsProps) {
   const fontSize = display === "desktop" ? "sm" : "xs";
+  const imageSize = tokens.Image[display].name;
 
   return (
     <HStack bg="grayscale.almostBlack" gap="0">
       <Image
-        boxSize={tokens.Image[display].name}
+        boxSize={imageSize}
         src={artworkUrl}
         fallback={<Skeleton />}
         alt={`${title} Artwork`}
@@ -68,10 +78,29 @@ export function TrackDetails({
         }}
       >
         <Box>
-          <Text fontSize={fontSize}>{title}</Text>
+          <Link href={productUrl} fontSize={fontSize}>
+            {title}
+          </Link>
         </Box>
         <Box>
-          <Text fontSize={fontSize}>{artist}</Text>
+          <HStack>
+            {artists.map((artist, i, { length }) => {
+              const shouldAddComma = length - 1 === i ? "" : ",";
+              const artistName = artist.name + shouldAddComma;
+              const key = `${artist.name}-${i}`;
+
+              // Note: Ideally all artists would have a link to an artist page
+              return artist.url ? (
+                <Link key={key} href={artist.url} fontSize={fontSize}>
+                  {artistName}
+                </Link>
+              ) : (
+                <Text key={key} fontSize={fontSize}>
+                  {artistName}
+                </Text>
+              );
+            })}
+          </HStack>
         </Box>
       </VStack>
     </HStack>

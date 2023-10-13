@@ -1,4 +1,5 @@
 import { Howl, Howler } from "howler";
+import { testTrack1, testTrack2, testTrack3 } from "mocks/fixtures/test-tracks";
 import { Logger } from "tslog";
 import { Mock, vi } from "vitest";
 
@@ -15,24 +16,9 @@ describe("AudioPlayer", () => {
 
   beforeEach(() => {
     audioPlayer = new AudioPlayer();
-    trackDetails = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track",
-      label: "Test Label",
-    };
-    trackDetails1 = {
-      artist: "Test Artist",
-      url: "test_url.mp3",
-      title: "Test Track 1",
-      label: "Test Label",
-    };
-    trackDetails2 = {
-      artist: "Test Artist",
-      url: "test_url2.mp3",
-      title: "Test Track 2",
-      label: "Test Label",
-    };
+    trackDetails = testTrack1;
+    trackDetails1 = testTrack2;
+    trackDetails2 = testTrack3;
   });
 
   afterEach(() => {
@@ -44,8 +30,6 @@ describe("AudioPlayer", () => {
 
     expect(track).toMatchObject({
       ...trackDetails,
-      productUrl: "",
-      artworkUrl: "",
       howl: expect.any(Howl),
     });
   });
