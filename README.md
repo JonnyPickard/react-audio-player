@@ -77,3 +77,19 @@ Opens `docs/typedoc/index.html` to see the generated API documentation.
 Instead of manually creating specific components with all required features as a first pass I've decided to use Chakra UI.
 
 The main benefits of Chakra are significant time-saved. And the ability to handle all of the UI-related requirements without having to install multiple dependencies. Finally, it has rich accessibility features built in.
+
+### [Chromatic By Storybook](https://www.chromatic.com/) - Hosting + Component Explorer
+
+Mainly testing this out to see how the figma integration works.
+
+To deploy you need an `.env` file at root containing:
+
+```sh
+CHROMATIC_PROJECT_TOKEN='<project token>'
+```
+
+Then run the script to build and deploy storybook with:
+
+```sh
+npm run chromatic:deploy
+```

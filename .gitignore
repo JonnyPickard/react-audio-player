@@ -11,6 +11,7 @@ docs/typedoc
 docs/references
 coverage
 storybook-static
+.env
 
 node_modules
 dist
