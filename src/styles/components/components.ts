@@ -61,13 +61,16 @@ export const components = {
   Button: defineStyleConfig({
     sizes: {
       sm: defineStyle({
-        size: IconButton.sm.name,
+        h: IconButton.sm.name,
+        w: IconButton.sm.name,
       }),
       md: defineStyle({
-        size: IconButton.md.name,
+        h: IconButton.md.name,
+        w: IconButton.md.name,
       }),
       lg: defineStyle({
-        size: IconButton.lg.name,
+        h: IconButton.lg.name,
+        w: IconButton.lg.name,
       }),
     },
   }),
