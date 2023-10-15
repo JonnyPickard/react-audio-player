@@ -50,6 +50,16 @@ I will potentially end up open-sourcing this, as there seems to be a need for so
 
 \* don't think its worth remaking
 
+## Designs
+
+> Note: WIP - \(Decided to try figma instead of sketch\)
+
+### Desktop Player
+
+<p align="center">
+  <img src="./docs/designs/PlayerDesktop.svg" alt="Wireframes" style="max-width:1080px;">
+</p>
+
 ## Wireframes
 
 <p align="center">

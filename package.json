@@ -40,6 +40,7 @@
   "devDependencies": {
     "@chakra-ui/storybook-addon": "^5.0.1",
     "@emotion/babel-plugin": "^11.11.0",
+    "@storybook/addon-designs": "^7.0.5",
     "@storybook/addon-essentials": "^7.4.2",
     "@storybook/addon-interactions": "^7.4.2",
     "@storybook/addon-links": "^7.4.2",

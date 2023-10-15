@@ -9,6 +9,7 @@ const config: StorybookConfig = {
     "@storybook/addon-interactions",
     "@storybook/addon-storysource",
     "@chakra-ui/storybook-addon",
+    "@storybook/addon-designs",
   ],
   framework: {
     name: "@storybook/react-vite",
