@@ -10,61 +10,23 @@ Having written an audio player in the past, under strict time constraints, I wan
 
 I will potentially end up open-sourcing this, as there seems to be a need for something along these lines.
 
-## TODO
-
-- [ ] **API** - Create the underlying logic required for a UI to function.
-  - [x] Create basic OO class structure for the player.
-    - [x] Logical grouping of player elements
-    - [x] Add basic tests.
-  - [x] Add some api documentation/ TSDOC autogenerate API spec.
-    - [x] [typedoc](https://typedoc.org/)
-  - [ ] Add more error logging to make it more obvious what issues are.
-  - [x] UI Designs/ Blueprints to check all required logic exists.
-- [ ] **Repo/ Docs/ Demos/ Publishing**
-  - [x] Create basic static pages site w/ cd pipeline to host the api documentation, designs & player demo.
-  - [x] Add steps to build + deploy the storybook library to the GH pages site.
-  - [ ] Optimise output to publish to NPM. Potentially also split out player API if users want to create their own GUI's for it.
-- [ ] **Frontend**
-  - [x] Setup/ create theme solution + design tokens.
-  - [x] Customizable icon solution.
-  - [ ] Components (First Pass)
-    - [ ] Atoms
-      - [x] Icon
-      - [ ] Image \*
-      - [ ] Text \*
-      - [ ] Link \*
-      - [ ] Timestamp \*
-    - [ ] Molecules
-      - [x] IconButton (w/ Tooltip)
-      - [ ] Slider
-      - [ ] Track Details
-        - [x] Rework artist -> artists incase there are multiple, with links to their pages.
-        - [ ] Text roll animation if title/ artist name are too long and go off screen.
-          - Will need to calculate visible space + text length
-      - [ ] Track Controls
-        - [ ] Playback Controls
-        - [ ] Seek Bar
-      - [ ] Player Global Controls
-        - [ ] Volume Bar
-    - [ ] Organisms (Player)
-
-\* don't think its worth remaking
-
 ## Designs
-
-> Note: WIP - \(Decided to try figma instead of sketch\)
 
 ### Desktop Player
 
-<p align="center">
-  <img src="./docs/designs/PlayerDesktop.svg" alt="Wireframes" style="max-width:1080px;">
-</p>
+<img src="./docs/designs/PlayerDesktop.svg" alt="Desktop Design" style="max-width:1080px;">
+
+### Mobile Player - Slim
+
+<img src="./docs/designs/PlayerMobileSlim.svg" alt="Moible - Slim Design" style="max-width:1080px;">
+
+### Mobile Player - Expanded
+
+<img src="./docs/designs/PlayerMobileExpaded.svg" alt="Mobile - Expanded Design" style="max-width:1080px;">
 
 ## Wireframes
 
-<p align="center">
   <img src="./docs/designs/ReactAudioPlayer.drawio.png" alt="Wireframes" style="max-width:600px;">
-</p>
 
 ## Generate Type Docs
 
@@ -103,3 +65,45 @@ Then run the script to build and deploy storybook with:
 ```sh
 npm run chromatic:deploy
 ```
+
+## TODO
+
+- [ ] **API** - Create the underlying logic required for a UI to function.
+  - [x] Create basic OO class structure for the player.
+    - [x] Logical grouping of player elements
+    - [x] Add basic tests.
+  - [x] Add some api documentation/ TSDOC autogenerate API spec.
+    - [x] [typedoc](https://typedoc.org/)
+  - [ ] Add more error logging to make it more obvious what issues are.
+  - [x] UI Designs/ Blueprints to check all required logic exists.
+- [ ] **Repo/ Docs/ Demos/ Publishing**
+  - [x] Create basic static pages site w/ cd pipeline to host the api documentation, designs & player demo.
+  - [x] Add steps to build + deploy the storybook library to the GH pages site.
+  - [ ] Optimise output to publish to NPM. Potentially also split out player API if users want to create their own GUI's for it.
+- [ ] **Frontend**
+  - [x] Setup/ create theme solution + design tokens.
+  - [x] Customizable icon solution.
+  - [x] Component designs - Figma
+  - [ ] Link more component designs to storybook?
+  - [ ] Components (First pass)
+    - [ ] Atoms
+      - [x] Icon
+      - [ ] Image \*
+      - [ ] Text \*
+      - [ ] Link \*
+      - [ ] Timestamp \*
+    - [ ] Molecules
+      - [x] IconButton (w/ Tooltip)
+      - [ ] Slider
+      - [ ] Track Details
+        - [x] Rework artist -> artists incase there are multiple, with links to their pages.
+        - [ ] Text roll animation if title/ artist name are too long and go off screen.
+          - Will need to calculate visible space + text length
+      - [ ] Track Controls
+        - [ ] Playback Controls
+        - [ ] Seek Bar
+      - [ ] Player Global Controls
+        - [ ] Volume Bar
+    - [ ] Organisms (Player)
+
+\* don't think its worth remaking
