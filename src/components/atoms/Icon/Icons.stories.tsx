@@ -85,6 +85,8 @@ export const Icons = () => {
                 variant="outline"
                 flexDir="column"
                 justifyContent="center"
+                w="150px"
+                h="100px"
               >
                 <Icon boxSize={6} />
                 <Text
