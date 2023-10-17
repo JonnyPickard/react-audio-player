@@ -18,6 +18,13 @@ export const tokens = {
     lg: { px: "32px", rem: "2rem", name: "8" },
     xl: { px: "56px", rem: "3.5rem", name: "14" },
   },
+  Spinner: {
+    // Note: these are based on the outer path size of circular icons
+    sm: { px: "12px" },
+    md: { px: "18px" },
+    lg: { px: "24px" },
+    xl: { px: "42px" },
+  },
   Text: {
     xxs: { px: "11px", rem: "0.688rem" },
     xs: { px: "13px", rem: "0.813rem" },

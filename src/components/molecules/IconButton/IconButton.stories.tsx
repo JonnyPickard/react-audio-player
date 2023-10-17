@@ -35,16 +35,8 @@ export const IconButtonStory: Story = {
   ),
   argTypes: {
     size: {
-      options: ["sm", "md", "lg"],
-      description: "Design system defaults for button + icon size",
-      control: {
-        type: "select",
-      },
-    },
-    iconSize: {
       options: ["sm", "md", "lg", "xl"],
-      description:
-        "Will Override if provided, otherwise uses design system defaults",
+      description: "Design system defaults for button + icon size",
       control: {
         type: "select",
       },
@@ -65,6 +57,12 @@ export const IconButtonStory: Story = {
       },
       description: "Whether to show the on hover animation",
     },
+    isLoading: {
+      control: {
+        type: "boolean",
+      },
+      description: "Whether to show the loading spinner",
+    },
     "aria-label": {
       control: {
         type: "text",
@@ -73,9 +71,10 @@ export const IconButtonStory: Story = {
     },
   },
   args: {
+    isLoading: false,
     hoverAnimation: true,
     size: "lg",
-    iconSize: "xl",
+    // iconSize: "xl",
     icon: AllIcons.PlayCircle,
     "aria-label": "Play Track",
   },
