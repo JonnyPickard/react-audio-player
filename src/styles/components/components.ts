@@ -34,6 +34,12 @@ export const components = {
         color: "grayscale.almostWhite",
         fill: "grayscale.almostWhite",
       },
+      "xl-white": {
+        // 32px
+        boxSize: Icon.xl.name,
+        color: "grayscale.almostWhite",
+        fill: "grayscale.almostWhite",
+      },
       "sm-black": {
         // 16px
         boxSize: Icon.sm.name,
@@ -49,6 +55,12 @@ export const components = {
       "lg-black": {
         // 32px
         boxSize: Icon.lg.name,
+        color: "grayscale.almostBlack",
+        fill: "grayscale.almostBlack",
+      },
+      "xl-black": {
+        // 32px
+        boxSize: Icon.xl.name,
         color: "grayscale.almostBlack",
         fill: "grayscale.almostBlack",
       },

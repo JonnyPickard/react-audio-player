@@ -21,10 +21,10 @@ export const StyleGuide: Story = {
         <Heading as="h1">StyleGuide</Heading>
         <Divider />
       </VStack>
+      <ColorsStyleGuide />
       <IconStyleGuide />
       <IconButtonStyleGuide />
       <TypeographyStyleGuide />
-      <ColorsStyleGuide />
     </VStack>
   ),
 };

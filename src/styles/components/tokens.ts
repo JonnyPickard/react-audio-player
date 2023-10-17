@@ -16,6 +16,7 @@ export const tokens = {
     sm: { px: "16px", rem: "1rem", name: "4" },
     md: { px: "24px", rem: "1.5rem", name: "6" },
     lg: { px: "32px", rem: "2rem", name: "8" },
+    xl: { px: "56px", rem: "3.5rem", name: "14" },
   },
   Text: {
     xxs: { px: "11px", rem: "0.688rem" },

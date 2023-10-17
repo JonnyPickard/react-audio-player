@@ -43,7 +43,7 @@ export const Icons = () => {
   // TODO: Set defaults for Heading/ Text size/ Link colors
   return (
     <>
-      <Heading as={"h1"} size="lg" color="grayscale.lightBlack">
+      <Heading as={"h1"} size="lg">
         Icons
       </Heading>
       <Text>
