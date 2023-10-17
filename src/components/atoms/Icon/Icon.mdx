@@ -1,4 +1,4 @@
-import { Canvas, Controls, Meta, Source } from "@storybook/blocks";
+import { Canvas, Controls, Meta, Source, Story } from "@storybook/blocks";
 
 import * as IconStories from "./Icon.stories";
 
@@ -12,7 +12,9 @@ Icons are free to use svg's from the [Ionicons](https://ionic.io/ionicons) libra
 
 They are converted into React components using [Chakra UI's Icon component](https://chakra-ui.com/docs/components/icon#using-the-icon-component).
 
-<Canvas of={IconStories.IconStory} sourceState={"none"} />
+<Canvas sourceState={"none"}>
+  <Story of={IconStories.IconStory} />
+</Canvas>
 
 <Controls of={IconStories.IconStory} />
 

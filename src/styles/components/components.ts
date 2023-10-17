@@ -2,7 +2,7 @@ import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
 
 import { tokens } from "./tokens";
 
-const { Icon, IconButton } = tokens;
+const { Icon, IconButton, Spinner } = tokens;
 
 /*
   Sizes use REM 
@@ -34,6 +34,12 @@ export const components = {
         color: "grayscale.almostWhite",
         fill: "grayscale.almostWhite",
       },
+      "xl-white": {
+        // 56px
+        boxSize: Icon.xl.name,
+        color: "grayscale.almostWhite",
+        fill: "grayscale.almostWhite",
+      },
       "sm-black": {
         // 16px
         boxSize: Icon.sm.name,
@@ -49,6 +55,12 @@ export const components = {
       "lg-black": {
         // 32px
         boxSize: Icon.lg.name,
+        color: "grayscale.almostBlack",
+        fill: "grayscale.almostBlack",
+      },
+      "xl-black": {
+        // 56px
+        boxSize: Icon.xl.name,
         color: "grayscale.almostBlack",
         fill: "grayscale.almostBlack",
       },
@@ -71,6 +83,26 @@ export const components = {
       lg: defineStyle({
         h: IconButton.lg.name,
         w: IconButton.lg.name,
+      }),
+    },
+  }),
+  Spinner: defineStyleConfig({
+    sizes: {
+      sm: defineStyle({
+        h: Spinner.sm.px,
+        w: Spinner.sm.px,
+      }),
+      md: defineStyle({
+        h: Spinner.md.px,
+        w: Spinner.md.px,
+      }),
+      lg: defineStyle({
+        h: Spinner.lg.px,
+        w: Spinner.lg.px,
+      }),
+      xl: defineStyle({
+        h: Spinner.xl.px,
+        w: Spinner.xl.px,
       }),
     },
   }),

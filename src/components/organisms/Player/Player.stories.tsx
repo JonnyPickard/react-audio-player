@@ -16,17 +16,17 @@ export const PlayerStory: Story = {
       {
         name: "Desktop Player",
         type: "figma",
-        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=26-905&mode=design&t=BWPrJpGpcDVOOA33-4",
+        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=26%3A905&mode=design&t=zbjAsDvTvyh6SZR5-1",
       },
       {
         name: "Mobile Player - Slim",
         type: "figma",
-        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=43-128&mode=design&t=BWPrJpGpcDVOOA33-4",
+        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=43%3A128&mode=design&t=zbjAsDvTvyh6SZR5-1",
       },
       {
         name: "Mobile Player - Expanded",
         type: "figma",
-        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=70-257&mode=design&t=BWPrJpGpcDVOOA33-4",
+        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=70%3A257&mode=design&t=zbjAsDvTvyh6SZR5-1",
       },
     ]),
   },
