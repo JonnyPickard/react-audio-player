@@ -1,17 +1,5 @@
-// THEMEING
-// https://chakra-ui.com/docs/components/slider/theming
-import {
-  Box,
-  HStack,
-  Slider,
-  SliderFilledTrack,
-  SliderThumb,
-  SliderTrack,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import { Artist } from "components/organisms/Player/models/Artist";
-import { tokens } from "styles/components/tokens";
+import { Box, HStack, Text, VStack } from "@chakra-ui/react";
+import { Slider } from "components/molecules/Slider";
 
 interface SeekBarProps {
   onSeek: (timestamp: number) => void;
@@ -20,8 +8,7 @@ interface SeekBarProps {
   seekTimestamp: number;
   timePlayed: number;
   timeRemaining: number;
-  variant?: "slim" | "expanded";
-  display?: "mobile" | "desktop";
+  variant?: "desktop" | "mobile-slim" | "mobile-expanded";
 }
 
 export function SeekBar({
@@ -29,18 +16,12 @@ export function SeekBar({
   seekTimestamp,
   timePlayed,
   timeRemaining,
-  variant,
-  display = "desktop",
+  variant = "desktop",
 }: SeekBarProps) {
   return (
     <VStack>
       <h1>Hello from Seekbar!</h1>
-      <Slider>
-        <SliderTrack>
-          <SliderFilledTrack />
-        </SliderTrack>
-        <SliderThumb />
-      </Slider>
+      <Slider variant={variant} />
     </VStack>
   );
 }
