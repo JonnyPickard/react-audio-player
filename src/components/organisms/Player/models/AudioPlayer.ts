@@ -284,7 +284,7 @@ export class AudioPlayer {
   // TODO: maybe workout more gracefull errors for this?
   /**
    * Retrieves the duration of the currently selected track asynchronously.
-   * @returns A promise that resolves with the duration of the track.
+   * @returns A promise that resolves with the duration of the track (in seconds).
    * @throws {Error} If no track is loaded.
    */
   getSelectedTrackDurationAsync(): Promise<number> {
@@ -390,7 +390,7 @@ export class AudioPlayer {
   }
 
   /**
-   * Stops the currently selected track and resets its seek timestamp to 0.
+   * Stops the currently selected track and resets its seek timestamp to 0s.
    */
   stopSelectedTrack() {
     if (this.selectedTrack) {

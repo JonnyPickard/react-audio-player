@@ -28,6 +28,8 @@ export const SeekBarStory: Story = {
   },
   args: {
     variant: "desktop",
+    timePlayed: 0,
+    timeRemaining: 100,
   },
   parameters: {
     design: config([

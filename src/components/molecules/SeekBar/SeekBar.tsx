@@ -1,4 +1,4 @@
-import { Box, HStack, Text, VStack } from "@chakra-ui/react";
+import { Box, Stack, Text } from "@chakra-ui/react";
 import { Slider } from "components/molecules/Slider";
 
 interface SeekBarProps {
@@ -18,10 +18,13 @@ export function SeekBar({
   timeRemaining,
   variant = "desktop",
 }: SeekBarProps) {
-  return (
-    <VStack>
-      <h1>Hello from Seekbar!</h1>
+  return variant === "mobile-slim" ? (
+    <Slider variant={variant} />
+  ) : (
+    <Stack direction={variant === "mobile-expanded" ? "column" : "row"}>
+      <Text>{timePlayed}</Text>
       <Slider variant={variant} />
-    </VStack>
+      <Text>{timeRemaining}</Text>
+    </Stack>
   );
 }
