@@ -1,6 +1,14 @@
-import { defineStyle, defineStyleConfig } from "@chakra-ui/react";
+import { sliderAnatomy } from "@chakra-ui/anatomy";
+import {
+  createMultiStyleConfigHelpers,
+  defineStyle,
+  defineStyleConfig,
+} from "@chakra-ui/react";
 
 import { tokens } from "./tokens";
+
+const { definePartsStyle, defineMultiStyleConfig } =
+  createMultiStyleConfigHelpers(sliderAnatomy.keys);
 
 const { Icon, IconButton, Spinner } = tokens;
 
@@ -103,6 +111,66 @@ export const components = {
       xl: defineStyle({
         h: Spinner.xl.px,
         w: Spinner.xl.px,
+      }),
+    },
+  }),
+  Slider: defineMultiStyleConfig({
+    baseStyle: definePartsStyle({
+      thumb: {
+        _focus: {
+          boxShadow: "none",
+          outline: "none",
+          bg: "grayscale.almostWhite",
+        },
+        filledTrack: {
+          bg: "grayscale.almostWhite",
+        },
+        track: {
+          bg: "grayscale.lightBlack",
+        },
+      },
+    }),
+    variants: {
+      desktop: definePartsStyle({
+        thumb: {
+          opacity: 0,
+          bg: "grayscale.almostWhite",
+        },
+        filledTrack: {
+          bg: "grayscale.almostWhite",
+        },
+        track: {
+          bg: "grayscale.lightBlack",
+        },
+      }),
+      "mobile-expanded": definePartsStyle({
+        thumb: {
+          bg: "grayscale.almostWhite",
+        },
+        filledTrack: {
+          bg: "brand.secondary.light",
+        },
+        track: {
+          bg: "grayscale.lightBlack",
+        },
+      }),
+      "mobile-slim": definePartsStyle({
+        container: {
+          h: "2px",
+          pointerEvents: "none",
+        },
+        thumb: {
+          display: "none",
+          bg: "grayscale.almostWhite",
+        },
+        filledTrack: {
+          h: "2px",
+          bg: "grayscale.almostWhite",
+        },
+        track: {
+          h: "2px",
+          bg: "grayscale.lightBlack",
+        },
       }),
     },
   }),

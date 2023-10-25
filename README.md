@@ -82,6 +82,7 @@ npm run chromatic:deploy
   - [x] Create basic static pages site w/ cd pipeline to host the api documentation, designs & player demo.
   - [x] Add steps to build + deploy the storybook library to the GH pages site.
   - [ ] Optimise output to publish to NPM. Potentially also split out player API if users want to create their own GUI's for it.
+  - [ ] Maybe switch Chakra storybook plugin for [custom theme decorator.](https://github.com/chakra-ui/chakra-ui/issues/6855#issuecomment-1284552528) - Because initially the player is dark mode only & light mode changes colors.
 - [ ] **Frontend**
   - [x] Setup/ create theme solution + design tokens.
   - [x] Customizable icon solution.
@@ -93,17 +94,19 @@ npm run chromatic:deploy
       - [ ] Image \*
       - [ ] Text \*
       - [ ] Link \*
-      - [ ] Timestamp \*
+      - [ ] Timestamp
+        - [x] Basic component
+        - [ ] Work out how to subscribe it to duration/ seek times etc
     - [ ] Molecules
       - [x] IconButton (w/ Tooltip)
-      - [ ] Slider
+      - [x] Slider
       - [ ] Track Details
         - [x] Rework artist -> artists incase there are multiple, with links to their pages.
         - [ ] Text roll animation if title/ artist name are too long and go off screen.
           - Will need to calculate visible space + text length
       - [ ] Track Controls
         - [ ] Playback Controls
-        - [ ] Seek Bar
+        - [x] Seek Bar
       - [ ] Player Global Controls
         - [ ] Volume Bar
     - [ ] Organisms (Player)
