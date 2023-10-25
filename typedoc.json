@@ -1,3 +1,9 @@
 {
-  "titleLink": "/react-audio-player"
+  "titleLink": "/react-audio-player",
+  "entryPoints": [
+    "./src/components/organisms/Player/models/AudioPlayer.ts",
+    "./src/components/organisms/Player/models/AudioTrack.ts",
+    "./src/components/organisms/Player/models/Artist.ts"
+  ],
+  "out": "./docs/typedoc"
 }

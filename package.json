@@ -16,7 +16,7 @@
     "test": "vitest",
     "test:coverage": "vitest --coverage --ui --open",
     "preview": "vite preview",
-    "documentation:generate": "typedoc --out ./docs/typedoc src/components/organisms/Player/models/AudioPlayer.ts src/components/organisms/Player/models/AudioTrack.ts",
+    "documentation:generate": "typedoc",
     "documentation:open": "open ./docs/typedoc/index.html",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
