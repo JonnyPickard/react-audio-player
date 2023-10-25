@@ -1,4 +1,5 @@
 import { Box } from "@chakra-ui/react";
+import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
 
 import { Slider } from "./Slider";
@@ -41,5 +42,13 @@ export const SliderStory: Story = {
   },
   args: {
     variant: "desktop",
+  },
+  parameters: {
+    design: config([
+      {
+        type: "figma",
+        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=30%3A46&mode=design&t=WK89mzXD1kcI4erK-1",
+      },
+    ]),
   },
 };
