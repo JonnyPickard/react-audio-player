@@ -1,4 +1,4 @@
-// Copied from Chakra
+// Copied + reworked a bit from Chakra
 // https://github.com/chakra-ui/chakra-ui-docs/blob/main/src/components/mdx-components/icons-list.tsx
 import {
   Button,
@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import type { Meta } from "@storybook/react";
 
-import * as icons from "./Icons";
+import { AllIcons, Icon } from ".";
 
 const meta: Meta<typeof ChakraIcon> = {
   title: "components/Icon/Icons",
@@ -20,27 +20,9 @@ const meta: Meta<typeof ChakraIcon> = {
 
 export default meta;
 
-// TODO: Unified location to import this from
-const iconList = {
-  ChevronDown: icons.ChevronDown,
-  ChevronUp: icons.ChevronUp,
-  PauseCircle: icons.PauseCircle,
-  PlayCircle: icons.PlayCircle,
-  Repeat: icons.Repeat,
-  SkipBackward: icons.SkipBackward,
-  SkipForward: icons.SkipForward,
-  StepBackward: icons.StepBackward,
-  StepForward: icons.StepForward,
-  VolumeHigh: icons.VolumeHigh,
-  VolumeLow: icons.VolumeLow,
-  VolumeMedium: icons.VolumeMedium,
-  VolumeMuted: icons.VolumeMuted,
-};
-
 export const Icons = () => {
   const toast = useToast();
 
-  // TODO: Set defaults for Heading/ Text size/ Link colors
   return (
     <>
       <Heading as={"h1"} size="lg">
@@ -58,9 +40,8 @@ export const Icons = () => {
         gap={5}
         templateColumns="repeat( auto-fit, minmax(150px, 1fr) )"
       >
-        {(Object.keys(iconList) as Array<keyof typeof iconList>).map(
+        {(Object.keys(AllIcons) as Array<keyof typeof AllIcons>).map(
           (key, i) => {
-            const Icon = iconList[key];
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { onCopy } = useClipboard(key);
 
@@ -87,9 +68,15 @@ export const Icons = () => {
                 justifyContent="center"
                 w="150px"
                 h="100px"
+                bg="grayscale.almostBlack"
+                _hover={{
+                  bg: "grayscale.tintedBlack",
+                  transform: "scale(1.02)",
+                }}
               >
-                <Icon boxSize={6} />
+                <Icon icon={key} size="lg" color="white" />
                 <Text
+                  color="grayscale.almostWhite"
                   as="span"
                   mt={3}
                   fontSize="sm"

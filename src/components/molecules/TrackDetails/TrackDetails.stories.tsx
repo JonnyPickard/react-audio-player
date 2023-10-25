@@ -5,7 +5,6 @@ import { TrackDetails } from "./TrackDetails";
 
 const meta = {
   title: "components/TrackDetails",
-  tags: ["autodocs"],
 } satisfies Meta<typeof TrackDetails>;
 
 export default meta;

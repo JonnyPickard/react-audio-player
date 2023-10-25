@@ -6,7 +6,6 @@ import { SeekBar } from "./SeekBar";
 
 const meta = {
   title: "components/SeekBar",
-  tags: ["autodocs"],
 } satisfies Meta<typeof SeekBar>;
 
 export default meta;
