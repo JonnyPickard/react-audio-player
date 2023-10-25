@@ -7,5 +7,9 @@ interface TimestampProps {
 }
 
 export function Timestamp({ seconds }: TimestampProps) {
-  return <Text>{formatTime(seconds)}</Text>;
+  return (
+    <Text color="grayscale.darkWhite" fontSize="xxs">
+      {formatTime(seconds)}
+    </Text>
+  );
 }

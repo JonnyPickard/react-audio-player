@@ -252,7 +252,7 @@ export class AudioPlayer {
   }
 
   /**
-   * Stops playback of all tracks and resets their seek timestamps to 0.
+   * Stops playback of all tracks and resets their playback positions to 0.
    */
   stopAllTracks() {
     Howler.stop();
@@ -331,11 +331,14 @@ export class AudioPlayer {
    * @returns The remaining time in seconds, or `null` if no track is selected.
    */
   getSelectedTrackTimeRemaining(): number | null {
-    if (this.selectedTrack && isNumber(this.getSelectedTrackSeekTimestamp())) {
+    if (
+      this.selectedTrack &&
+      isNumber(this.getSelectedTrackPlaybackPosition())
+    ) {
       const duration = this.selectedTrack.howl.duration()!;
-      const seekTimestamp = this.getSelectedTrackSeekTimestamp()!;
+      const playbackPosition = this.getSelectedTrackPlaybackPosition()!;
 
-      return calcTimeRemaining(duration, seekTimestamp);
+      return calcTimeRemaining(duration, playbackPosition);
     }
 
     return null;
@@ -346,10 +349,10 @@ export class AudioPlayer {
    * @returns The played time in seconds, or `null` if no track is selected.
    */
   getSelectedTrackTimePlayed() {
-    const seekTimestamp = this.getSelectedTrackSeekTimestamp();
+    const playbackPosition = this.getSelectedTrackPlaybackPosition();
 
-    if (seekTimestamp && isNumber(seekTimestamp)) {
-      return calcTimePlayed(seekTimestamp);
+    if (playbackPosition && isNumber(playbackPosition)) {
+      return calcTimePlayed(playbackPosition);
     }
 
     return null;
@@ -390,7 +393,7 @@ export class AudioPlayer {
   }
 
   /**
-   * Stops the currently selected track and resets its seek timestamp to 0s.
+   * Stops the currently selected track and resets its playback position to 0s.
    */
   stopSelectedTrack() {
     if (this.selectedTrack) {
@@ -399,7 +402,7 @@ export class AudioPlayer {
   }
 
   /**
-   * Pauses the currently selected track at it's current seek timestamp.
+   * Pauses the currently selected track at it's current playback position.
    */
   pauseSelectedTrack() {
     if (this.selectedTrack) {
@@ -436,15 +439,15 @@ export class AudioPlayer {
   }
 
   /**
-   * Retrieves the current seek timestamp of the selected track.
-   * @returns The current seek timestamp in seconds or `null` if unavailable.
+   * Retrieves the current playback position of the selected track.
+   * @returns The current playback position in seconds or `null` if unavailable.
    */
-  getSelectedTrackSeekTimestamp(): number | null {
+  getSelectedTrackPlaybackPosition(): number | null {
     if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
-      const seekTimestamp = this.selectedTrack.howl.seek();
+      const playbackPosition = this.selectedTrack.howl.seek();
 
-      if (isNumber(seekTimestamp)) {
-        return seekTimestamp;
+      if (isNumber(playbackPosition)) {
+        return playbackPosition;
       }
     }
 
@@ -454,7 +457,7 @@ export class AudioPlayer {
   /**
    * Seeks to a specified timestamp in the currently selected track.
    * @param timestamp - The timestamp to seek to in seconds.
-   * @returns The updated seek timestamp or `null` if seeking failed.
+   * @returns The updated playback position or `null` if seeking failed.
    */
   seekToTimestampForSelectedTrack(timestamp: number): number | null {
     if (this.selectedTrack && this.selectedTrack.howl.state() === "loaded") {
@@ -462,10 +465,10 @@ export class AudioPlayer {
         this.selectedTrack.howl.seek(timestamp);
       }
 
-      const seekTimestamp = this.selectedTrack.howl.seek();
+      const playbackPosition = this.selectedTrack.howl.seek();
 
-      if (isNumber(seekTimestamp)) {
-        return seekTimestamp;
+      if (isNumber(playbackPosition)) {
+        return playbackPosition;
       }
     }
 

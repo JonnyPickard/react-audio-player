@@ -1,11 +1,13 @@
-import { Box, Stack, Text } from "@chakra-ui/react";
+import { Box, Flex, HStack, VStack } from "@chakra-ui/react";
+import { Timestamp } from "components/atoms/Timestamp";
 import { Slider } from "components/molecules/Slider";
 
 interface SeekBarProps {
   onSeek: (timestamp: number) => void;
   // onSeekEnd: (timestamp: number) => void; ?
   // onSeekStart: (timestamp: number) => void; ?
-  seekTimestamp: number;
+  /* Time in seconds */
+  playbackPosition: number;
   timePlayed: number;
   timeRemaining: number;
   variant?: "desktop" | "mobile-slim" | "mobile-expanded";
@@ -13,18 +15,31 @@ interface SeekBarProps {
 
 export function SeekBar({
   onSeek,
-  seekTimestamp,
+  playbackPosition,
   timePlayed,
   timeRemaining,
   variant = "desktop",
 }: SeekBarProps) {
-  return variant === "mobile-slim" ? (
-    <Slider variant={variant} />
-  ) : (
-    <Stack direction={variant === "mobile-expanded" ? "column" : "row"}>
-      <Text>{timePlayed}</Text>
-      <Slider variant={variant} />
-      <Text>{timeRemaining}</Text>
-    </Stack>
-  );
+  switch (variant) {
+    case "mobile-slim":
+      return <Slider variant={variant} />;
+    case "mobile-expanded":
+      return (
+        <VStack>
+          <Slider variant={variant} />
+          <Flex justify="space-between" w="100%" align="center">
+            <Timestamp seconds={timePlayed} />
+            <Timestamp seconds={timeRemaining} />
+          </Flex>
+        </VStack>
+      );
+    default:
+      return (
+        <HStack>
+          <Timestamp seconds={timePlayed} />
+          <Slider variant={variant} />
+          <Timestamp seconds={timeRemaining} />
+        </HStack>
+      );
+  }
 }

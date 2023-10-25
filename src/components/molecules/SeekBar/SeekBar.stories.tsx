@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
 
@@ -13,7 +14,21 @@ type Story = StoryObj<typeof SeekBar>;
 
 export const SeekBarStory: Story = {
   name: "SeekBar",
-  render: (props) => <SeekBar {...props} />,
+  render: (props) => (
+    /* 
+    Note: I made a container wrapper due to some quirks with SB background colors 
+      that I don't want to prioritise at present.  
+    */
+    <Box
+      bg="grayscale.almostBlack"
+      padding="2"
+      color="white"
+      borderRadius={6}
+      w="100%"
+    >
+      <SeekBar {...props} />
+    </Box>
+  ),
   argTypes: {
     variant: {
       control: {
