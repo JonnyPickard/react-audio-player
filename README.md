@@ -95,18 +95,18 @@ npm run chromatic:deploy
       - [ ] Text \*
       - [ ] Link \*
       - [ ] Timestamp
-        - [ ] Basic component
+        - [x] Basic component
         - [ ] Work out how to subscribe it to duration/ seek times etc
     - [ ] Molecules
       - [x] IconButton (w/ Tooltip)
-      - [ ] Slider
+      - [x] Slider
       - [ ] Track Details
         - [x] Rework artist -> artists incase there are multiple, with links to their pages.
         - [ ] Text roll animation if title/ artist name are too long and go off screen.
           - Will need to calculate visible space + text length
       - [ ] Track Controls
         - [ ] Playback Controls
-        - [ ] Seek Bar
+        - [x] Seek Bar
       - [ ] Player Global Controls
         - [ ] Volume Bar
     - [ ] Organisms (Player)
