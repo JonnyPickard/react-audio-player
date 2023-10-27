@@ -1,7 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
+import { AllIcons } from "components/atoms/Icon";
 
-import { AllIcons } from "../../atoms/Icon";
 import { IconButton } from "./IconButton";
 
 const meta = {
