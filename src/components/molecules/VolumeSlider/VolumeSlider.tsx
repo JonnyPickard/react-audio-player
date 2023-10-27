@@ -1,30 +1,37 @@
-import { Flex, HStack, VStack } from "@chakra-ui/react";
-import { Timestamp } from "components/atoms/Timestamp";
+import { HStack } from "@chakra-ui/react";
+import { IconButton } from "components/molecules/IconButton";
 import { Slider } from "components/molecules/Slider";
+import { useContext } from "react";
+
+import { VolumeContext } from ".";
+import { pickVolumeIcon } from "./utils";
 
 const ARIA_LABEL = "Volume slider handle";
 
-interface VolumeSliderProps {
-  /* From 0 - 1 (0 meaning muted & 1 being full volume) */
-  volume: number;
-  onVolumeChange: (value: number) => void;
-  isMuted?: boolean;
-  toggleMute: (mute: boolean) => void;
-}
+export function VolumeSlider() {
+  const {
+    volume,
+    onVolumeChange,
+    toggleMute,
+    muted = false,
+  } = useContext(VolumeContext);
 
-export function VolumeSlider({
-  volume,
-  onVolumeChange,
-  isMuted,
-  toggleMute,
-}: VolumeSliderProps) {
   return (
-    <Slider
-      aria-label={ARIA_LABEL}
-      onChange={onVolumeChange}
-      value={volume}
-      min={0}
-      max={1}
-    />
+    <HStack role="group">
+      <IconButton
+        aria-label="Mute Track"
+        size="md"
+        icon={pickVolumeIcon(volume, muted)}
+        onClick={() => toggleMute()}
+      />
+      <Slider
+        aria-label={ARIA_LABEL}
+        onChange={onVolumeChange}
+        value={muted ? 0 : volume}
+        step={0.05}
+        min={0}
+        max={1}
+      />
+    </HStack>
   );
 }

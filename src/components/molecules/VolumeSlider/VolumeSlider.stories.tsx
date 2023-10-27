@@ -2,22 +2,29 @@ import { Box } from "@chakra-ui/react";
 import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
 
-import { VolumeSlider } from "./VolumeSlider";
+import { VolumeSlider, VolumeSliderContainer } from ".";
 
 const meta = {
   title: "components/VolumeSlider",
-} satisfies Meta<typeof VolumeSlider>;
+} satisfies Meta<typeof VolumeSliderContainer>;
 
 export default meta;
-type Story = StoryObj<typeof VolumeSlider>;
+type Story = StoryObj<typeof VolumeSliderContainer>;
 
-export const VolumeSliderStory: Story = {
+export const VolumeSliderContainerStory: Story = {
   name: "VolumeSlider",
-  render: (props) => (
+  decorators: [
+    (Story) => (
+      <VolumeSliderContainer>
+        <Story />
+      </VolumeSliderContainer>
+    ),
+  ],
+  render: () => (
     /* 
-    Note: I made a container wrapper due to some quirks with SB background colors 
-      that I don't want to prioritise at present.  
-    */
+      Note: I made a container wrapper due to some quirks with SB background colors 
+        that I don't want to prioritise at present.  
+      */
     <Box
       bg="grayscale.almostBlack"
       padding="2"
@@ -25,10 +32,9 @@ export const VolumeSliderStory: Story = {
       borderRadius={6}
       w="100%"
     >
-      <VolumeSlider {...props} />
+      <VolumeSlider />
     </Box>
   ),
-  args: {},
   parameters: {
     design: config([
       {
