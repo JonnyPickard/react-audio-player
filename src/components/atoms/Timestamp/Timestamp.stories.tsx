@@ -1,6 +1,6 @@
-import { Flex } from "@chakra-ui/react";
 import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
+import { StoryWrapper } from "styles/decorators";
 
 import { Timestamp } from "./Timestamp";
 
@@ -13,15 +13,8 @@ type Story = StoryObj<typeof Timestamp>;
 
 export const TimestampStory: Story = {
   name: "Timestamp",
-  render: (props) => (
-    /* 
-    Note: I made a container wrapper due to some quirks with SB background colors 
-      that I don't want to prioritise at present.  
-    */
-    <Flex bg="grayscale.almostBlack" padding="2" borderRadius={6}>
-      <Timestamp {...props} />
-    </Flex>
-  ),
+  decorators: [StoryWrapper],
+  render: (props) => <Timestamp {...props} />,
 
   args: {
     seconds: 65,
