@@ -1,6 +1,6 @@
-import { Flex } from "@chakra-ui/react";
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
+import { StoryWrapperIcon } from "styles/decorators";
 
 import { AllIcons, Icon } from ".";
 
@@ -15,26 +15,8 @@ type Story = StoryObj<IconPropsAndCustomArgs>;
 
 export const IconStory: Story = {
   name: "Icon",
-  render: (props) => (
-    /* 
-      Note: I made a container wrapper due to some quirks with SB background colors 
-        that I don't want to prioritise at present.  
-    */
-    <Flex
-      bg={
-        props.color === "white"
-          ? "grayscale.almostBlack"
-          : "grayscale.almostWhite"
-      }
-      borderRadius={6}
-      w={"50vw"}
-      h={"50vh"}
-      align={"center"}
-      justify={"center"}
-    >
-      <Icon {...props} />
-    </Flex>
-  ),
+  decorators: [StoryWrapperIcon],
+  render: (props) => <Icon {...props} />,
   parameters: {
     layout: "centered",
   },

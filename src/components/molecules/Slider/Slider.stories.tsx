@@ -1,6 +1,6 @@
-import { Box } from "@chakra-ui/react";
 import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
+import { StoryWrapper } from "styles/decorators";
 
 import { Slider } from "./Slider";
 
@@ -13,21 +13,8 @@ type Story = StoryObj<typeof Slider>;
 
 export const SliderStory: Story = {
   name: "Slider",
-  render: (props) => (
-    /* 
-    Note: I made a container wrapper due to some quirks with SB background colors 
-      that I don't want to prioritise at present.  
-    */
-    <Box
-      bg="grayscale.almostBlack"
-      padding="2"
-      color="white"
-      borderRadius={6}
-      w="100%"
-    >
-      <Slider {...props} />
-    </Box>
-  ),
+  decorators: [StoryWrapper],
+  render: (props) => <Slider {...props} />,
   argTypes: {
     variant: {
       control: {

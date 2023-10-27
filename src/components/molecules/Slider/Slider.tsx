@@ -14,9 +14,15 @@ export function Slider({ variant = "desktop", ...props }: SliderProps) {
   return (
     <ChakraSlider role="group" variant={variant} {...props}>
       <SliderTrack>
-        <SliderFilledTrack _groupHover={{ bg: "brand.secondary.light" }} />
+        <SliderFilledTrack
+          _groupHover={{ bg: "brand.secondary.light" }}
+          _groupActive={{ bg: "brand.secondary.light" }}
+        />
       </SliderTrack>
-      <SliderThumb _groupHover={{ opacity: "1" }} />
+      <SliderThumb
+        _groupHover={{ opacity: "1" }}
+        _groupActive={{ opacity: "1" }}
+      />
     </ChakraSlider>
   );
 }
