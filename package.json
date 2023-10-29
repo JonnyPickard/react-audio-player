@@ -15,12 +15,14 @@
     "format": "prettier . --write",
     "test": "vitest",
     "test:coverage": "vitest --coverage --ui --open",
+    "test:ci": "vitest run",
     "preview": "vite preview",
     "documentation:generate": "typedoc",
     "documentation:open": "open ./docs/typedoc/index.html",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "chromatic:deploy": "env-cmd npx chromatic --build-script-name=storybook:build --project-token="
+    "chromatic:deploy": "env-cmd npx chromatic --build-script-name=storybook:build --project-token=",
+    "prepare:git-hooks": "husky install"
   },
   "dependencies": {
     "@chakra-ui/react": "^2.8.1",
@@ -81,7 +83,8 @@
     "typescript": "^5.0.2",
     "vite": "^4.4.5",
     "vite-tsconfig-paths": "^4.2.1",
-    "vitest": "^0.33.0"
+    "vitest": "^0.33.0",
+    "husky": "^8.0.0"
   },
   "_id": "react-audio-player@0.0.0"
 }
