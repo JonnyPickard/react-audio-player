@@ -2,7 +2,7 @@ import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
 import { StoryWrapper } from "styles/decorators";
 
-import { PlaybackControls } from ".";
+import { PlaybackControls, PlaybackControlsContainer } from ".";
 
 const meta = {
   title: "components/PlaybackControls",
@@ -13,7 +13,14 @@ type Story = StoryObj<typeof PlaybackControls>;
 
 export const PlaybackControlsStory: Story = {
   name: "PlaybackControls",
-  decorators: [StoryWrapper],
+  decorators: [
+    StoryWrapper,
+    (Story) => (
+      <PlaybackControlsContainer>
+        <Story />
+      </PlaybackControlsContainer>
+    ),
+  ],
   render: (props) => <PlaybackControls {...props} />,
   argTypes: {
     variant: {

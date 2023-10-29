@@ -1,18 +1,16 @@
+import { useContext } from "react";
+
+import { PlaybackControlsContext } from ".";
+
 interface PlaybackControlsProps {
-  onPlayPress: () => void;
-  onStepForwardPress: () => void;
-  onStepBackwardPress: () => void;
-  canStepForward?: boolean;
-  canStepBackward?: boolean;
-  trackState: "paused" | "playing" | "loading" | "unloaded";
   variant?: "desktop" | "mobile-slim" | "mobile-expanded";
 }
 
 export function PlaybackControls({
-  // canStepBackward = false,
-  // canStepForward = false,
   variant = "desktop",
 }: PlaybackControlsProps) {
+  const { onPlayPress } = useContext(PlaybackControlsContext);
+
   switch (variant) {
     case "mobile-slim":
       return <h1>Hello from mobile slim</h1>;
