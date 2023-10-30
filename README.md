@@ -12,6 +12,26 @@ I will potentially end up open-sourcing this.
 
 Apologies in advance for the test tracks included. They are tracks I made ~10 years ago.
 
+## Testing
+
+Currently [vitest](https://vitest.dev/) with [react testing library](https://testing-library.com/docs/react-testing-library/intro/) is set up for unit tests.
+
+```sh
+# run unit tests
+
+npm test
+```
+
+```sh
+# run unit tests with coverage
+
+npm run test:coverage
+```
+
+Then [Chromatic](#chromatic-by-storybook---hosting--component-explorer) can be used to do visual regression tests on components.
+
+> Note: Because I still need to work out centralised state management from the player -> components. I'm holding off on RTL tests for now as i'd probably just end up having to re-write them.
+
 ## Designs
 
 ### Desktop Player
@@ -25,10 +45,6 @@ Apologies in advance for the test tracks included. They are tracks I made ~10 ye
 ### Mobile Player - Expanded
 
 <img src="./docs/designs/PlayerMobileExpaded.svg" alt="Mobile - Expanded Design" style="max-width:1080px;">
-
-## Wireframes
-
-  <img src="./docs/designs/ReactAudioPlayer.drawio.png" alt="Wireframes" style="max-width:600px;">
 
 ## Generate Type Docs
 
@@ -54,7 +70,7 @@ The main benefits of Chakra are significant time-saved. And the ability to handl
 
 ### [Chromatic By Storybook](https://www.chromatic.com/) - Hosting + Component Explorer
 
-Mainly testing this out to see how the figma integration works.
+I wanted to try this with figma integration to see how it works.
 
 To deploy you need an `.env` file at root containing:
 
@@ -105,10 +121,14 @@ npm run chromatic:deploy
         - [ ] Text roll animation if title/ artist name are too long and go off screen.
           - Will need to calculate visible space + text length
       - [ ] Track Controls
-        - [ ] Playback Controls
+        - [x] Playback Controls
         - [x] Seek Bar
       - [ ] Player Global Controls
-        - [ ] Volume Bar
+        - [x] Volume Bar
     - [ ] Organisms (Player)
 
 \* don't think its worth remaking
+
+## Wireframes
+
+  <img src="./docs/designs/ReactAudioPlayer.drawio.png" alt="Wireframes" style="max-width:600px;">
