@@ -5,9 +5,9 @@ export const Pause = (props: IconProps) => (
     <path
       fill="none"
       stroke="currentColor"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-      stroke-width="32"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="32"
       d="M176 96h16v320h-16zM320 96h16v320h-16z"
     />
   </Icon>

@@ -43,6 +43,7 @@ export const PlaybackControlsStory: Story = {
   },
   args: {
     variant: "desktop",
+    trackState: "paused",
   },
   parameters: {
     design: config([
