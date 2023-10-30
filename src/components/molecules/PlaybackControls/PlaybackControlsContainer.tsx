@@ -11,28 +11,30 @@ type PlaybackControlsContext = {
   canStepForward?: boolean;
   canStepBackward?: boolean;
   trackState: "paused" | "playing" | "loading" | "unloaded";
+  variant?: "desktop" | "mobile-slim" | "mobile-expanded";
 };
 
-const defaultPlaybackControlsConttext: PlaybackControlsContext = {
+export const PlaybackControlsContext = createContext<PlaybackControlsContext>({
   onPlayPress: () => {},
   onStepForwardPress: () => {},
   onStepBackwardPress: () => {},
   canStepForward: false,
   canStepBackward: false,
   trackState: "unloaded",
-};
+});
 
-export const PlaybackControlsContext = createContext<PlaybackControlsContext>(
-  defaultPlaybackControlsConttext,
-);
+interface PlaybackControlsContainerProps extends PlaybackControlsContext {
+  children: React.ReactNode;
+}
 
 export const PlaybackControlsContainer = ({
+  trackState = "unloaded",
+  variant = "desktop",
   children,
-}: {
-  children: React.ReactNode;
-}) => {
+  ...props
+}: PlaybackControlsContainerProps) => {
   return (
-    <PlaybackControlsContext.Provider value={defaultPlaybackControlsConttext}>
+    <PlaybackControlsContext.Provider value={{ trackState, variant, ...props }}>
       {children}
     </PlaybackControlsContext.Provider>
   );

@@ -2,14 +2,8 @@ import { useContext } from "react";
 
 import { PlaybackControlsContext } from ".";
 
-interface PlaybackControlsProps {
-  variant?: "desktop" | "mobile-slim" | "mobile-expanded";
-}
-
-export function PlaybackControls({
-  variant = "desktop",
-}: PlaybackControlsProps) {
-  const { onPlayPress } = useContext(PlaybackControlsContext);
+export function PlaybackControls() {
+  const { variant } = useContext(PlaybackControlsContext);
 
   switch (variant) {
     case "mobile-slim":

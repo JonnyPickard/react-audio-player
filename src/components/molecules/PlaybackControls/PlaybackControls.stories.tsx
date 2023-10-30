@@ -6,32 +6,39 @@ import { PlaybackControls, PlaybackControlsContainer } from ".";
 
 const meta = {
   title: "components/PlaybackControls",
-} satisfies Meta<typeof PlaybackControls>;
+} satisfies Meta<typeof PlaybackControlsContainer>;
 
 export default meta;
-type Story = StoryObj<typeof PlaybackControls>;
+type Story = StoryObj<typeof PlaybackControlsContainer>;
 
 export const PlaybackControlsStory: Story = {
   name: "PlaybackControls",
-  decorators: [
-    StoryWrapper,
-    (Story) => (
-      <PlaybackControlsContainer>
-        <Story />
-      </PlaybackControlsContainer>
-    ),
-  ],
-  render: (props) => <PlaybackControls {...props} />,
+  decorators: [StoryWrapper],
+  render: (props) => (
+    <PlaybackControlsContainer {...props}>
+      <PlaybackControls />
+    </PlaybackControlsContainer>
+  ),
   argTypes: {
     variant: {
       control: {
         type: "select",
       },
       table: {
-        type: { summary: "Slider variant" },
+        type: { summary: "PlaybackControls variant" },
         defaultValue: { summary: "desktop" },
       },
       options: ["desktop", "mobile-slim", "mobile-expanded"],
+    },
+    trackState: {
+      control: {
+        type: "select",
+      },
+      table: {
+        type: { summary: "PlaybackControls track state" },
+        defaultValue: { summary: "unloaded" },
+      },
+      options: ["paused", "playing", "loading", "unloaded"],
     },
   },
   args: {
