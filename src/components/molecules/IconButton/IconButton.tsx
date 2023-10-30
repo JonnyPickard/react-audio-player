@@ -13,6 +13,7 @@ const FadeIn = chakra(motion.div);
 
 interface IconButtonProps extends Omit<ChakraIconButtonProps, "icon"> {
   icon: Icons;
+  iconColor?: "white" | "lightGray";
   size?: "sm" | "md" | "lg" | "xl";
   hoverAnimation?: boolean;
   isLoading?: boolean;
@@ -20,6 +21,7 @@ interface IconButtonProps extends Omit<ChakraIconButtonProps, "icon"> {
 
 export function IconButton({
   icon,
+  iconColor = "white",
   size = "sm",
   hoverAnimation,
   isLoading = false,
@@ -71,7 +73,7 @@ export function IconButton({
           <Icon
             icon={icon}
             size={size}
-            color="white"
+            color={iconColor}
             hoverAnimation={hoverAnimation}
           />
         }

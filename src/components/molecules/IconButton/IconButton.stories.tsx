@@ -37,6 +37,16 @@ export const IconButtonStory: Story = {
         defaultValue: { summary: "ChevronDown" },
       },
     },
+    iconColor: {
+      options: ["white", "lightGray"],
+      control: {
+        type: "select",
+      },
+      table: {
+        type: { summary: "Set icon color" },
+        defaultValue: { summary: "white" },
+      },
+    },
     hoverAnimation: {
       control: {
         type: "boolean",
@@ -57,6 +67,7 @@ export const IconButtonStory: Story = {
     },
   },
   args: {
+    iconColor: "white",
     isLoading: false,
     hoverAnimation: true,
     size: "lg",

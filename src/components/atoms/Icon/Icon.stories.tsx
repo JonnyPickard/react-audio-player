@@ -28,7 +28,7 @@ export const IconStory: Story = {
   },
   argTypes: {
     color: {
-      options: ["black", "white"],
+      options: ["black", "white", "lightGray"],
       control: {
         type: "select",
       },

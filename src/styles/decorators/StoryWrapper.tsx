@@ -19,9 +19,9 @@ export const StoryWrapperIcon: Decorator = (story, context) => {
   return (
     <Box
       bg={
-        context.args.color === "white"
-          ? "grayscale.almostBlack"
-          : "grayscale.almostWhite"
+        context.args.color === "black"
+          ? "grayscale.almostWhite"
+          : "grayscale.almostBlack"
       }
       padding={2}
       borderRadius={6}

@@ -48,6 +48,30 @@ export const components = {
         color: "grayscale.almostWhite",
         fill: "grayscale.almostWhite",
       },
+      "sm-lightGray": {
+        // 16px
+        boxSize: Icon.sm.name,
+        color: "grayscale.lightGray",
+        fill: "grayscale.lightGray",
+      },
+      "md-lightGray": {
+        // 24px
+        boxSize: Icon.md.name,
+        color: "grayscale.lightGray",
+        fill: "grayscale.lightGray",
+      },
+      "lg-lightGray": {
+        // 32px
+        boxSize: Icon.lg.name,
+        color: "grayscale.lightGray",
+        fill: "grayscale.lightGray",
+      },
+      "xl-lightGray": {
+        // 56px
+        boxSize: Icon.xl.name,
+        color: "grayscale.lightGray",
+        fill: "grayscale.lightGray",
+      },
       "sm-black": {
         // 16px
         boxSize: Icon.sm.name,

@@ -65,7 +65,7 @@ export function PlaybackControls() {
             gridColumnStart={2}
             size="lg"
             icon={AllIcons.StepBackward}
-            aria-label={pickAriaLabel()}
+            aria-label={"Previous Track"}
             onClick={onStepBackwardPress}
             isDisabled={canStepBackward}
           />
@@ -82,7 +82,7 @@ export function PlaybackControls() {
             gridColumnStart={4}
             size="lg"
             icon={AllIcons.StepForward}
-            aria-label={pickAriaLabel()}
+            aria-label={"Next Track"}
             onClick={onStepForwardPress}
             isDisabled={canStepForward}
           />
@@ -100,8 +100,9 @@ export function PlaybackControls() {
           >
             <IconButton
               size="sm"
+              iconColor="lightGray"
               icon={AllIcons.StepBackward}
-              aria-label={pickAriaLabel()}
+              aria-label={"Previous Track"}
               onClick={onStepBackwardPress}
               isDisabled={canStepBackward}
             />
@@ -115,8 +116,9 @@ export function PlaybackControls() {
             />
             <IconButton
               size="sm"
+              iconColor="lightGray"
               icon={AllIcons.StepForward}
-              aria-label={pickAriaLabel()}
+              aria-label={"Next Track"}
               onClick={onStepForwardPress}
               isDisabled={canStepForward}
             />
