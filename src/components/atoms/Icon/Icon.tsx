@@ -3,7 +3,7 @@ import * as icons from "./Icons";
 interface IconProps {
   icon: icons.Icons;
   size?: "sm" | "md" | "lg" | "xl";
-  color?: "white" | "black";
+  color?: "white" | "lightGray" | "black";
   hoverAnimation?: boolean;
 }
 
@@ -16,6 +16,7 @@ export const Icon = ({
   hoverAnimation = true,
 }: IconProps) => {
   const ChosenIcon = icons[icon];
+  const hoverColor = color === "black" ? "black" : "white";
 
   return (
     <ChosenIcon
@@ -23,8 +24,8 @@ export const Icon = ({
       _hover={
         hoverAnimation
           ? {
-              color: color === "white" ? "white" : "black",
-              fill: color === "white" ? "white" : "black",
+              color: hoverColor,
+              fill: hoverColor,
               transform: "scale(1.02)",
               transition: "400ms ease",
             }
