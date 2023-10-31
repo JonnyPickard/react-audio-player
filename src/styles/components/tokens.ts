@@ -33,7 +33,8 @@ export const tokens = {
     lg: { px: "24px", rem: "1.5rem" },
   },
   Image: {
-    mobile: { rem: "2.5rem", name: "10" },
+    "mobile-slim": { rem: "2.5rem", name: "10" },
+    "mobile-expanded": { rem: "28rem", name: "md" },
     desktop: { rem: "3.5rem", name: "14" },
   },
 };

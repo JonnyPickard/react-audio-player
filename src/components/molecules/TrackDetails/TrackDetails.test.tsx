@@ -3,8 +3,10 @@ import { render, screen } from "test/test-utils";
 
 import { TrackDetails } from "./TrackDetails";
 
+const variant = "desktop";
+
 test("should render track details", () => {
-  render(<TrackDetails {...testTrack1} />);
+  render(<TrackDetails variant={variant} {...testTrack1} />);
 
   expect(
     screen.getByRole("link", { name: testTrack1.title }),
@@ -17,7 +19,7 @@ test("should render track details", () => {
 });
 
 test("when multiple artist names should append commas to said names, except for the last", () => {
-  render(<TrackDetails {...testTrack1} />);
+  render(<TrackDetails variant={variant} {...testTrack1} />);
 
   const firstArtistNameWithComma = testTrack1.artists[0].name + ",";
   const secondArtistNameWithoutComma = testTrack1.artists[1].name;
@@ -33,7 +35,7 @@ test("when multiple artist names should append commas to said names, except for 
 });
 
 test("when multiple artist names should append commas to said names, except for the last", () => {
-  render(<TrackDetails {...testTrack1} />);
+  render(<TrackDetails variant={variant} {...testTrack1} />);
 
   const firstArtistNameWithComma = testTrack1.artists[0].name + ",";
   const secondArtistNameWithoutComma = testTrack1.artists[1].name;
@@ -49,7 +51,7 @@ test("when multiple artist names should append commas to said names, except for 
 });
 
 test("should not render an artist link when no artist url", () => {
-  render(<TrackDetails {...testTrack1} />);
+  render(<TrackDetails variant={variant} {...testTrack1} />);
 
   const secondArtistNameWithoutUrl = testTrack1.artists[1].name;
 

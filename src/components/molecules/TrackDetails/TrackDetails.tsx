@@ -1,120 +1,30 @@
+import { Box } from "@chakra-ui/react";
 import {
-  Box,
-  HStack,
-  Image,
-  Link,
-  Skeleton,
-  Text,
-  VStack,
-} from "@chakra-ui/react";
-import { Artist } from "components/organisms/Player/models/Artist";
-import { tokens } from "styles/components/tokens";
+  Artist,
+  Artwork as ArtworkModel,
+} from "components/organisms/Player/models";
+
+import { TrackDetailsExpanded, TrackDetailsSlim } from ".";
 
 interface TrackDetailsProps {
   artists: Artist[];
   title: string;
-  artworkUrl: string;
+  artwork: ArtworkModel;
   productUrl: string;
-  variant?: "slim" | "expanded";
-  display?: "mobile" | "desktop";
+  variant: "desktop" | "mobile-slim" | "mobile-expanded";
 }
 
 export function TrackDetails({
-  artists,
-  title,
-  artworkUrl,
-  productUrl,
-  display = "desktop",
+  variant = "desktop",
+  ...props
 }: TrackDetailsProps) {
-  const fontSize = display === "desktop" ? "sm" : "xs";
-  const imageSize = tokens.Image[display].name;
-
   return (
-    <HStack bg="grayscale.almostBlack" gap="0">
-      <Image
-        boxSize={imageSize}
-        src={artworkUrl}
-        fallback={<Skeleton h={imageSize} w={imageSize} />}
-        alt={`${title} Artwork`}
-      />
-      <VStack
-        mr="1"
-        ml="1"
-        pl="2"
-        pr="2"
-        position="relative"
-        align="start"
-        gap="0"
-        overflow="hidden"
-        whiteSpace="nowrap"
-        _before={{
-          content: "''",
-          w: "2",
-          h: "100%",
-          position: "absolute",
-          left: 0,
-          bgGradient: `linear(\
-            to-r,\
-            grayscale.almostBlack 0%,\
-            grayscaleAlpha.almostBlack.500 80%,\
-            grayscaleAlpha.almostBlack.100 90%,\
-            grayscaleAlpha.almostBlack.0 100%\
-          )`,
-        }}
-        _after={{
-          content: "''",
-          w: "2",
-          h: "100%",
-          right: 0,
-          position: "absolute",
-          bgGradient: `linear(\
-            to-l,\
-            grayscale.almostBlack 0%,\
-            grayscaleAlpha.almostBlack.500 80%,\
-            grayscaleAlpha.almostBlack.100 90%,\
-            grayscaleAlpha.almostBlack.0 100%\
-          )`,
-        }}
-      >
-        <Box>
-          <Link
-            color="grayscale.almostWhite"
-            href={productUrl}
-            fontSize={fontSize}
-          >
-            {title}
-          </Link>
-        </Box>
-        <Box>
-          <HStack>
-            {artists.map((artist, i, { length }) => {
-              const shouldAddComma = length - 1 === i ? "" : ",";
-              const artistName = artist.name + shouldAddComma;
-              const key = `${artist.name}-${i}`;
-
-              // Note: Ideally all artists would have a link to an artist page
-              return artist.url ? (
-                <Link
-                  color="grayscale.almostWhite"
-                  key={key}
-                  href={artist.url}
-                  fontSize={fontSize}
-                >
-                  {artistName}
-                </Link>
-              ) : (
-                <Text
-                  color="grayscale.almostWhite"
-                  key={key}
-                  fontSize={fontSize}
-                >
-                  {artistName}
-                </Text>
-              );
-            })}
-          </HStack>
-        </Box>
-      </VStack>
-    </HStack>
+    <Box overflow="hidden">
+      {variant === "mobile-expanded" ? (
+        <TrackDetailsExpanded variant={variant} {...props} />
+      ) : (
+        <TrackDetailsSlim variant={variant} {...props} />
+      )}
+    </Box>
   );
 }

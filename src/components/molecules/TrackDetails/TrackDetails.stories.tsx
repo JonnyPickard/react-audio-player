@@ -1,6 +1,7 @@
 import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
 import { testTrack1 } from "mocks/fixtures/test-tracks";
+import { StoryWrapper } from "styles/decorators";
 
 import { TrackDetails } from "./TrackDetails";
 
@@ -13,20 +14,29 @@ type Story = StoryObj<typeof TrackDetails>;
 
 export const TrackDetailsStory: Story = {
   name: "TrackDetails",
+  decorators: [StoryWrapper],
   render: (props) => <TrackDetails {...props} />,
   argTypes: {
-    display: {
-      options: ["mobile", "desktop"],
+    variant: {
       control: {
         type: "select",
       },
+      table: {
+        type: { summary: "PlaybackControls variant" },
+        defaultValue: { summary: "desktop" },
+      },
+      options: [
+        "desktop",
+        "mobile-slim",
+        /* "mobile-expanded" */
+      ],
     },
   },
   args: {
-    display: "desktop",
+    variant: "desktop",
     artists: testTrack1.artists,
     title: testTrack1.title,
-    artworkUrl: testTrack1.artworkUrl,
+    artwork: testTrack1.artwork,
     productUrl: testTrack1.productUrl,
   },
   parameters: {
