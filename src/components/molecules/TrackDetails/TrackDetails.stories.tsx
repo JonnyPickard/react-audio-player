@@ -15,15 +15,19 @@ export const TrackDetailsStory: Story = {
   name: "TrackDetails",
   render: (props) => <TrackDetails {...props} />,
   argTypes: {
-    display: {
-      options: ["mobile", "desktop"],
+    variant: {
       control: {
         type: "select",
       },
+      table: {
+        type: { summary: "PlaybackControls variant" },
+        defaultValue: { summary: "desktop" },
+      },
+      options: ["desktop", "mobile-slim", "mobile-expanded"],
     },
   },
   args: {
-    display: "desktop",
+    variant: "desktop",
     artists: testTrack1.artists,
     title: testTrack1.title,
     artworkUrl: testTrack1.artworkUrl,

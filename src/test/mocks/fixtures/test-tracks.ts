@@ -1,5 +1,5 @@
-import bonoboArtworkUrl from "assets/test-tracks/album-artwork-bonobo.png";
-import polaAndBrysonArtworkUrl from "assets/test-tracks/album-artwork-pola-and-bryson.png";
+import bonoboArtworkUrl from "assets/test-tracks/album-artwork-bonobo-xs.png";
+import polaAndBrysonArtworkUrl from "assets/test-tracks/album-artwork-pola-and-bryson-xs.png";
 import breaks from "assets/test-tracks/breaks.mp3";
 import techno from "assets/test-tracks/techno.mp3";
 
@@ -15,6 +15,7 @@ export const testTrack1 = {
     { name: "Ruth Royal" },
   ],
   artworkUrl: polaAndBrysonArtworkUrl,
+  // artworkSrcSet: [],
   productUrl: "#friend",
 };
 

@@ -1,7 +1,7 @@
 import { Howl } from "howler";
 import { v4 } from "uuid";
 
-import { Artist } from "./Artist";
+import { Artist, Image } from ".";
 
 export interface TrackOptions {
   title: string;
@@ -10,7 +10,7 @@ export interface TrackOptions {
   url: string;
   /* Url to navigate to Product page*/
   productUrl: string;
-  artworkUrl: string;
+  artwork: Image;
 }
 
 export class AudioTrack {
@@ -19,7 +19,7 @@ export class AudioTrack {
   title: string;
   label: string;
   productUrl: string;
-  artworkUrl: string;
+  artwork: Image;
   id: string;
   howl: Howl;
 
@@ -29,7 +29,7 @@ export class AudioTrack {
     this.title = options.title;
     this.label = options.label;
     this.productUrl = options.productUrl;
-    this.artworkUrl = options.artworkUrl;
+    this.artwork = options.artwork;
     this.id = v4();
     this.howl = new Howl({
       src: options.url,
