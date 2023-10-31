@@ -1,11 +1,10 @@
-import { Stack } from "@chakra-ui/react";
-import { Artwork } from "components/atoms/Artwork";
+import { Box } from "@chakra-ui/react";
 import {
   Artist,
   Artwork as ArtworkModel,
 } from "components/organisms/Player/models";
 
-import { TrackDetailsText } from ".";
+import { TrackDetailsExpanded, TrackDetailsSlim } from ".";
 
 interface TrackDetailsProps {
   artists: Artist[];
@@ -16,21 +15,16 @@ interface TrackDetailsProps {
 }
 
 export function TrackDetails({
-  artists,
-  title,
-  artwork,
-  productUrl,
   variant = "desktop",
+  ...props
 }: TrackDetailsProps) {
   return (
-    <Stack direction={variant === "mobile-expanded" ? "column" : "row"} gap="0">
-      <Artwork variant={variant} title={title} artwork={artwork} />
-      <TrackDetailsText
-        artists={artists}
-        title={title}
-        productUrl={productUrl}
-        variant={variant}
-      />
-    </Stack>
+    <Box overflow="hidden">
+      {variant === "mobile-expanded" ? (
+        <TrackDetailsExpanded variant={variant} {...props} />
+      ) : (
+        <TrackDetailsSlim variant={variant} {...props} />
+      )}
+    </Box>
   );
 }
