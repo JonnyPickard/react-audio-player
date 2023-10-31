@@ -1,5 +1,9 @@
-import bonoboArtworkUrl from "assets/test-tracks/album-artwork-bonobo-xs.png";
-import polaAndBrysonArtworkUrl from "assets/test-tracks/album-artwork-pola-and-bryson-xs.png";
+import bonoboArtworkSrcLg from "assets/test-tracks/album-artwork-bonobo-lg.png";
+import bonoboArtworkSrcSm from "assets/test-tracks/album-artwork-bonobo-sm.png";
+import bonoboArtworkSrcXs from "assets/test-tracks/album-artwork-bonobo-xs.png";
+import polaAndBrysonArtworkSrcLg from "assets/test-tracks/album-artwork-pola-and-bryson-lg.png";
+import polaAndBrysonArtworkSrcSm from "assets/test-tracks/album-artwork-pola-and-bryson-sm.png";
+import polaAndBrysonArtworkSrcXs from "assets/test-tracks/album-artwork-pola-and-bryson-xs.png";
 import breaks from "assets/test-tracks/breaks.mp3";
 import techno from "assets/test-tracks/techno.mp3";
 
@@ -14,8 +18,10 @@ export const testTrack1 = {
     { name: "Pola & Bryson", url: "#pola-and-bryson" },
     { name: "Ruth Royal" },
   ],
-  artworkUrl: polaAndBrysonArtworkUrl,
-  // artworkSrcSet: [],
+  artwork: {
+    src: polaAndBrysonArtworkSrcXs,
+    srcSet: `${polaAndBrysonArtworkSrcXs}, ${polaAndBrysonArtworkSrcSm}, ${polaAndBrysonArtworkSrcLg}`,
+  },
   productUrl: "#friend",
 };
 
@@ -24,7 +30,10 @@ export const testTrack2 = {
   title: "Cirrus",
   label: "Ninja Tune",
   artists: [{ name: "Bonobo", url: "#bonobo" }],
-  artworkUrl: bonoboArtworkUrl,
+  artwork: {
+    src: bonoboArtworkSrcXs,
+    srcSet: `${bonoboArtworkSrcXs}, ${bonoboArtworkSrcSm}, ${bonoboArtworkSrcLg}`,
+  },
   productUrl: "#cirrus",
 };
 
@@ -33,6 +42,9 @@ export const testTrack3 = {
   title: "Test Track 2",
   label: "Label 2",
   artists: [{ name: "Test Artist3" }],
-  artworkUrl: bonoboArtworkUrl,
+  artwork: {
+    src: bonoboArtworkSrcXs,
+    srcSet: `${bonoboArtworkSrcXs}, ${bonoboArtworkSrcSm}, ${bonoboArtworkSrcLg}`,
+  },
   productUrl,
 };

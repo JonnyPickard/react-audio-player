@@ -30,7 +30,7 @@ export const TrackDetailsStory: Story = {
     variant: "desktop",
     artists: testTrack1.artists,
     title: testTrack1.title,
-    artworkUrl: testTrack1.artworkUrl,
+    artwork: testTrack1.artwork,
     productUrl: testTrack1.productUrl,
   },
   parameters: {

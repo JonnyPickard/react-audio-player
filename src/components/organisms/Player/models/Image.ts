@@ -1,13 +1,13 @@
 export interface ImageOptions {
   src: string;
-  srcSet: string[];
+  srcSet: string;
 }
 
-export class Image {
+export class Image implements ImageOptions {
   src: string;
-  srcSet: string[];
+  srcSet: string;
 
-  constructor({ src, srcSet = [] }: ImageOptions) {
+  constructor({ src, srcSet }: ImageOptions) {
     this.src = src;
     this.srcSet = srcSet;
   }
