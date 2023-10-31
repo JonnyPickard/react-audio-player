@@ -25,7 +25,11 @@ export const TrackDetailsStory: Story = {
         type: { summary: "PlaybackControls variant" },
         defaultValue: { summary: "desktop" },
       },
-      options: ["desktop", "mobile-slim", "mobile-expanded"],
+      options: [
+        "desktop",
+        "mobile-slim",
+        /* "mobile-expanded" */
+      ],
     },
   },
   args: {

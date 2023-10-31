@@ -16,7 +16,7 @@ export const PlayerStory: Story = {
       {
         name: "Desktop Player",
         type: "figma",
-        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=26%3A905&mode=design&t=zbjAsDvTvyh6SZR5-1",
+        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=233-1740&mode=design&t=NVDL7kKQiTkEUGoF-4",
       },
       {
         name: "Mobile Player - Slim",
