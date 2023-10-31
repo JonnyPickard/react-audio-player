@@ -1,7 +1,7 @@
 import { Howl } from "howler";
 import { v4 } from "uuid";
 
-import { Artist, Image } from ".";
+import { Artist, Artwork } from ".";
 
 export interface TrackOptions {
   title: string;
@@ -10,7 +10,7 @@ export interface TrackOptions {
   url: string;
   /* Url to navigate to Product page*/
   productUrl: string;
-  artwork: Image;
+  artwork: Artwork;
 }
 
 export class AudioTrack {
@@ -19,7 +19,7 @@ export class AudioTrack {
   title: string;
   label: string;
   productUrl: string;
-  artwork: Image;
+  artwork: Artwork;
   id: string;
   howl: Howl;
 

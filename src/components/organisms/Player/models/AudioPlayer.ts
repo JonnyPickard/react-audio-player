@@ -3,7 +3,7 @@ import clamp from "lodash.clamp";
 import remove from "lodash.remove";
 import { logger } from "services";
 
-import { Artist, AudioTrack, Image } from ".";
+import { Artist, Artwork, AudioTrack } from ".";
 import { AudioPlayerError } from "../constants/errors";
 import { cleanTrackData } from "../utils/cleanTrackData";
 import { calcTimePlayed, calcTimeRemaining } from "../utils/durationHelpers";
@@ -18,7 +18,7 @@ export interface NewTrackDetails {
   title: string;
   label: string;
   productUrl: string;
-  artwork: Image;
+  artwork: Artwork;
 }
 
 /**
@@ -76,7 +76,7 @@ export class AudioPlayer {
     title,
     label,
     productUrl = "",
-    artwork = { src: "", srcSet: "" },
+    artwork,
   }: NewTrackDetails) {
     return new AudioTrack(
       { artists, url, title, label, productUrl, artwork },

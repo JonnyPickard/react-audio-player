@@ -1,21 +1,21 @@
 import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
-import { testTrack1 } from "mocks/fixtures/test-tracks";
+import { testTrack2 } from "mocks/fixtures/test-tracks";
 import { StoryWrapper } from "styles/decorators";
 
-import { TrackDetails } from "./TrackDetails";
+import { Artwork } from "./Artwork";
 
 const meta = {
-  title: "components/TrackDetails",
-} satisfies Meta<typeof TrackDetails>;
+  title: "components/Artwork",
+} satisfies Meta<typeof Artwork>;
 
 export default meta;
-type Story = StoryObj<typeof TrackDetails>;
+type Story = StoryObj<typeof Artwork>;
 
-export const TrackDetailsStory: Story = {
-  name: "TrackDetails",
+export const ArtworkStory: Story = {
+  name: "Artwork",
   decorators: [StoryWrapper],
-  render: (props) => <TrackDetails {...props} />,
+  render: (props) => <Artwork {...props} />,
   argTypes: {
     variant: {
       control: {
@@ -30,16 +30,14 @@ export const TrackDetailsStory: Story = {
   },
   args: {
     variant: "desktop",
-    artists: testTrack1.artists,
-    title: testTrack1.title,
-    artwork: testTrack1.artwork,
-    productUrl: testTrack1.productUrl,
+    title: testTrack2.title,
+    artwork: testTrack2.artwork,
   },
   parameters: {
     design: config([
       {
         type: "figma",
-        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=61%3A181&mode=design&t=WK89mzXD1kcI4erK-1",
+        url: "https://www.figma.com/file/HfIFZ2xe4LJgyCSk08SL8I/Player?type=design&node-id=61-188&mode=design&t=NVDL7kKQiTkEUGoF-4",
       },
     ]),
   },

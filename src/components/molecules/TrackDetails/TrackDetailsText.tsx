@@ -78,7 +78,7 @@ export function TrackDetailsText({
           </Link>
         </Box>
         <Box>
-          <HStack color="grayscale.darkWhite">
+          <HStack color="grayscale.darkWhite" gap={1}>
             {artists.map((artist, i, { length }) => {
               const shouldAddComma = length - 1 === i ? "" : ",";
               const artistName = artist.name + shouldAddComma;

@@ -34,7 +34,7 @@ export const tokens = {
   },
   Image: {
     "mobile-slim": { rem: "2.5rem", name: "10" },
-    "mobile-expanded": { rem: "2.5rem", name: "10" },
+    "mobile-expanded": { rem: "28rem", name: "md" },
     desktop: { rem: "3.5rem", name: "14" },
   },
 };
