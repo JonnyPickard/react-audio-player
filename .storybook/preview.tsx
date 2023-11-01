@@ -1,12 +1,18 @@
+import { ChakraProvider } from "@chakra-ui/react";
 import type { Preview } from "@storybook/react";
+import * as React from "react";
 
 import { theme } from "../src/styles/theme";
 
 const preview: Preview = {
+  decorators: [
+    (Story) => (
+      <ChakraProvider theme={theme}>
+        <Story />
+      </ChakraProvider>
+    ),
+  ],
   parameters: {
-    chakra: {
-      theme,
-    },
     actions: { argTypesRegex: "^on[A-Z].*" },
     controls: {
       matchers: {

@@ -3,7 +3,8 @@
   "entryPoints": [
     "./src/components/organisms/Player/models/AudioPlayer.ts",
     "./src/components/organisms/Player/models/AudioTrack.ts",
-    "./src/components/organisms/Player/models/Artist.ts"
+    "./src/components/organisms/Player/models/Artist.ts",
+    "./src/components/organisms/Player/models/Artwork.ts"
   ],
   "out": "./docs/typedoc"
 }

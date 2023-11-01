@@ -7,6 +7,10 @@ import { typography } from "./typography";
 // Has to adhere to this structure:
 // https://github.com/chakra-ui/chakra-ui/blob/main/packages/components/theme/src/foundations/index.ts
 export const theme = extendTheme({
+  config: {
+    initialColorMode: "dark",
+    useSystemColorMode: false,
+  },
   components,
   colors: {
     grayscale,
