@@ -1,8 +1,6 @@
 <p align="center">
   <a href="https://jonnypickard.github.io/react-audio-player/storybook/?path=/docs/react-audio-player-overview-links--docs">
-    <picture>
-      <img src="./src/assets/text-logo.svg" alt="Storybook" width="140" />
-    </picture>
+    <img src="./src/assets/text-logo.svg" alt="Storybook" width="140" />
   </a>
 </p>
 
@@ -12,10 +10,8 @@
 
 - 🎨 [Components](https://jonnypickard.github.io/react-audio-player/storybook/?path=/docs/react-audio-player-overview-links--docs)
 - <a href="https://jonnypickard.github.io/react-audio-player/typedoc/index.html">
-    <picture>
-      <img src="./src/assets/icons/brands/typedoc.svg" alt="Storybook" width="16px" />
-      Player model reference
-    </picture>
+    <img src="./src/assets/icons/brands/typedoc.svg" alt="Storybook" width="16px" />
+    Player model reference
   </a>
 - 🚧 (WIP) Demo: [React Audio Player](https://jonnypickard.github.io/react-audio-player)
 
