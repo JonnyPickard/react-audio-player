@@ -6,6 +6,10 @@ import { Timestamp } from "./Timestamp";
 
 const meta = {
   title: "components/Timestamp",
+  parameters: {
+    fitContent: true,
+    layout: "centered",
+  },
 } satisfies Meta<typeof Timestamp>;
 
 export default meta;

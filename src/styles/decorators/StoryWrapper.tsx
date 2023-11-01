@@ -1,14 +1,14 @@
 import { Box } from "@chakra-ui/react";
 import type { Decorator } from "@storybook/react";
 
-export const StoryWrapper: Decorator = (story) => {
+export const StoryWrapper: Decorator = (story, { parameters }) => {
   return (
     <Box
       bg="grayscale.almostBlack"
       color="white"
       padding={2}
       borderRadius={6}
-      w="100%"
+      w={parameters.fitContent ? "fit-content" : "100%"}
     >
       {story()}
     </Box>

@@ -1,12 +1,14 @@
 import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
 import { testTrack2 } from "mocks/fixtures/test-tracks";
-import { StoryWrapper } from "styles/decorators";
 
 import { Artwork } from "./Artwork";
 
 const meta = {
   title: "components/Artwork",
+  parameters: {
+    layout: "centered",
+  },
 } satisfies Meta<typeof Artwork>;
 
 export default meta;
@@ -14,7 +16,6 @@ type Story = StoryObj<typeof Artwork>;
 
 export const ArtworkStory: Story = {
   name: "Artwork",
-  decorators: [StoryWrapper],
   render: (props) => <Artwork {...props} />,
   argTypes: {
     variant: {
