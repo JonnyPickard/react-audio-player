@@ -1,3 +1,4 @@
+import { Heading, VStack } from "@chakra-ui/react";
 import { config } from "@storybook/addon-designs";
 import type { Meta, StoryObj } from "@storybook/react";
 
@@ -10,7 +11,14 @@ type Story = StoryObj;
 
 export const PlayerStory: Story = {
   name: "Player",
-  render: () => <h1>Smoke test story to check figma integration</h1>,
+  render: () => (
+    <VStack>
+      <Heading as="h1">
+        Currently only used for the figma design integration
+      </Heading>
+      <p>To view click on the "Design" tab in the addons panel</p>
+    </VStack>
+  ),
   parameters: {
     design: config([
       {
